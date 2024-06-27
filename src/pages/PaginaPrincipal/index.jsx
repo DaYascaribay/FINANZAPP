@@ -113,10 +113,10 @@ export default function PaginaPrincipalPage() {
                             </div>
                         </div>
                     </header>
-                    <div className="mt-[76px] flex flex-col items-center gap-[108px] md:gap-[81px] sm: gap-[54px]"> 
+                    <div className="mt-[76px] flex flex-col items-center gap-[108px] md:gap-[81px] sm:gap-[54px]"> 
                         <div className="container-xs px-14 md:p-5 md:px-5">
-                            <div className="flex flex-col gap-[108px] md:gap-[81px] sm: gap-[54px]">
-                                <div className="mr-1.5 flex items-center justify-between gap-5 md: mr-0 md:flex-col"> 
+                            <div className="flex flex-col gap-[108px] md:gap-[81px] sm:gap-[54px]">
+                                <div className="mr-1.5 flex items-center justify-between gap-5 md:mr-0 md:flex-col"> 
                                     <Img
                                         src="images/img_image_inicio.png"
                                         alt="imageinicio"
@@ -132,7 +132,7 @@ export default function PaginaPrincipalPage() {
                                     </div>
                                 </div>
                                 <div>
-                                <div className="flex flex-col items-center gap-14 sm: gap-7">
+                                <div className="flex flex-col items-center gap-14 sm:gap-7">
                                     <Heading size="heading4x1" as="h2" className="! font-cabin !text-blue_gray-980_02">
                                         FINANZAPP
                                     </Heading>
@@ -169,7 +169,7 @@ export default function PaginaPrincipalPage() {
                         </div>
                         <div>  
                             <div className="flex justify-center rounded bg-white-a700 py-[50px] md:py-5">
-                                <div className="container-xs mb-2 flex items-start justify-between gap-5 px-[62px] md:flex-col md:p-5 md: px-5"> 
+                                <div className="container-xs mb-2 flex items-start justify-between gap-5 px-[62px] md:flex-col md:p-5 md:px-5"> 
                                     <Heading
                                         size="heading4x1"
                                         as="h3"
