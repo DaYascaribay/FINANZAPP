@@ -1,5 +1,3 @@
-const { plugins } = require("./postcss.config");
-
 module.exports = {
     mode: "jit", 
     content: ["./src/**/**/*.{js,ts,jsx,tsx,html,mdx}", "./src/**/*.{js,ts,jsx,tsx,html,mdx}"],
@@ -9,24 +7,45 @@ module.exports = {
         extend: {
             colors: {
                 black: { 900: "#000000" },
-                blue: { 800: "#255abb" },
-                blue_gray: { 900: "#26413c", "700_01": "#3e505b", "900_01": "#194730", "900_02": "#323743" }, 
+                blue: { 400: "#379ae6", 800: "#255abb" },
+                blue_gray: { 
+                    500: "#6f7787",
+                    700: "#34795b",
+                    800: "#424856",
+                    900: "#26413c", 
+                    "700_01": "#3e505b", 
+                    "900_01": "#194730", 
+                    "900_02": "#323743" 
+                }, 
                 deep_purple: { a700: "#2100ff" },
                 gray: {
                     50: "#fafafb",
+                    100: "#f3f4f6",
                     300: "#dee1e6",
+                    400: "#bdc1ca",
+                    500: "#9095a1",
+                    700: "#565d6d",
                     900: "#1a1d1a",
-                    "100_01": "#f7f8f7", "100_02": "#f4fbf7",
+                    "100_01": "#f7f8f7", 
+                    "100_02": "#f4fbf7",
+                    "100_03": "#f4faf8",
                     "900_01": "#171a1f",
                     "900_1e": "#120f281e",
                     "900_26": "#171a1f26",
+                    "900_30": "#171a1f30",
                 },
-                green: { 300: "#70c29e", 400: "#48bf84", 600: "#369b68" },
+                green: { 100: "#c9ecdb", 300: "#70c29e", 400: "#48bf84", 600: "#369b68", "400_3a": "#48bf843a" },
                 red: { 800: "#c12126" },
                 white: { a700: "#ffffff" },
+                yellow: { 50: "#fdfaee"},
             },
-            boxShadow: { xs: "0 3px 6px 0 #120f281e", sm: "0 0 1px 0 #171a1f26" }, 
-            fontFamily: { cabin: "Cabin", inter: "Inter" },
+            boxShadow: { 
+                xs: "0 3px 6px 0 #120f281e", 
+                sm: "0 0 1px 0 #171a1f26",
+                md: "0 8px 17px 0 #48bf843a",
+                lg: "0 4px 9px 0 #171a1f30",
+            }, 
+            fontFamily: { inter: "Inter", cabin: "Cabin", poppins: "Poppins" },
         },
     },
     plugins: [require("@tailwindcc/forms")],
