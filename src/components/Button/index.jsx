@@ -43,7 +43,7 @@ const Button = ({
 }) => {
     return ( 
         <button
-            className={`${className} flex flex-row items-center justify-center text-center cursor-pointer ${(shape && shapes [shape]) || ""} ${(size & sizes[size]) || ""} ${(variant && variants[variant]?.[color]) || ""}`}
+            className={`${className} flex flex-row items-center justify-center text-center cursor-pointer ${(shape && shapes[shape]) || ""} ${(size & sizes[size]) || ""} ${(variant && variants[variant]?.[color]) || ""}`}
             {...restProps}
         >
             {!!leftIcon && leftIcon}
@@ -58,10 +58,10 @@ Button.propTypes = {
     children: PropTypes.node, 
     leftIcon: PropTypes.node,
     righticon: PropTypes.node,
-    shape: PropTypes.oneof(["round", "square"]),
-    size: PropTypes.oneof(["4x1", "5x1", "x1", "2x1", "md", "xs", "3x1", "sm", "lg"]),
-    variant: PropTypes.oneof(["fill", "outline"]),
-    color: PropTypes.oneof(["green_300", "white_A700", "gray_100_02", "green_400", "gray_50", "blue_400"]),
+    shape: PropTypes.oneOf(["round", "square"]),
+    size: PropTypes.oneOf(["4x1", "5x1", "x1", "2x1", "md", "xs", "3x1", "sm", "lg"]),
+    variant: PropTypes.oneOf(["fill", "outline"]),
+    color: PropTypes.oneOf(["green_300", "white_A700", "gray_100_02", "green_400", "gray_50", "blue_400"]),
 };
 
 export { Button };
