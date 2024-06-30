@@ -20,7 +20,7 @@ const ProjectRoutes = () => {
         },
         {
             path: "iniciarsesion",
-            element: <Iniciar Sesion />,
+            element: <IniciarSesion />,
         },
         {
         path: "observargastos",
