@@ -12,11 +12,11 @@ const sizes = {
     heading5x1: "text-[56px] font-bold md:text-5x1 sm:text-[42px]",
 };
 
-const Heading = ({ children, className = size = "headingxs", as, ...restProps }) => { 
+const Heading = ({ children, className = sizes = "headingxs", as, ...restProps }) => { 
     const Component = as || "h6";
 
     return (
-        <Component className={`text-gray-900_01 font-inter ${className} ${sizes[size]}`} {...restProps}>
+        <Component className={`text-gray-900_01 font-inter ${className} ${sizes[sizes]}`} {...restProps}>
             {children}
         </Component>
     );

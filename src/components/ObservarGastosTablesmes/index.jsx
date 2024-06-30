@@ -1,7 +1,7 @@
 import { Img, Button, Text } from "./..";
 import React from "react";
 
-export default function observarGastosTablemes({ 
+export default function ObservarGastosTablemes({ 
     summarytext = "Resumen de julio de 2024", 
     expensestext = (
         <>

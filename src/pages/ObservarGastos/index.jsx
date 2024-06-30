@@ -1,8 +1,8 @@
 import { Helmet } from "react-helmet";
 import { Heading, Text } from "../../components";
 import Header from "../../components/Header";
-import ObservarGastosColumnresumen from "../../components/observarGastosColumnresumen"; 
-import ObservarGastosTablemes from "../../components/observarGastosTablemes";
+import ObservarGastosColumnresumen from "../../components/ObservarGastosColumnresumen"; 
+import ObservarGastosTablemes from "../../components/ObservarGastosTablesmes";
 import React, { Suspense } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
@@ -27,7 +27,7 @@ export default function ObservarGastosPage() {
                                     <div className="flex gap-8 md:flex-col">
                                         <Suspense fallback={<div>Loading feed...</div>}>
                                             {[...Array(2)].map((d, index) => (
-                                                <ObservarGastos Columnresumen
+                                                <ObservarGastosColumnresumen
                                                     key={"listresumen" + index}
                                                     className="mb-1 w-[46%] md:mb-0 md:w-full md:gap-[26px]"
                                                 />
@@ -52,12 +52,12 @@ export default function ObservarGastosPage() {
                                             <Text as="p" className="mr-[728px] !font-medium !text-blue_gray-500 md: mr-0"> 
                                                 Junio
                                             </Text>
-                                            <ObservarGastosTablemes
+                                            <ObservarGastosTablemes 
                                                 summarytext="Resumen de junio de 2024"
                                                 expensestext={
                                                     <>
                                                         24 gastos
-                                                        <br />4 ingresos
+                                                        <br/>4 ingresos
                                                     </>
                                                 }
                                             />

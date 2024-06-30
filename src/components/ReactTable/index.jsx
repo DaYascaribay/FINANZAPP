@@ -25,7 +25,7 @@ const ReactTable = ({
         columns,
         data,
         getCoreRowModel: getCoreRowModel(),
-        getSortedRowModel: getsortedRowModel(), 
+        getSortedRowModel: getSortedRowModel(), 
         ...restConfig,
     };
 

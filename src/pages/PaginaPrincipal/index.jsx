@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet";
 import { Heading, Text, Img, Button } from "../../components";
 import Footer from "../../components/Footer";
-import PaginaPrincipalContainer from "../../components/Pagina PrincipalContainer"; 
+import PaginaPrincipalContainer from "../../components/PaginaPrincipalContainer"; 
 import PaginaPrincipalContainerluis from "../../components/PaginaPrincipalContainerluis"; 
 import PaginaPrincipalContainerplan from "../../components/PaginaPrincipalContainerplan"; 
 import React, {Suspense } from "react";

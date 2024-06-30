@@ -2,7 +2,7 @@ import React from "react";
 import { Radio } from "../Radio";
 
 const RadioGroup = React.forwardRef(
-    ({ selectedValue, orientation="horizontal", className, name, children, onchange, disabled, ...restProps }, ref) => { 
+    ({ selectedValue, orientation="horizontal", className, name, children, onChange, disabled, ...restProps }, ref) => { 
         const [value, setvalue] = React.usestate(selectedValue);
 
         React.useEffect(() => {

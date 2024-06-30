@@ -33,8 +33,8 @@ const sizes = {
 const Button = ({
     children,
     className = "",
-    lefticon,
-    righticon,
+    leftIcon,
+    rightIcon,
     shape,
     variant="fill",
     size = "lg",
