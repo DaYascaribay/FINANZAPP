@@ -36,7 +36,7 @@ const SelectBox = React.forwardRef(
                 <Select
                     ref={ref}
                     options={options}
-                    className={`${className} flex ${(shape && shapes [shape]) || ""} ${(size && sizes[size]) || ""} ${(variant && variants[variant]?. [color]) || ""}`} 
+                    className={`${className} flex ${(shape && shapes[shape]) || ""} ${(size && sizes[size]) || ""} ${(variant && variants[variant]?.[color]) || ""}`} 
                     isSearchable={isSearchable}
                     isMulti={isMulti}
                     components={{
@@ -98,10 +98,10 @@ SelectBox.propTypes = {
     onChange: PropTypes.func, 
     value: PropTypes.string, 
     indicator: PropTypes.node,
-    shape: PropTypes.oneof(["round"]),
-    size: PropTypes.oneof(["xs"]), 
-    variant: PropTypes.oneof(["fill"]), 
-    color: PropTypes.oneof(["white_A700"]),
+    shape: PropTypes.oneOf(["round"]),
+    size: PropTypes.oneOf(["xs"]), 
+    variant: PropTypes.oneOf(["fill"]), 
+    color: PropTypes.oneOf(["white_A700"]),
 };
 
 export { SelectBox };

@@ -42,7 +42,7 @@ const Input = React.forwardRef(
     ) => {
         return (
             <label
-                className={`${className} flex items-center justify-center cursor-text ${(shape && shapes [shape]) || ""} ${variants [variant]?. [color] || variants[variant] || ""} ${sizes[size] || ""}`} 
+                className={`${className} flex items-center justify-center cursor-text ${(shape && shapes[shape]) || ""} ${variants[variant]?.[color] || variants[variant] || ""} ${sizes[size] || ""}`} 
             >    
                 {!!label && label}
                 {!!prefix && prefix}
@@ -60,10 +60,10 @@ Input.propTypes = {
     label: PropTypes.string,
     prefix: PropTypes.node,
     suffix: PropTypes.node,
-    shape: PropTypes.oneof(["round"]),
-    size: PropTypes.oneof(["x1", "sm", "lg", "md", "xs"]),
-    variant: PropTypes.oneof(["fill"]),
-    color: PropTypes.oneof(["white_A700", "gray_100"]),
+    shape: PropTypes.oneOf(["round"]),
+    size: PropTypes.oneOf(["x1", "sm", "lg", "md", "xs"]),
+    variant: PropTypes.oneOf(["fill"]),
+    color: PropTypes.oneOf(["white_A700", "gray_100"]),
 };
 
 export { Input };

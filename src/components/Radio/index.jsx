@@ -14,7 +14,7 @@ const Radio = React.forwardRef(
         return (
             <label className={className + " flex items-center gap-[5px] cursor-pointer"}> 
                 <input
-                    className={` ${(size && sizes [size]) || ""} ${(variant && variants [variant]) || ""}`} 
+                    className={` ${(size && sizes[size]) || ""} ${(variant && variants[variant]) || ""}`} 
                     ref={ref}
                     type="radio"
                     name={name}
@@ -32,8 +32,8 @@ Radio.propTypes = {
     name: PropTypes.string, 
     label: PropTypes.string,
     id: PropTypes.string,
-    size: PropTypes.oneof(["xs", "sm"]), 
-    variant: PropTypes.oneof(["primary"]),
+    size: PropTypes.oneOf(["xs", "sm"]), 
+    variant: PropTypes.oneOf(["primary"]),
 };
 
 export { Radio };

@@ -52,8 +52,8 @@ CheckBox.propTypes = {
     name: PropTypes.string, 
     label: PropTypes.string, 
     id: PropTypes.string,
-    size: PropTypes.oneof(["xs"]), 
-    variant: PropTypes.oneof(["primary"]),
+    size: PropTypes.oneOf(["xs"]), 
+    variant: PropTypes.oneOf(["primary"]),
 };
 
 export { CheckBox };
