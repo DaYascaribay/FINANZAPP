@@ -48,5 +48,5 @@ module.exports = {
             fontFamily: { inter: "Inter", cabin: "Cabin", poppins: "Poppins" },
         },
     },
-    plugins: [require("@tailwindcc/forms")],
+    plugins: [require("@tailwindcss/forms")],
 };
