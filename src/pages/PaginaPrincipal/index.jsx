@@ -4,6 +4,7 @@ import Footer from "../../components/Footer";
 import PaginaPrincipalContainer from "../../components/PaginaPrincipalContainer"; 
 import PaginaPrincipalContainerluis from "../../components/PaginaPrincipalContainerluis"; 
 import PaginaPrincipalContainerplan from "../../components/PaginaPrincipalContainerplan"; 
+import CrearCuenta from "../CrearCuenta/index"
 import React, {Suspense } from "react";
 
 const data = [
@@ -99,7 +100,7 @@ export default function PaginaPrincipalPage() {
                                     </li>
                                 </ul>
                                 <div className="flex gap-6">
-                                    <a href="https://www.youtube.com/embed/bvFxkesz71" target="_blank"> 
+                                    <a href="/CrearCuenta"> 
                                         <Button size="sm" className="min-w-[182px] rounded font-cabin"> 
                                             Crear cuenta{" "} 
                                         </Button>

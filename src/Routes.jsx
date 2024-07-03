@@ -12,7 +12,7 @@ import OlvidasteContrasena from "pages/OlvidasteContrasena";
 
 const ProjectRoutes = () => { 
     let element = useRoutes([
-        { path: "/", element: <Home /> },
+        { path: "/", element: <PaginaPrincipal /> },
         { path: "*", element: <NotFound /> },
         {
             path: "paginaprincipal",
