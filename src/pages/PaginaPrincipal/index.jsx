@@ -4,7 +4,6 @@ import Footer from "../../components/Footer";
 import PaginaPrincipalContainer from "../../components/PaginaPrincipalContainer"; 
 import PaginaPrincipalContainerluis from "../../components/PaginaPrincipalContainerluis"; 
 import PaginaPrincipalContainerplan from "../../components/PaginaPrincipalContainerplan"; 
-import CrearCuenta from "../CrearCuenta/index"
 import React, {Suspense } from "react";
 
 const data = [
@@ -105,7 +104,7 @@ export default function PaginaPrincipalPage() {
                                             Crear cuenta{" "} 
                                         </Button>
                                     </a>
-                                    <a href="https://www.youtube.com/embed/bvFxkesz71" target="_blank"> 
+                                    <a href="/IniciarSesion"> 
                                         <Button size="sm" className="min-w-[98px] rounded font-cabin"> 
                                             Iniciar sesión
                                         </Button>
