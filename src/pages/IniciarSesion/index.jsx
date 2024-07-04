@@ -34,9 +34,11 @@ export default function IniciarsesionPage() {
                         <div className="relative z-[1] flex w-[40%] flex-col items-center justify-center gap-[50px] rounded-lg bg-white-a700 px-14 py-[60px] shadow-sm md:w-full md:p-5">
                             <div className="flex items-center gap-2.5">
                                 <img src="images/img_image_1.svg" alt="imagelogo" className="h-[64px] w-[64px]" />
-                                <Heading size="heading2x1" as="h1" className="! font-cabin !text-gray-700">
-                                    FINANZAPP
-                                </Heading>
+                                    <a href="/PaginaPrincipal">
+                                        <Heading size="heading2x1" as="h1" className="! font-cabin !text-gray-700">
+                                            FINANZAPP
+                                        </Heading>
+                                    </a>
                             </div>
                             <div className="mb-1.5 flex w-[76%] flex-col items-center gap-8 md:w-full">
                                 <form onSubmit={handleLogin}>
@@ -65,14 +67,14 @@ export default function IniciarsesionPage() {
                                     </Button>
                                 </form>
                                 {message && <p>{message}</p>}
-                                <a href="https://www.youtube.com/embed/bvFxkesz71" target="_blank">
+                                <a href="/OlvidasteContrasena">
                                     <Heading as="h2" className="ml-1.5 self-start !text-green-400 underline md:ml-0">
                                         Olvidó su contraseña y/o usuario
                                     </Heading>
                                 </a>
                                 <div className="ml-[38px] mr-6 flex flex-wrap justify-center gap-1.5 self-stretch md:mx-8">
                                     <Text as="p">¿Todavía no tienes una cuenta?</Text>
-                                    <a href="https://www.youtube.com/embed/bvFxkesz71" target="_blank">
+                                    <a href="/CrearCuenta">
                                         <Heading as="h3" className="text-green-400 underline">
                                             Crea una ahora
                                         </Heading>
