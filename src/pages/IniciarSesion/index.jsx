@@ -2,17 +2,21 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Helmet } from "react-helmet";
 import { Img, Heading, Text, Button, Input } from "../../components";
+import { useNavigate } from 'react-router-dom';
 
 export default function IniciarsesionPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
+    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:5000/IniciarSesion', { email, password });
-            
+            // Redireccionar a la página "/ObservarGastos"
+            navigate('/ObservarGastos');
+            setMessage('Credenciales correctas');
         } catch (error) {
             setMessage('Error al iniciar sesión. Inténtalo de nuevo.');
         }

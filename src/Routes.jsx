@@ -23,22 +23,22 @@ const ProjectRoutes = () => {
             element: <IniciarSesion />,
         },
         {
-        path: "observargastos",
-        element: <ObservarGastos />,
+            path: "observargastos",
+            element: <ObservarGastos />,
         },
         {
-        path: "registrargastos",
-        element: <RegistrarGastos />,
+            path: "registrargastos",
+            element: <RegistrarGastos />,
         },
         {
             path: "recomendaciones",
             element: <Recomendaciones />,
         },
-            {
+        {
             path: "crearcuenta",
             element: <CrearCuenta />,
         },
-            {
+        {
             path: "resumenmensual",
             element: <ResumenMensual />,
         },

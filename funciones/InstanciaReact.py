@@ -33,7 +33,7 @@ def login():
         
         for i, user in df_usuarios.iterrows():
             if email == f"{user['Email']}" and password == f"{user['Contrasena']}":
-                print(f"{user['']}")
+                print(f"{user['Email']} {user['Nombre']} inició sesión.")
                 return jsonify({"success": True, "message": f"Bienvenido {user['Nombre']}"})
                 
         
