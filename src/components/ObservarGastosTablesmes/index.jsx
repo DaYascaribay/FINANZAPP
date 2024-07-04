@@ -6,7 +6,7 @@ export default function ObservarGastosTablemes({
     expensestext = (
         <>
             46 gastos
-            <br />e ingresos
+            <br />0 ingresos
         </>
     ),
     visualizebutton = "Visualizar",
@@ -15,7 +15,7 @@ export default function ObservarGastosTablemes({
     return ( 
         <div
             {...props}
-            className={`${props.className} flex sm: flex-col justify-center items-center border-gray-300 border-[0.5px] border-solid flex-1 rounded-lg`}
+            className={`${props.className} flex sm:flex-col justify-center items-center border-gray-300 border-[0.5px] border-solid flex-1 rounded-lg`}
         >
             <div className="outline-b-[0.5] outline-t-[0.5] flex flex-col bg-white-a700 px-7 py-[38px] outline outline-gray-300">
                 <img src="images/img_arrow_up_right.svg" alt="image" className="h-[24px] w-[24px]" />
@@ -27,7 +27,7 @@ export default function ObservarGastosTablemes({
                 </Text> 
             </div>
             <div className="outline-b-[0.5] outline-t-[0.5] flex w-[18%] bg-white-a700 px-4 py-9 outline outline-gray-300"> 
-                <Button size="xs" variant="outline" color="undefined undefined" className="min-w-[70px] rounded-[14px]"> 
+                <Button size="xs" variant="outline" color="undefined_undefined" className="min-w-[70px] rounded-[14px]"> 
                     {visualizebutton}
                 </Button>
             </div>

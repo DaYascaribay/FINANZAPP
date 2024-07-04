@@ -11,9 +11,9 @@ export default function ObservarGastosColumnresumen({
     ...props
 }) {
     return (
-        <div {...props} className={'${props.className} flex flex-col gap-[26px]'}>
+        <div {...props} className={`${props.className} flex flex-col gap-[26px]`}>
             <div className="flex items-center gap-[15px] self-stretch">
-                <Text size="textxl" as="p" className="font-cabin text-blue_gray-900_02 sm:text-x1"> 
+                <Text size="textxl" as="p" className="font-cabin text-blue_gray-900_02 sm:text-xl"> 
                     {resumen}
                 </Text>
                 <div className="flex items-center gap-1 rounded-[3px] p-2">
