@@ -7,7 +7,7 @@ export default function Footer({ ...props }) {
             <div className="container-xs mb-[62px] flex justify-center px-14 md:p-5 md:px-5">
                 <div className="flex w-full items-start justify-center gap-2 md:flex-col">
                     <img src="images/img_image_1.svg" alt="imagefour" className="h-[46px] w-[46px] md:w-full" />
-                    <div className="mt-2 flex flex-1 flex-col gap-[50px] self-end md: self-stretch sm:self-auto"> 
+                    <div className="mt-2 flex flex-1 flex-col gap-[50px] self-end md:self-stretch sm:self-auto"> 
                         <div className="flex items-start justify-between gap-5">
                         <Img
                             src="images/img_footer_logo.png"
@@ -29,7 +29,7 @@ export default function Footer({ ...props }) {
                             </Text>
                         </div>
                         <div className="flex flex-col items-end gap-10 self-center">
-                            <ul className="!mr-1 flex flex-wrap gap-4 md: mr-0">
+                            <ul className="!mr-1 flex flex-wrap gap-4 md:mr-0">
                                 <li>
                                     <a href="Home" target="_blank" rel="noreferrer">
                                         <Text size="textmd" as="p" className="text-white-a700"> 

@@ -8,7 +8,7 @@ app = Flask(__name__)
 CORS(app)
 
 def conectarDB():
-    server = 'DESKTOP-VQQ74TJ'
+    server = 'DAVID_0728\SQLEXPRESS'
     bd = 'FINANZAPP'
     user = 'sa2'
     password = '12345678'

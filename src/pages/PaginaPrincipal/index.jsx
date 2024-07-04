@@ -26,8 +26,7 @@ const data = [
         description:
             "La aplicación motiva a los usuarios a ahorrar para cuidar su dinero y alcanzar metas financieras. Visualizar los gastos permitei dentificar pequeñas oportunidades de ahorro.",
     },
-    {},
-    {},
+    
 ];
 const data1 = [
     {},
@@ -100,12 +99,12 @@ export default function PaginaPrincipalPage() {
                                 </ul>
                                 <div className="flex gap-6">
                                     <a href="/CrearCuenta"> 
-                                        <Button size="sm" className="min-w-[182px] rounded font-cabin"> 
+                                        <Button as = "p" size="sm" className="min-w-[98px] rounded font-cabin !text-white-a700 bg-green-300 px-8 py-2 hover:bg-green-600"> 
                                             Crear cuenta{" "} 
                                         </Button>
                                     </a>
                                     <a href="/IniciarSesion"> 
-                                        <Button size="sm" className="min-w-[98px] rounded font-cabin"> 
+                                        <Button as = "p" size="sm" className="min-w-[98px] rounded font-cabin !text-green-400 bg-white-a700 px-8 py-2 hover:bg-gray-400"> 
                                             Iniciar sesión
                                         </Button>
                                     </a>
@@ -123,7 +122,7 @@ export default function PaginaPrincipalPage() {
                                         className="h-[394px] w-[42%] rounded-[196px] object-cover md:w-full"
                                     />
                                     <div className="flex w-[50%] flex-col gap-3 md:w-full">
-                                        <Heading size="heading5x1" as="h1" className="! font-cabin leading-[78px] !text-green-400"> 
+                                        <Heading size="heading5x1" as="p" className="font-cabin text-green-400 text-5xl leading-[78px]"> 
                                             Cuida la economía de tu bolsillo
                                         </Heading>
                                         <Text size="textmd" as="p" className="! font-cabin leading-[26px]">

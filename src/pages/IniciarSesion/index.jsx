@@ -50,8 +50,9 @@ export default function IniciarsesionPage() {
                                         prefix={<img src="images/img_lock.svg" alt="lock" className="h-[20px] w-[20px]" />}
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        className="mr-2 gap-2 self-stretch rounded-1g md:mr-e sm:pr-5"
+                                        className="mr-2 gap-2 self-stretch rounded-lg md:mr-0 sm:pr-5 border-2 border-gray-300 focus:border-blue-500"
                                     />
+                                    <br></br>
                                     <Input
                                         size="md"
                                         type="password"
@@ -60,15 +61,16 @@ export default function IniciarsesionPage() {
                                         prefix={<img src="images/img_lock_key.svg" alt="lock key" className="h-[20px] w-[20px]" />}
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
-                                        className="mr-2 gap-2 self-stretch rounded-lg md:mr-e sm:pr-5"
+                                        className="mr-2 gap-2 self-stretch rounded-lg md:mr-0 sm:pr-5 border-2 border-gray-300 focus:border-blue-500"
                                     />
-                                    <Button size="md" shape="round" className="ml-1.5 w-full md:ml-0 sm:px-5" type="submit">
+                                    <br></br>
+                                    <Button size="md" shape="round" className="ml-1.8 w-full md:ml-0 bg-green-400 sm:px-5 px-8 py-2 text-lg" type="submit">
                                         Iniciar Sesión
                                     </Button>
                                 </form>
                                 {message && <p>{message}</p>}
                                 <a href="/OlvidasteContrasena">
-                                    <Heading as="h2" className="ml-1.5 self-start !text-green-400 underline md:ml-0">
+                                    <Heading as="h2" className="ml-1.5 self-start text-green-400 underline md:ml-0">
                                         Olvidó su contraseña y/o usuario
                                     </Heading>
                                 </a>

@@ -26,13 +26,13 @@ export default function CrearCuentaPage() {
                                     <Heading as="h1" className="! text-blue_gray-800">
                                         Nombre
                                     </Heading>
-                                    <Input shape="round" name="david" placeholder={`David`} className="self-stretch sm:pr-5" /> 
+                                    <Input shape="round" name="david" placeholder={`David`} className="mr-2 gap-2 self-stretch rounded-lg md:mr-0 sm:pr-5 border-2 border-gray-300 focus:border-blue-500" /> 
                                 </div>
                                 <div className="flex flex-1 flex-col items-start justify-center gap-0.5 sm:self-stretch">
                                     <Heading as="h2" className="! text-blue_gray-800">
                                         Apellido 
                                     </Heading>
-                                    <Input shape="round" name="yascaribay" placeholder={`Yascaribay`} className="self-stretch sm:pr-5" /> 
+                                    <Input shape="round" name="yascaribay" placeholder={`Yascaribay`} className="mr-2 gap-2 self-stretch rounded-lg md:mr-0 sm:pr-5 border-2 border-gray-300 focus:border-blue-500" /> 
                                 </div>
                             </div>
                             <div className="mt-[30px] flex flex-col items-start justify-center gap-0.5 self-stretch">
@@ -44,7 +44,7 @@ export default function CrearCuentaPage() {
                                     type="email"
                                     name="email"
                                     placeholder={`ejemplo@gmail.com`}
-                                    className="self-stretch sm: pr-5"
+                                    className="mr-2 gap-2 self-stretch rounded-lg md:mr-0 sm:pr-5 border-2 border-gray-300 focus:border-blue-500"
                                 />
                             </div>
                             <div className="mt-[18px] flex flex-col items-start justify-center gap-0.5 self-stretch"> 
@@ -57,7 +57,7 @@ export default function CrearCuentaPage() {
                                     name="hide"
                                     placeholder={`Ingresa 8+ caracteres `}
                                     suffix={<Img src="images/img_hide.svg" alt="hide" className="h-[16px] w-[16px]" />} 
-                                    className="gap-[34px] self-stretch"
+                                    className="mr-2 gap-2 self-stretch rounded-lg md:mr-0 sm:pr-5 border-2 border-gray-300 focus:border-blue-500"
                                 />
                             </div>
                             <div className="mt-2.5 flex flex-col items-start justify-center gap-0.5 self-stretch"> 
@@ -69,7 +69,7 @@ export default function CrearCuentaPage() {
                                     shape="round"
                                     name="hide_one"
                                     suffix={<Img src="images/img_hide.svg" alt="hide" className="h-[16px] w-[16px]" />} 
-                                    className="gap-[34px] self-stretch"
+                                    className="mr-2 gap-2 self-stretch rounded-lg md:mr-0 sm:pr-5 border-2 border-gray-300 focus:border-blue-500"
                                 />
                             </div>
                             <CheckBox
@@ -78,9 +78,11 @@ export default function CrearCuentaPage() {
                                 id="aceptotrminosd"
                                 className="mt-5 self-start font-cabin text-sm text-gray-900_01"
                             />
-                            <Button size="md" className="mt-5 w-full rounded sm:px-5">
+                            <br></br>
+                            <Button size="md" className="ml-1.8 w-full md:ml-0 bg-green-400 sm:px-5 px-8 py-2 text-lg">
                                 Crear Cuenta
                             </Button>
+                            <br></br>
                             <div className="mt-3 flex flex-wrap gap-1">
                                 <Text as="p">¿Ya tienes una cuenta?</Text>
                                 <a href="/IniciarSesion">
