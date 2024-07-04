@@ -33,6 +33,7 @@ if __name__ == "__main__":
         for i,user in df_usuarios.iterrows():
             if userEjemplo==f"{user['Email']}" and contraseEjemplo==f"{user['Contrasena']}":
                 print("Bienvenido "+f"{user['Nombre']}")
+                break
             else:
-                #print(f"{user['Email']}"+" - "+f"{user['Contrasena']}")
+                print(f"{user['Email']}"+" - "+f"{user['Contrasena']}")
                 print()
