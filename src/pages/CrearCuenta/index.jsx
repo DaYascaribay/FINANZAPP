@@ -14,9 +14,11 @@ export default function CrearCuentaPage() {
                     <div className="relative z-[1] flex w-[42%] flex-col items-center gap-10 rounded bg-white-a700 p-2.5 shadow-sm md:w-full md:p-5"> 
                         <div className="mt-4 flex items-center gap-2.5">
                             <Img src="images/img_image_1.svg" alt="imagelogo" className="h-[64px] w-[64px]" />
-                            <Text size="text2x1" as="p" className="! font-cabin !text-blue_gray-700_01">
-                                Crear Cuenta
-                            </Text>
+                                <a href="/PaginaPrincipal">
+                                    <Heading size="heading2x1" as="h1" className="! font-cabin !text-gray-700">
+                                        FINANZAPP
+                                    </Heading>
+                                </a>
                         </div>
                         <div className="flex w-[94%] flex-col items-center md:w-full">
                             <div className="flex gap-5 self-stretch sm:flex-col">
@@ -81,7 +83,7 @@ export default function CrearCuentaPage() {
                             </Button>
                             <div className="mt-3 flex flex-wrap gap-1">
                                 <Text as="p">¿Ya tienes una cuenta?</Text>
-                                <a href="https://www.youtube.com/embed/bv8Fxk@sz71" target="_blank">
+                                <a href="/IniciarSesion">
                                     <Heading as="h6" className="! text-green-400 underline">
                                         Inicia sesión
                                     </Heading>

@@ -162,7 +162,7 @@ export default function RegistrarGastosPage() {
                         <Heading size="heading2x1" as="h1" className="! font-cabin uppercase">
                         crear registro
                         </Heading>
-                        <div className="flex flex-col items-start self-stretch rounded-1g border border-solid border-gray-300 bg-white-a780 px-[42px] py-[30px] md: px-5 sm: p-5"> \
+                        <div className="flex flex-col items-start self-stretch rounded-1g border border-solid border-gray-300 bg-white-a780 px-[42px] py-[30px] md:px-5 sm: p-5">
                             <Input
                                 shape="round" 
                                 name="nombre"
