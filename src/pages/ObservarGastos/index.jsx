@@ -87,6 +87,7 @@ export default function ObservarGastosPage() {
                                             <div className="relative mx-11 h-[290px] md:mx-0 md:h-auto">
                                                 <div className="flex flex-1 flex-col items-center gap-[18px] px-14 md:px-5">
                                                     <Text size="textmd" as="p" className="text-blue_gray-900">
+                                                        <br /><br /><br /><br />
                                                         Dinero utilizado
                                                     </Text>
                                                     <Heading size="heading3x1" as="h2" className="font-cabin">
