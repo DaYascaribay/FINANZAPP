@@ -1,0 +1,214 @@
+.row_three {
+    gap: var(--space-12x1);
+    display: flex;
+    @media only screen and (max-width: 1050px) {
+    flex-direction: column;
+    }
+}
+
+.financialsummar-1 {
+    margin-bottom: 4px;
+    gap: var(--space-8x1);
+    width: 46%;
+    display: flex;
+    flex-direction: column;
+    @media only screen and (max-width: 1050px) {
+        width: 100%;
+        margin-bottom: 0px;
+    }
+}
+    
+.rowsummarytext {
+    gap: var(--space-4x1);
+    display: flex;
+    align-items: center;
+}
+
+.buttondetalle {
+    gap: var(--space-sm);
+    display: flex;
+    align-items: center;
+    padding: var(--space-md);
+    border-radius: var(--radius-xs);
+}
+
+.detailstext {
+    color: var(--green_400) !important;
+}
+
+.arrowimage {
+    height: 12px;
+    width: 12px;
+}
+
+.tablemes-1 {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    border-radius: var(--radius-1g);
+    border: 0.5px solid var(--gray_300);
+    @media only screen and (max-width: 550px) {
+        flex-direction: column;
+    }
+}
+
+.column-2 {
+    border-top-width: 0.5px;
+    background-color: var(--white_a700);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--space-14x1) var(--space-10xl);
+    border-bottom: 0.5px solid var(--gray_300);
+    @media only screen and (max-width: 550px) {
+        padding: 20px;
+    }
+}
+
+.row-2 {
+    border-top-width: 0.5px;
+    background-color: var(--white_a700);
+    width: 18%;
+    display: flex;
+    padding: 36px var(--space-5xl);
+    border-bottom: 0.5px solid var(--gray_300);
+    @media only screen and (max-width: 550px) {
+        width: 100%;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+}    
+
+.buttontext {
+    min-width: 70px;
+    border-radius: var(--radius-x1);
+}
+
+.row_one-2 {
+    border-top-width: 0.5px;
+    background-color: var(--white_a700);
+    display: flex;
+    padding: var(--space-15x1);
+    border-bottom: 0.5px solid var(--gray_300);
+    @media only screen and (max-width: 550px) {
+        padding: 20px;
+    }
+}
+
+.image-9 {
+    height: 22px;
+    width: 92%;
+}
+
+.junio {
+    color: var(--blue_gray_500) !important;
+    margin-right: 728px;
+    font-weight: 500 !important;
+    @media only screen and (max-width: 1050px) {
+        margin-right: 0px;
+    }
+}
+    
+.observargastos {
+    gap: var(--space-12x1);
+    background-color: var(--gray_50);
+    box-shadow: var(--shadow-xs);
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.columnresumen {
+    padding-left: var(--space-sm);
+    padding-right: var(--space-sm);
+    gap: var(--space-12xl);
+    display: flex;
+    flex-direction: column;
+}
+
+.columndashboard {
+    gap: var(--space-12x1);
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.container-10 {
+    background-color: var(--white_a700);
+    align-self: stretch;
+    padding: var(--space-8x1);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--gray_300);
+    @media only screen and (max-width: 550px) {
+        padding: 20px;
+    }
+}
+    
+.rowremainingtex {
+    gap: var(--space-8x1);
+    display: flex;
+    @media only screen and (max-width: 550px) {
+        flex-direction: column;
+    }
+}
+
+.container-11 {
+    background-color: var(--white_a700);
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: var(--space-8x1);
+    border-radius: var(--radius-1g);
+    border: 1px solid var(--gray_300);
+    @media only screen and (max-width: 550px) {
+        padding: 20px;
+    }
+}
+    
+.este_mes {
+    color: var(--blue_gray_500) !important;
+    margin-top: 16px;
+    margin-left: 6px;
+    font-weight: 500 !important;
+    @media only screen and (max-width: 1050px) {
+        margin-left: 0px;
+    }
+}
+
+.tablemes {
+    margin-top: 4px;
+    margin-bottom: 14px;
+    margin-left: 6px;
+    gap: var(--space-5xl);
+    display: flex;
+    align-self: stretch;
+    flex-direction: column;
+    @media only screen and (max-width: 1050px) {
+        margin-left: 0px;
+    }
+}
+
+.columnvista {
+    width: 34%;
+    @media only screen and (max-width: 1050px) {
+        width: 100%;
+    }
+}
+
+.columnpie_one {
+    gap: var(--space-12x1);
+    display: flex;
+    flex-direction: column;
+}
+
+.stackdinero {
+    height: 290px;
+    margin-left: 44px;
+    margin-right: 44px;
+    position: relative;
+    @media only screen and (max-width: 1050px) {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+}
