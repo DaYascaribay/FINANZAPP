@@ -1,0 +1,149 @@
+/* Tabla de contenido
+ 1. Common CSS
+ 2. Page CSS
+ */
+
+/*
+ 1. Common CSS
+ */
+.email-2 {
+    color: var(--blue_gray_800) !important;
+}
+
+.hide {
+    gap: var(--space-11x1);
+    align-self: stretch;
+}
+
+.hide-1 {
+    width: 16px;
+    height: 16px;
+}
+
+/*
+ 2. Page CSS
+ */
+.containercrear {
+    z-index: 1;
+    background-color: var(--white_a700);
+    box-shadow: var(--shadow-sm);
+    width: 42%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    padding: var(--space-lg);
+    border-radius: var(--radius-sm);
+    @media only screen and (max-width: 1050px) {
+        width: 100%;
+        padding: 20px;
+    }
+}
+
+.column-5 {
+    margin-top: 16px;
+    gap: var (--space-13x1);
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.crear_cuenta-1 {
+    color: var(--blue_gray_700_01) !important;
+    font-family: Cabin !important;
+}
+
+.rownombre-2 {
+    gap: 20px;
+    display: flex;
+    align-self: stretch;
+    @media only screen and (max-width: 550px) {
+        flex-direction: column;
+    }
+}
+
+.columnnombre-2 {
+    gap: var(--space-xs);
+    display: flex;
+    width: 40%;
+    flex-direction: column;
+    align-items: start;
+    @media only screen and (max-width: 550px) {
+        width: 100%;
+    }
+}
+
+.columnapellido {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    @media only screen and (max-width: 550px) {
+        align-self: stretch;
+    }
+}
+
+.columnemail-1 {
+    margin-top: 30px;
+    gap: var(--space-xs);
+    display: flex;
+    align-self: stretch;
+    flex-direction: column;
+    align-items: start;
+}
+
+.columncontrasea {
+    margin-top: 18px;
+    gap: var(--space-xs);
+    display: flex;
+    align-self: stretch;
+    flex-direction: column;
+    align-items: start;
+}
+
+.columconfirmar {
+    margin-top: 10px;
+    gap: var (--space-xs);
+    display: flex;
+    align-self: stretch;
+    flex-direction: column;
+    align-items: start;
+}
+
+.aceptotrminosd {
+    color: var (--gray_900_01);
+    margin-top: 20px;
+    font-family: Cabin;
+    font-size: 14px;
+    align-self: start;
+}
+
+.crear_cuenta-2 {
+    margin-top: 20px;
+    width: 100%;
+    border-radius: var(--radius-sm);
+    @media only screen and (max-width: 550px) {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+.rowyatienesunac {
+    margin-top: 12px;
+    gap: var(--space-sm);
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.imagefondo_one-1 {
+    height: 900px;
+    margin-left: -92px;
+    position: relative;
+    width: 52%;
+    object-fit: cover;
+    @media only screen and (max-width: 1050px) {
+        width: 100%;
+        margin-left: 0px;
+    }
+}

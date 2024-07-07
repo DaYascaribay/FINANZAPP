@@ -1,0 +1,388 @@
+/* Tabla de contenido
+1. Common CSS
+2. Page CSS
+*/
+
+/*
+1. Common CSS
+*/
+.registro-1 {
+    color: var(--gray_700) !important;
+    font-weight: 600 !important;
+    background-color: var(--gray_50);
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    padding: var(--space-5x1) var(--space-4x1);
+    border: 0.5px solid var(--gray_300);
+}
+  
+.nombre-3 {
+    color: var(--gray_700) !important;
+    font-weight: 600 !important;
+    background-color: var(--gray_50);
+    padding: var(--space-5xl) var(--space-11xl) var(--space-5x1) var(--space-4x1);
+    border: 0.5px solid var(--gray_300);
+    @media only screen and (max-width: 550px) {
+      padding-right: 20px;
+    }
+}
+
+.transporte-3 {
+    background-color: var(--white_a700);
+    padding: 14px 20px 14px var(--space-4x1);
+    border: 0.5px solid var(--gray_300);
+}
+  
+.price-10 {
+    background-color: var(--white_a700);
+    padding: 14px var(--space-10x1) 14px var(--space-4x1);
+    border: 0.5px solid var(--gray_300);
+    @media only screen and (max-width: 550px) {
+      padding-right: 20px;
+    }
+}
+  
+.frame_eleven {
+    background-color: var(--white_a700);
+    padding: 14px var(--space-7x1) 14px var(--space-4x1);
+    border: 0.5px solid var(--gray_300);
+    @media only screen and (max-width: 550px) {
+      padding-right: 20px;
+    }
+}
+  
+.frame-1 {
+    background-color: var(--white_a700);
+    padding: 14px var(--space-11xl) 14px var(--space-4x1);
+    border: 0.5px solid var(--gray_300);
+    @media only screen and (max-width: 550px) {
+      padding-right: 20px;
+    }
+}
+ 
+/*
+2. Page CSS
+*/
+.column.two-1 {
+    margin-bottom: 4px;
+    gap: var(--space-10x1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.columndashboard-1 {
+    margin-bottom: 26px;
+    gap: 54px;
+    display: flex;
+    flex-direction: column;
+    @media only screen and (max-width: 1050px) {
+      padding: 20px;
+    }
+
+    @media only screen and (max-width: 550px) {
+        gap: 27px;
+    }
+}
+  
+.rowdashboard {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+  
+.dashboard-1 {
+    margin-left: 6px;
+    text-transform: uppercase;
+}
+  
+.regresar {
+    min-width: 82px;
+}
+  
+.stackresumengen {
+    height: 198px;
+    margin-left: 38px;
+    margin-right: 34px;
+    position: relative;
+    @media only screen and (max-width: 1050px) {
+        height: auto;
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+}
+  
+.row_twentyeight {
+    gap: var(--space-4x1);
+    display: flex;
+    align-items: start;
+    @media only screen and (max-width: 1050px) {
+        flex-direction: column;
+    }
+}
+  
+.resumenmes {
+    gap: var(--space-7xl);
+    background-color: var(--white_a700);
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: var(--space-6x1);
+    border-radius: var(--radius-1g);
+    border: 1px solid var(--gray_300);
+    @media only screen and (max-width: 550px) {
+        padding: 20px;
+    }
+}
+
+.estossontodostu {
+    color: var(--blue_gray_500) !important;
+    margin-left: 6px;
+    font-weight: 500 !important;
+    @media only screen and (max-width: 1050px) {
+        margin-left: 0px;
+    }
+}
+
+.tableregistros {
+    margin-left: 6px;
+    align-self: stretch;
+    border-radius: var(--radius-sm);
+    border: 0.5px solid var(--gray_300);
+    @media only screen and (max-width: 1050px) {
+        margin-left: 0px;
+    }
+
+    @media only screen and (max-width: 550px) {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+.valor-1 {
+    color: var(--gray_700) !important;
+    font-weight: 600 !important;
+    background-color: var(--gray_50);
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    padding: var(--space-5xl) var(--space-11x) var(--space-5x1) var(--space-4x1);
+    border: 0.5px solid var(--gray_300);
+    @media only screen and (max-width: 550px) {
+        padding-right: 20px;
+    }
+}
+
+.frame_thirteen {
+    background-color: var(--white_a700);
+    padding: 14px var(--space-8x1) 14px var(--space-4x1);
+    border: 0.5px solid var(--gray_300);
+    @media only screen and (max-width: 550px) {
+        padding-right: 20px;
+    }
+}
+
+.ver_ms {
+    align-self: center;
+    min-width: 94px;
+}
+
+.columnvista {
+    gap: var(--space-8x1);
+    align-self: center;
+    display: flex;
+    width: 34%;
+    flex-direction: column;
+    @media only screen and (max-width: 1050px) {
+        width: 100%;
+    }
+}
+
+.columnpie_one-1 {
+    margin-bottom: 18px;
+    gap: var(--space-12x1);
+    display: flex;
+    align-self: stretch;
+    flex-direction: column;
+}
+
+.stackpie_one-1 {
+    height: 290px;
+    margin-left: 44px;
+    margin-right: 44px;
+    position: relative;
+    @media only screen and (max-width: 1050px) {
+        height: auto;
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+}
+
+.column_one-3 {
+    padding-left: 56px;
+    padding-right: 56px;
+    gap: var(--space-3x1);
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    @media only screen and (max-width: 1050px) {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+.containervista-2 {
+    background-color: var(--white_a700);
+    padding: var(--space-8xl);
+    border-radius: var(--radius-1g);
+    border: 1px solid var(--gray_300);
+    @media only screen and (max-width: 550px) {
+        padding: 20px;
+    }
+}
+
+.columnvista-1 {
+    margin-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.vista_general-2 {
+    color: var(--blue_gray_900_02) !important;
+    font-family: Cabin !important;
+    align-self: start;
+}
+
+.columbar {
+    margin-top: 22px;
+    margin-left: 32px;
+    margin-right: 34px;
+    gap: var(--space-8x1);
+    display: flex;
+    align-self: stretch;
+    flex-direction: column;
+    align-items: center;
+    @media only screen and (max-width: 1050px) {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+}
+
+.row_twentyfive {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    @media only screen and (max-width: 1050px) {
+        width: 100%;
+    }
+}
+
+.rowview {
+    gap: var(--space-sm);
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.view {
+    height: 12px;
+    background-color: var(--green_400);
+    width: 12px;
+    border-radius: var(--radius-md);
+}
+
+.columnview_one {
+    gap: var(--space-1g);
+    display: flex;
+    flex-direction: column;
+}
+
+.rowview_one-3 {
+    margin-left: 14px;
+    margin-right: 14px;
+    gap: 14px;
+    display: flex;
+    align-items: end;
+    @media only screen and (max-width: 1050px) {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+}
+
+.view_one-3 {
+    height: 182px;
+    align-self: center;
+    background-color: var(--green_400);
+    width: 26px;
+}
+
+.view_two {
+    height: 106px;
+    background-color: var(--green_400);
+    width: 26px;
+}
+
+.view_three-1 {
+    height: 120px;
+    background-color: var(--green_400);
+    width: 26px;
+}
+
+.view_four {
+    height: 112px;
+    background-color: var(--green_400);
+    width: 26px;
+}
+
+.view_five-2 {
+    height: 74px;
+    background-color: var(--green_400);
+    width: 26px;
+}
+
+.view_six {
+    height: 108px;
+    background-color: var(--green_400);
+    width: 26px;
+}
+
+.view_seven {
+    height: 26px;
+    background-color: var(--green_400);
+    width: 26px;
+}
+
+.vector_one {
+    height: 1px;
+    background-color: var(--gray_300);
+}
+
+.row_twentysix-1 {
+    margin-top: 80px;
+    align-self: stretch;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.row_twentyseven-1 {
+    margin-top: 28px;
+    align-self: stretch;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+
+
+
+
