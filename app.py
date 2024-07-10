@@ -60,6 +60,10 @@ def conectarDB():
 
     return engine
 
+@app.route('/olvcontrasena')
+def olvidado_contrena():
+    return render_template("OlvidasteContrasena.html")
+
 if __name__=="__main__": 
     app.run(debug=True, port=7777)
 
