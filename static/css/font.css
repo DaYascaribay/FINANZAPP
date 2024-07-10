@@ -1,49 +1,49 @@
 @font-face {
     font-display: swap;
     font-style: normal;
-    src: url("../static/fonts/CabinRegular.ttf");
+    src: url("../fonts/CabinRegular.ttf");
     font-family: "Cabin";
     font-weight: 700;
 }
 @font-face {
     font-display: swap;
     font-style: normal;
-    src: url("../static/fonts/CabinRegular.ttf");
+    src: url("../fonts/CabinRegular.ttf");
     font-family: "Cabin";
     font-weight: 400;
 }
 @font-face {
     font-display: swap;
     font-style: normal;
-    src: url("../static/fonts/InterRegular.ttf");
+    src: url("../fonts/InterRegular.ttf");
     font-family: "Inter";
     font-weight: 400;
 }
 @font-face {
     font-display: swap;
     font-style: normal;
-    src: url("../static/fonts/InterBold.ttf");
+    src: url("../fonts/InterBold.ttf");
     font-family: "Inter";
     font-weight: 700;
 }
 @font-face {
     font-display: swap;
     font-style: normal;
-    src: url("../static/fonts/InterMedium.ttf");
+    src: url("../fonts/InterMedium.ttf");
     font-family: "Inter";
     font-weight: 500;
 }
 @font-face {
     font-display: swap;
     font-style: normal;
-    src: url("../static/fonts/CabinSemiBold.ttf");
+    src: url("../fonts/CabinSemiBold.ttf");
     font-family: "Cabin";
     font-weight: 600;
 }
 @font-face {
     font-display: swap;
     font-style: normal;
-    src: url("../static/fonts/PoppinsBold.ttf");
+    src: url("../fonts/PoppinsBold.ttf");
     font-family: "Poppins";
     font-weight: 700;
 }
