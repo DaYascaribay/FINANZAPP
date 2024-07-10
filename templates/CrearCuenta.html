@@ -16,6 +16,34 @@
     <link rel="stylesheet" type="text/css" href="../static/css/styles.css" />
     <link rel="stylesheet" type="text/css" href="../static/css/components.css" />
     <link rel="stylesheet" type="text/css" href="../static/css/CrearCuenta.css" />
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('registroForm');
+            form.addEventListener('submit', function(event) {
+                const password = form.elements['password_one'].value;
+                const password_repeated = form.elements['password_repeated'].value;
+                const errorElement = document.querySelector('.error');
+                errorElement.textContent = ''; // Limpiar mensaje de error anterior
+    
+                if (password.length < 8) {
+                    errorElement.textContent = 'La contraseña debe tener al menos 8 caracteres.';
+                    event.preventDefault(); // Evitar envío del formulario
+                    return;
+                }
+                if (!/\d/.test(password)) {
+                    errorElement.textContent = 'La contraseña debe contener al menos un número.';
+                    event.preventDefault(); // Evitar envío del formulario
+                    return;
+                }
+                if (password != password_repeated) {
+                    errorElement.textContent = 'Las contraseñas no coinciden';
+                    event.preventDefault(); // Evitar envío del formulario
+                    return;
+                }
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="iniciarsesion">
@@ -27,45 +55,48 @@
                         <p class="crear_cuenta-1 ui text size-text2xl">Crear Cuenta</p>
                     </div>
                     <div class="columnaceptotr">
-                        <div class="rownombre-2">
-                            <div class="columnnombre-2">
-                                <h1 class="email-2 ui heading size-headingxs">Nombre</h1>
+                        <form id="registroForm" action="/registro_correcto" method="post">
+                            <div class="rownombre-2">
+                                <div class="columnnombre-2">
+                                    <h4 class="email-2 ui heading size-headingxs">Nombre</h4>
+                                    <label class="email-3 ui input size-xs fill round">
+                                        <input name="nombre" placeholder="David" type="text" required>
+                                    </label>
+                                </div>
+                                <div class="columnapellido">
+                                    <h4 class="email-2 ui heading size-headingxs">Apellido</h4>
+                                    <label class="email-3 ui input size-xs fill round">
+                                        <input name="apellido" placeholder="Yascaribay" type="text" required>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="columnemail-1">
+                                <h4 class="email-2 ui heading size-headingxs">Email</h4>
                                 <label class="email-3 ui input size-xs fill round">
-                                    <input name="david" placeholder="David" type="text">
+                                    <input name="email_usuario" placeholder="ejemplo@gmail.com" type="email" required>
                                 </label>
                             </div>
-                            <div class="columnapellido">
-                                <h2 class="email-2 ui heading size-headingxs">Apellido</h2>
-                                <label class="email-3 ui input size-xs fill round">
-                                    <input name="yascaribay" placeholder="Yascaribay" type="text">
+                            <div class="columncontrasea">
+                                <h4 class="email-2 ui heading size-headingxs">Contraseña</h4>
+                                <label class="hide ui input size-xs fill round">
+                                    <input name="password_one" placeholder="Ingresa 8+ caracteres" type="password" required>
+                                    <img src="../static/images/img_hide.svg" alt="Hide" class="hide-1">
                                 </label>
                             </div>
-                        </div>
-                        <div class="columnemail-1">
-                            <h3 class="email-2 ui heading size-headingxs">Email</h3>
-                            <label class="email-3 ui input size-xs fill round">
-                                <input name="email" placeholder="ejemplo@gmail.com" type="email">
+                            <div class="columncontrasea">
+                                <h4 class="email-2 ui heading size-headingxs">Confirmar Contraseña</h4>
+                                <label class="hide ui input size-sm fill round">
+                                    <input name="password_repeated" type="password" required>
+                                    <img src="../static/images/img_hide.svg" alt="Hide" class="hide-1">
+                                </label>
+                            </div>
+                            <h4 class="error ui heading size-headingxs">{{error}}</h4>
+                            <label class="aceptotrminosd ui checkbox">
+                                <input class="ui checkbox square" type="checkbox" name="aceptotérminosd" required>
+                                <div>Acepto Términos de uso & Políticas de Privacidad</div>
                             </label>
-                        </div>
-                        <div class="columncontrasea">
-                            <h4 class="email-2 ui heading size-headingxs">Contraseña</h4>
-                            <label class="hide ui input size-xs fill round">
-                                <input name="hide" placeholder="Ingresa 8+ caracteres" type="password">
-                                <img src="../static/images/img_hide.svg" alt="Hide" class="hide-1">
-                            </label>
-                        </div>
-                        <div class="columnconfirmar">
-                            <h5 class="email-2 ui heading size-headingxs">Confirmar Contraseña</h5>
-                            <label class="hide ui input size-sm fill round">
-                                <input name="hide_one" type="password">
-                                <img src="../static/images/img_hide.svg" alt="Hide" class="hide-1">
-                            </label>
-                        </div>
-                        <label class="aceptotrminosd ui checkbox">
-                            <input class="ui checkbox square" type="checkbox" name="aceptotérminosd">
-                            <div>Acepto Términos de uso & Políticas de Privacidad</div>
-                        </label>
-                        <button class="crear_cuenta-2 ui button size-md fill">Crear Cuenta</button>
+                            <button class="crear_cuenta-2 ui button size-md fill" type="submit">Crear Cuenta</button>
+                        </form>
                         <div class="rowyatienesunac">
                             <p class="ui text size-texts">¿Ya tienes una cuenta?</p>
                             <a href="/login">

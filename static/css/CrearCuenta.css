@@ -9,6 +9,9 @@
 .email-2 {
     color: var(--blue_gray_800) !important;
 }
+.error {
+    color: #E23737 !important;
+}
 
 .hide {
     gap: var(--space-11x1);
