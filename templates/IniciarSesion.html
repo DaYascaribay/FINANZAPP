@@ -26,20 +26,22 @@
                     <h1 class="finanzapp-1 ui heading size-heading2x1">FINANZAPP</h1>
                 </div>
                 <div class="columnemail">
-                    <label class="email-1 ui input size-nd fill">
-                        <img src="../static/images/img_lock.svg" alt="Lock" class="lock">
-                        <input name="email" placeholder="Email" type="email">
-                    </label>
-                    <label class="email-1 ui input size-md fill">
-                        <img src="../static/images/img_lock_key.svg" alt="Lock Key" class="lock">
-                        <input name="lock_key" placeholder="Contraseña" type="password">
-                    </label>
-                    <a href="https://www.youtube.com/embed/bv8Fxk0sz7I" target="_blank">
-                        <h2 class="olvidsucontras ui heading size-headingxs">Olvidó su contraseña y/o usuario</h2>
-                    </a>
-                    <a href="https://www.youtube.com/embed/bv8Fxk05271" target="_blank">
-                        <button class="iniciar_sesión-1 ui button size-nd fill round">Iniciar Sesión</button>
-                    </a>
+                    <form action="/login_correcto" method="post">
+                        <label class="email-1 ui input size-nd fill">
+                            <img src="../static/images/img_lock.svg" alt="Lock" class="lock">
+                            <input name="email" placeholder="Email" type="email">
+                        </label>
+                        <label class="email-1 ui input size-md fill">
+                            <img src="../static/images/img_lock_key.svg" alt="Lock Key" class="lock">
+                            <input name="lock_key" placeholder="Contraseña" type="password">
+                        </label>
+                        <a href="https://www.youtube.com/embed/bv8Fxk0sz7I" target="_blank">
+                            <h2 class="olvidsucontras ui heading size-headingxs">Olvidó su contraseña y/o usuario</h2>
+                        </a>
+                        <a href="https://www.youtube.com/embed/bv8Fxk05271" target="_blank">
+                            <button class="iniciar_sesión-1 ui button size-nd fill round">Iniciar Sesión</button>
+                        </a>
+                    </form>
                     <div class="rowtodavíano">
                         <p class="ui text size-texts">¿Todavía no tienes una cuenta?</p>
                         <a href="/registro" >
