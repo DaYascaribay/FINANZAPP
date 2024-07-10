@@ -1,9 +1,6 @@
-from transformers import pipeline
 from flask import Flask, request, render_template
-from flask_cors import CORS
 
 app = Flask(__name__, template_folder="templates")
-CORS(app) # Para permitir solicitudes http
 
 id_usuario=""
 
@@ -46,13 +43,12 @@ def conectarDB():
     import pyodbc
     import pandas as pd
     from sqlalchemy import create_engine
-    from reactpy import component, html
 
     # Variables de conexión
-    server = 'DESKTOP-VQQ74TJ'
+    server = 'PC_INGLABCS242C\SQLEXPRESS'
     bd = 'FINANZAPP'
-    user = 'sa2'
-    password = '12345678'
+    user = 'sa'
+    password = 'labcom,2015'
 
     try:
         conexion_str = f"mssql+pyodbc://{user}:{password}@{server}/{bd}?driver=ODBC+Driver+17+for+SQL+Server"
