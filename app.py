@@ -1,13 +1,12 @@
 from flask import Flask, request, render_template, redirect, url_for, session
 
 # Lectura de BD
-import pandas as pd
-import pyodbc
+#import pyodbc
 import pandas as pd
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, Boolean
+from sqlalchemy import Column, String, Boolean
 
 #from classes import Usuario #Creación de usuarios
 
@@ -64,28 +63,41 @@ def inicio_exitoso():
         for i,user in df_usuarios.iterrows():
             if usuario==f"{user['Email']}" and contrasena==f"{user['Contrasena']}":
                 #queryId="SELECT Usuario_ID FROM Usuario where Email='"+f"{user['Email']}"+"'"
-
+                session['usuario_id'] = f"{user['Usuario_ID']}"  # Guardar el ID del usuario en la sesión
+                
                 # Obtención de dinero restante y dinero utilizado
-                query="SELECT SUM(Valor) FROM Registro WHERE ID_Usuario='1'AND Tipo_Registro='Gasto'"
+                query="SELECT SUM(Valor) FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"'AND Tipo_Registro='Gasto'"
+                print(query)
                 suma_gastos = pd.read_sql(query, conexion_BD)
-                suma_gastos_val = round(suma_gastos.iloc[0, 0],2)  # Accede al elemento en la posición (0, 0)
+                try:
+                    suma_gastos = round(suma_gastos.iloc[0, 0],2)  # Accede al elemento en la posición (0, 0)
+                    suma_gastos_val = "$"+str(suma_gastos) 
+                except:
+                    suma_gastos_val="$0"
 
-                query="SELECT SUM(Valor) FROM Registro WHERE ID_Usuario='1'AND Tipo_Registro='Ingreso'"
+                query="SELECT SUM(Valor) FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"'AND Tipo_Registro='Ingreso'"
                 suma_ingresos = pd.read_sql(query, conexion_BD)
-                suma_ingresos_val = round(suma_ingresos.iloc[0, 0],2)  # Accede al elemento en la posición (0, 0)
+                try:
+                    suma_ingresos = round(suma_ingresos.iloc[0, 0],2)  # Accede al elemento en la posición (0, 0)
+                    dinero_restante = "$"+str(suma_ingresos-suma_gastos)
+                except:
+                    dinero_restante="$0"
 
-                dinero_restante = "$"+str(suma_ingresos_val-suma_gastos_val)
-                suma_gastos_val = "$"+str(suma_gastos_val) 
 
                 # Obtención de cantidad de ingresos y gastos
-                query="SELECT COUNT(*) FROM Registro WHERE ID_Usuario='1'AND Tipo_Registro='Gasto'"
+                query="SELECT COUNT(*) FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"'AND Tipo_Registro='Gasto'"
                 cant_gastos = pd.read_sql(query, conexion_BD)
-                cant_gastos_val = str(cant_gastos.iloc[0, 0]) # Accede al elemento en la posición (0, 0)
+                try:
+                    cant_gastos_val = str(cant_gastos.iloc[0, 0]) # Accede al elemento en la posición (0, 0)
+                except:
+                    cant_gastos_val="0"
 
-                query="SELECT COUNT(*) FROM Registro WHERE ID_Usuario='1'AND Tipo_Registro='Ingreso'"
+                query="SELECT COUNT(*) FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"'AND Tipo_Registro='Ingreso'"
                 cant_ingresos = pd.read_sql(query, conexion_BD)
-                cant_ingresos_val = str(cant_ingresos.iloc[0, 0]) # Accede al elemento en la posición (0, 0)
-
+                try:
+                    cant_ingresos_val = str(cant_ingresos.iloc[0, 0]) # Accede al elemento en la posición (0, 0)
+                except:
+                    cant_ingresos_val="0" 
                 # Cálculo de dinero utilizadoS
                 
                 return render_template("ObservarGastos.html",get_dinero_restante=dinero_restante, 
@@ -131,7 +143,7 @@ def registro_correcto():
 
         # Crear una sesión
         Session = sessionmaker(bind=conexion_BD)
-        session2 = Session()
+        session_DB = Session()
 
         nuevo_usuario = Usuario(
             Usuario_ID = str(num_usuario_increment),
@@ -142,8 +154,8 @@ def registro_correcto():
             Premiun = False
         )
         try:
-            session2.add(nuevo_usuario)
-            session2.commit()
+            session_DB.add(nuevo_usuario)
+            session_DB.commit()
             session['msj_enviado_login'] = "Cuenta creada de manera exitosa"
             return redirect(url_for('login'))
         except:
