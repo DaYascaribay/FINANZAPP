@@ -6,18 +6,34 @@
 /*
  1. Common CSS
  */
- .email-1 {
-    margin-right: 8px;
-    gap: var (--space-1g);
-    align-self: stretch;
-    border-radius: var(--radius-1g);
-    @media only screen and (max-width: 1050px) {
-    margin-right: 0px;
-    }
+.email-1 {
+    width: 374px; 
+    height: 44px; 
+    padding-left: 44px; 
+    padding-right: 16px; 
+    font-family: Inter; 
+    font-size: 16px; 
+    line-height: 26px; 
+    font-weight: 400; 
+    background: #F3F4F6FF; /* neutral-200 */
+    border-radius: 8px; /* border-xl */
+    border-width: 0px; 
+    outline: none;
+}
 
-    @media only screen and (max-width: 550px) {
-    padding-right: 20px;
-    }
+.password-1 {
+    width: 374px; 
+    height: 44px; 
+    padding-left: 44px; 
+    padding-right: 16px; 
+    font-family: Inter; 
+    font-size: 16px; 
+    line-height: 26px; 
+    font-weight: 400; 
+    background: #F3F4F6FF; /* neutral-200 */
+    border-radius: 8px; /* border-xl */
+    border-width: 0px; 
+    outline: none;
 }
 
 .lock {
@@ -29,22 +45,27 @@
  2. Common CSS
  */ 
 .container-7 {
-    gap: 50px;
-    z-index: 1;
-    background-color: var(--white_a700);
-    box-shadow: var (--shadow-sm);
-    width: 40%;
-    position: relative;
-    padding: 60px 56px;
-    border-radius: var(--radius-1g);
-    @media only screen and (max-width: 1050px) {
-        width: 100%;
-        padding: 20px;
-    }
+    top: 181px; 
+    left: 72px; 
+    width: 614px; 
+    height: 538px; 
+    background: #FFFFFFFF; /* white */
+    border-radius: 8px; /* border-xl */
+    box-shadow: 0px 0px 1px #171a1f, 0px 0px 2px #171a1f;
+    margin-left: auto;
 }
 
 .finanzapp-1 {
-    color: var (--gray_700) important;
+    top: 70px; 
+    left: 256px; 
+    font-family: Cabin; /* Heading */
+    font-size: 32px; 
+    line-height: 48px; 
+}
+
+.rowheader_logo {
+    display: flex;
+    align-items: center; /* Centrar verticalmente los elementos */
 }
 
 .columnemail {
@@ -53,15 +74,16 @@
     display: flex;
     width: 76%;
     flex-direction: column;
+    margin-top: 20px;
     align-items: center;
     @media only screen and (max-width: 1050px) {
         width: 100%;
+        margin-top: 20px;
     }
 }
 
 .olvidsucontras {
-    color: var (--green_400)
-    limportant;
+    color: var (--green_400) !important;
     margin-left: 6px;
     align-self: start;
     text-decoration: underline;
@@ -97,13 +119,16 @@
 }
 
 .imagefondo_one {
-    height: 900px;
-    margin-left: -58px;
-    position: relative;
-    width: 54%;
-    object-fit: cover;
-    @media only screen and (max-width: 1050px) {
-        width: 100%;
-        margin-left: 0px;
-    }
+    top: 0px; 
+    left: 628px; 
+    width: 815px; 
+    height: 900px; 
+    border-radius: 0px; 
+    margin-left: auto;
 }
+
+.imagelogo_one{
+    margin-right: 10px;
+}
+
+
