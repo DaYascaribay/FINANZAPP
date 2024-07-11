@@ -13,7 +13,7 @@
     />
     <link rel="stylesheet" type="text/css" href="../static/css/index.css" />
     <link rel="stylesheet" type="text/css" href="../static/css/font.css" />
-    <link rel="stylesheet" type="text/css" href="../static/css/styles-css" />
+    <link rel="stylesheet" type="text/css" href="../static/css/styles.css" />
     <link rel="stylesheet" type="text/css" href="../static/css/components.css" />
     <link rel="stylesheet" type="text/css" href="../static/css/RegistrarGastos.css" />
 </head>
@@ -28,21 +28,21 @@
                             <div class="rowlayouteleven">
                                 <a href="#">
                                     <img src="../static/images/img_layout_11.svg" alt="Layouteleven" class="logotwitter_one" />
+                                    <p class="observareconom ui heading size-headingxs">Observar economía</p>
                                 </a>
-                                <p class="observareconom ui heading size-headingxs">Observar economía</p>
                             </div>
                             <div class="rowpackage_one">
                                 <a href="#">
                                     <img src="../static/images/img_package.svg" alt="Package" class="logotwitter_one" />
+                                    <p class="crearregistros ui text size-texts">Crear registros</p>
                                 </a>
-                                <p class="crearregistros ui text size-texts">Crear registros</p>
                             </div>
                             <a href="https://www.youtube.com/embed/bv8Fxk0sz7I" target="_blank">
                                 <div class="rowlayouteleven">
                                     <a href="#">
                                         <img src="../static/images/img_cart.svg" alt="Cart" class="logotwitter_one" />
+                                        <p class="recomendaciones ui text size-texts">Recomendaciones</p>
                                     </a>
-                                    <p class="recomendaciones ui text size-texts">Recomendaciones</p>
                                 </div>
                             </a>
                         </div>
@@ -66,11 +66,11 @@
                                 <input name="valor" placeholder="Valor..." type="text" />
                             </label>
                             <label class="valor ui input size-xs fill round">
-                                <input name="ddmmaaaa" placeholder="dd/mm/aaaa..." type="text" />
+                                <input name="ddmmaaaa" placeholder="aaaa/mm/dd..." type="text" />
                             </label>
                             <div class="group51">
                                 <label class="group51-1 ui radio">
-                                    <input type="radio" class="ui radio size-xs primary" value="gasto" name="group51" />
+                                    <input type="radio" class="ui radio size-sm primary" value="gasto" name="group51" />
                                     <span> Gasto</span>
                                 </label>
                                 <label class="group51-2 ui radio">
@@ -79,9 +79,9 @@
                                 </label>
                             </div>
                             <select class="dropdown-1 ui selectbox size-xs fill round" name="dropdown">
-                                <option value="option1">Option1</option>
-                                <option value="option2">Option2</option>
-                                <option value="option3">Option3</option>
+                                {% for opcion in get_opciones %}
+                                    <option value="{{ opcion }}">{{ opcion }}</option>
+                                {% endfor %}
                             </select>
                             <a href="https://www.youtube.com/embed/bv8Fxk0sz71" target="_blank">
                                 <button class="agregar ui button size-md fill round">Agregar</button>

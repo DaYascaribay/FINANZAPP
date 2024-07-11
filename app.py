@@ -83,7 +83,6 @@ def inicio_exitoso():
                 except:
                     dinero_restante="$0"
 
-
                 # Obtención de cantidad de ingresos y gastos
                 query="SELECT COUNT(*) FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"'AND Tipo_Registro='Gasto'"
                 cant_gastos = pd.read_sql(query, conexion_BD)
@@ -162,10 +161,20 @@ def registro_correcto():
             session['msj_enviado_registro'] = "No se pudo crear el usuario"
             return redirect(url_for('registro'))
 
-
 @app.route('/olvcontrasena')
 def olvidado_contrena():
     return render_template("OlvidasteContrasena.html")
+
+@app.route('/app/crear_registros')
+def agregar_registros():
+    query = "SELECT Nombre FROM Tipo_Gasto"
+    conexion_BD = conectarDB()
+    df_opciones = pd.read_sql(query, conexion_BD)
+
+    opciones_val = df_opciones['Nombre'].tolist()
+    opciones_val =opciones_val[1:] # Se excluye el primer registro
+    print(opciones_val)
+    return render_template("RegistrarGastos.html",get_opciones=opciones_val)
 
 if __name__=="__main__": 
     app.run(debug=True, port=7777)
