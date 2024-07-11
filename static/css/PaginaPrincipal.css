@@ -51,7 +51,92 @@
 }
 
 .plan_gratis {
-    margin-top: 14px;
+    top: 37px; 
+    left: 24px; 
+    font-family: Inter; /* Body */
+    font-size: 25px; 
+    line-height: 28px; 
+    font-weight: 400; 
+    color: #171A1FFF;
+    margin-top: 40px;
+    margin-left: 30px;
+}
+
+.pricetext1{
+    top: 65px; 
+    left: 27px; 
+    font-family: Cabin; /* Heading */
+    font-size: 50px; 
+    line-height: 68px; 
+    font-weight: 700; 
+    color: #48BF84FF;
+    margin-left: 30px;
+}
+
+.pricetext2{
+    top: 65px; 
+    left: 27px; 
+    font-family: Cabin; /* Heading */
+    font-size: 50px; 
+    line-height: 68px; 
+    font-weight: 700; 
+    color: #FFFFFFFF;
+    margin-left: 30px;
+}
+
+.mes{
+    font-family: Inter; /* Body */
+    font-size: 16px;
+    line-height: 26px;
+    font-weight: 400;
+    color: #FFFFFFFF;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 80px; 
+    margin-top: -45px;
+}
+
+.limittext{
+    top: 138px; 
+    left: 27px; 
+    font-family: Inter; /* Body */
+    font-size: 16px; 
+    line-height: 26px; 
+    font-weight: 400; 
+    color: #171A1FFF;
+    margin-left: 30px;
+}
+
+.limittext1{
+    top: 138px; 
+    left: 27px; 
+    font-family: Inter; 
+    font-size: 16px; 
+    line-height: 26px; 
+    font-weight: 400; 
+    color: #ffffff;
+    margin-left: 30px;
+    margin-top: -18px;
+}
+
+.rl{
+    top: 176px; 
+    left: 56px; 
+    font-family: Inter; /* Body */
+    font-size: 16px; 
+    line-height: 26px; 
+    font-weight: 400; 
+    color: #171A1FFF;
+}
+
+.rl1{
+    top: 176px; 
+    left: 56px; 
+    font-family: Inter; /* Body */
+    font-size: 16px; 
+    line-height: 26px; 
+    font-weight: 400; 
+    color: #ffffff;
 }
 
 .userprofile-1 {
@@ -256,9 +341,74 @@
 
 .row_one {
     display: flex;
-    justify-content: center;
+    margin-top: 20px;
+    margin-left: 30px;
+}
+
+.row_one1 {
+    display: flex;
+    margin-top: 19px;
+    margin-left: 30px;
+}
+
+.planbtn{
+    top: 414px; 
+    left: 24px; 
+    width: 291px; 
+    height: 52px; 
+    padding: 0 20px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    cursor: pointer;
+    font-family: Inter; 
+    font-size: 18px; 
+    line-height: 28px; 
+    font-weight: 400; 
+    color: #48BF84FF; /* primary-500 */
+    background: #00000000; /* transparent */
+    opacity: 1; 
+    border-radius: 8px; /* border-xl */
+    border-width: 1px; 
+    border-color: #48BF84FF; /* primary-500 */
+    border-style: solid; 
+    margin-top: 110px;
+    margin-left: 23px;
 }
     
+.planbtn:hover{
+    color: #2F865AFF; /* primary-650 */
+    background: #00000000; /* transparent */
+}
+
+.planbtn1{
+    top: 414px; 
+    left: 24px; 
+    width: 291px; 
+    height: 52px; 
+    padding: 0 20px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    cursor: pointer;
+    font-family: Inter; 
+    font-size: 18px; 
+    line-height: 28px; 
+    font-weight: 400; 
+    color: #48BF84FF; /* primary-500 */
+    background: #F4FBF7FF; /* primary-100 */
+    opacity: 1; 
+    border: none; 
+    border-radius: 8px;
+    margin-top: 18px;
+    margin-left: 23px;
+}
+
+.planbtn1:hover{
+    color: #48BF84FF; /* primary-500 */
+    background: #9FDDBEFF; /* primary-300 */
+}
+
 .rowcuidalaecono {
     padding-left: 68px;
     padding-right: 68px;
@@ -272,6 +422,18 @@
         padding-right: 20px;
         padding: 20px;
     }
+}
+
+.plan_premium{
+    margin-top: 40px;
+    margin-left: 30px;
+    top: 65px; 
+    left: 27px; 
+    font-family: Inter; /* Body */
+    font-size: 26px; 
+    line-height: 28px; 
+    font-weight: 400; 
+    color: #FFFFFFFF; /* white */
 }
 
 .imageinicio_one {
@@ -378,13 +540,27 @@
     align-items: center;
 }
 
+.haztpre{ 
+    position: absolute; /* Asegura que puedes controlar la posición con top y left */
+    top: 1200px; /* Cambia el valor de top según lo que necesites */
+    left: 675px; /* Cambia el valor de left según lo que necesites */
+    width: 327px; 
+    height: 83px; 
+    font-family: Cabin; /* Heading */
+    font-size: 48px; 
+    line-height: 68px; 
+    font-weight: 700; 
+    color: #171A1FFF;
+}
+
 .columnhazte {
     padding-left: 56px;
     padding-right: 56px;
-    gap: 72px;
+    gap: 75px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    margin-top: -10px;
     @media only screen and (max-width: 1050px) {
         gap: 54px;
         padding-left: 20px;
@@ -398,19 +574,23 @@
 }
     
 .plancontainer {
-    gap: var(--space-16x1);
-    display: flex;
-    width: 60%;
-    @media only screen and (max-width: 1050px) {
-        flex-direction: column;
-        width: 100%;
-    }
+    top: 224px; 
+    left: 357px; 
+    width: 339px; 
+    height: 490px; 
+    background: #FFFFFFFF; /* white */
+    border-radius: 0px 4px 0px 0px; /* border-tr-none */
+    border-width: 1px; 
+    border-color: #DEE1E6FF; /* neutral-300 */
+    border-style: solid; 
+    flex-direction: row;
 }
 
 .plancontainer-1 {
     border-top-right-radius: var(--radius-sm);
     background-color: var(--white_a700);
-    width: 46%;
+    width: 339px; 
+    height: 490px;
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -447,24 +627,12 @@
 }
 
 .plancontainer-2 {
-    border-top-right-radius: var(--radius-sm);
-    gap: 70px;
-    display: flex;
-    background-color: var(--white_a700);
-    width: 46%;
-    flex-direction: column;
-    align-items: start;
-    padding: var(--space-8x1);
-    border: 1px solid var(--gray_300);
-    @media only screen and (max-width: 1050px) {
-        width: 100%;
-        gap: 52px;
-    }
-
-    @media only screen and (max-width: 550px) {
-        gap: 35px;
-        padding: 20px;
-    }
+    top: 224px; 
+    left: 744px; 
+    width: 339px; 
+    height: 490px; 
+    background: #369B68FF; /* primary-600 */
+    border-radius: 0px 4px 0px 0px;
 }
 
 .container-1 {
@@ -497,17 +665,15 @@
 }
 
 .nuestro_equipo {
-    color: var(--blue_gray_900_01) !important;
-    margin-top: 120px;
-    margin-left: 12px;
-    font-family: Cabin !important;
-    width: 18%;
-    line-height: 68px;
-    @media only screen and (max-width: 1050px) {
-        width: 100%;
-        padding: 20px;
-        margin-left: 0px;
-    }
+    top: 171px; 
+    left: 144px; 
+    width: 197px; 
+    font-family: Cabin; /* Heading */
+    font-size: 48px; 
+    line-height: 68px; 
+    font-weight: 700; 
+    color: #194730FF;
+    margin-top: 40px;
 }
     
 .userprofile {
@@ -515,7 +681,7 @@
     gap: var(--space-8xl);
     align-self: center;
     display: flex;
-    width: 82%;
+    width: 80%;
     @media only screen and (max-width: 1050px) {
         flex-direction: column;
         width: 100%;
