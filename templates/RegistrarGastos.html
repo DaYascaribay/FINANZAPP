@@ -46,7 +46,7 @@
                     <div class="row-2">
                         <div class="headermenu">
                             <div class="rowlayouteleven">
-                                <a href="#">
+                                <a href="/app/observar_gastos">
                                     <img src="../static/images/img_layout_11.svg" alt="Layouteleven" class="logotwitter_one" />
                                     <p class="observareconom ui heading size-headingxs">Observar economía</p>
                                 </a>
@@ -79,34 +79,35 @@
                 <div class="rownombre">
                     <div class="columnnombre">
                         <div class="container-13">
-                            <form action="/app/crear_registro_exitoso" method="post">
+                            <form action="/app/agregar_registro" method="post">
                                 <label class="nombre ui input size-xs fill round">
-                                    <input name="nombre" placeholder="Nombre..." type="text" required/>
+                                    <input name="nombre" placeholder="Nombre..." type="text"/>
                                 </label>
                                 <label class="valor ui input size-xs fill round">
-                                    <input name="valor" placeholder="Valor..." type="number" required/>
+                                    <input name="valor" placeholder="Valor..."type="number" step="any" />
                                 </label>
                                 <label class="valor ui input size-xs fill round">
-                                    <input name="fecha" placeholder="dd/mm/aaaa..." type="date" required/>
+                                    <input name="fecha" placeholder="dd/mm/aaaa..." type="date" />
                                 </label>
                                 <div class="group51">
                                     <label class="group51-1 ui radio">
-                                        <input type="radio" class="ui radio size-sm primary" value="gasto" name="group51" id="radio-gasto" checked/>
+                                        <input type="radio" class="ui radio size-sm primary" value="Gasto" name="group51" id="radio-gasto" checked/>
                                         <span> Gasto</span>
                                     </label>
                                     <label class="group51-2 ui radio">
-                                        <input type="radio" class="ui radio size-sm primary" value="ingreso" name="group51" id="radio-ingreso" />
+                                        <input type="radio" class="ui radio size-sm primary" value="Ingreso" name="group51" id="radio-ingreso" />
                                         <span> Ingreso</span>
                                     </label>
                                 </div>
-                                <select class="dropdown-1 ui selectbox size-xs fill round" name="dropdown" id="dropdown-tipo-gasto" required>
+                                <select class="dropdown-1 ui selectbox size-xs fill round" name="dropdown" id="dropdown-tipo-gasto" >
                                     {% for id, opcion in get_opciones %}
                                         <option value="{{ id }}">{{ opcion }}</option>
                                     {% endfor %}
                                 </select>
-                                <a href="#" target="_blank">
-                                    <button class="agregar ui button size-md fill round">Agregar</button>
-                                </a>
+                                <button class="agregar ui button size-md fill round" type="submit">Agregar</button>
+                            </form>
+                            <form action="/app/guardar_registros" method="post">
+                                <button class="agregar ui button size-md fill round" type="submit" name="action" value="guardar">Guardar</button>
                             </form>
                         </div>
                     </div>
@@ -117,7 +118,7 @@
                                     <tr>
                                         <th width="96px">
                                             <div class="rowregistro">
-                                                <h2 class="registro ui heading size-headingxs"># Registro</h2>
+                                                <h3 class="registro ui heading size-headingxs"># Registro</h3>
                                             </div>
                                         </th>
                                         <th width="314px">
@@ -126,157 +127,63 @@
                                             </div>
                                         </th>
                                         <th width="102px">
-                                            <div class="rowregistro">
-                                                <h4 class="nombre_one ui heading size-headingxs">Valor</h4>
+                                            <div class="rownombre_one">
+                                                <h3 class="nombre_one ui heading size-headingxs">Valor</h3>
                                             </div>
                                         </th>
                                         <th width="110px">
                                             <div class="rownombre_one">
-                                                <h5 class="nombre_one ui heading size-headingxs">Fecha</h5>
+                                                <h3 class="nombre_one ui heading size-headingxs">Fecha</h3>
                                             </div>
                                         </th>
                                         <th width="138px">
                                             <div class="rownombre_one">
-                                                <h6 class="tipo_de ui heading size-headingxs">Tipo de registro</h6>
+                                                <h3 class="nombre_one ui heading size-headingxs">Tipo de registro</h3>
                                             </div>
                                         </th>
                                         <th width="186px">
                                             <div class="rownombre_one">
-                                                <p class="nombre_one ui heading size-headingxs">Tipo de gasto</p>
+                                                <h3 class="nombre_one ui heading size-headingxs">Tipo de gasto</h3>
                                             </div>
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% for registro in get_registros_temporales %}
                                     <tr>
                                         <td>
                                             <div class="rowframe">
-                                                <p class="frame ui text size-texts">1</p>
+                                                <p class="frame ui text size-texts">{{ loop.index }}</p>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="rownombre_one">
-                                                <p class="frame ui text size-texts">Bus</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="rowframe">
-                                                <p class="frame ui text size-texts">$0.35</p>
+                                                <p class="frame ui text size-texts">{{ registro['Nombre'] }}</p>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="rownombre_one">
-                                                <p class="frame_one ui text size-texts">14/6/2024</p>
+                                                <p class="frame ui text size-texts">${{ registro['Valor'] }}</p>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="rownombre_one">
-                                                <p class="frame ui text size-texts">Gasto</p>
+                                                <p class="frame ui text size-texts">{{ registro['Fecha'] }}</p>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="rownombre_one">
-                                                <p class="frame ui text size-texts">Transporte público</p>
+                                                <p class="frame ui text size-texts">{{ registro['Tipo_Registro'] }}</p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="rownombre_one">
+                                                <p class="frame ui text size-texts">{{ registro['Tipo_Gasto'] }}</p>
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="rowframe">
-                                                <p class="frame ui text size-texts">2</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="rownombre_one">
-                                                <p class="frame ui text size-texts">Metro</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="rowframe">
-                                                <p class="frame ui text size-texts">$0.45</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="rownombre_one">
-                                                <p class="frame_one ui text size-texts">14/6/2024</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="rownombre_one">
-                                                <p class="frame ui text size-texts">Gasto</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="rownombre_one">
-                                                <p class="frame ui text size-texts">Transporte público</p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="rowframe">
-                                                <p class="frame ui text size-texts">3</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="rownombre one">
-                                                <p class="frame ui text size-texts">Bus</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="rowframe">
-                                                <p class="frame ui text size-texts">$0.35</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="rownombre_one">
-                                                <p class="frame_one ui text size-texts">14/6/2024</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="rownombre_one">
-                                                <p class="frame ui text size-texts">Gasto</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="rownombre_one">
-                                                <p class="frame ui text size-texts">Transporte público</p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="rowframe">
-                                                <p class="frame ui text size-texts">4</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="rownombre one">
-                                                <p class="frame ui text size-texts">Arroz (2 lb)</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="rowframe">
-                                                <p class="frame ui text size-texts">$1.40</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="rownombre_one">
-                                                <p class="frame_one ui text size-texts">14/6/2024</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="rownombre_one">
-                                                <p class="frame ui text size-texts">Gasto</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="rownombre_one">
-                                                <p class="frame ui text size-texts">Comida</p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>    
+                                    {% endfor %}
+                                </tbody>
                             </table>
                         </div>
                     </div>
