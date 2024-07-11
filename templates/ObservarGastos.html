@@ -70,14 +70,28 @@
                         <div class="container-8">
                             <div class="container-10">
                                 <p class="finanzapp ui text size-textmd">Dinero restante</p>
-                                <h2 class="pricetext ui heading size-heading2x1">$1600.45</h2>
+                                <h2 class="pricetext ui heading size-heading2x1">{{get_dinero_restante}}</h2>
                             </div>
                             <div class="container-10">
                                 <p class="finanzapp ui text size-textmd">Dinero utilizado</p>
-                                <h3 class="pricetext ui heading size-heading2x1">$1350.50</h3>
+                                <h2 class="pricetext ui heading size-heading2x1">{{get_dinero_utilizado}}</h2>
+                            </div>
+                        </div>
+                        <div class="rowresumen-1">
+                            <p class="vistageneral ui text size-textxl">Actividad</p>
+                            <div class="buttondetalle">
+                                <p class="pricetext ui text size-texts">Ver detalles</p>
+                                <img src="../static/images/img_arrow_right.svg" alt="Arrowright" class="arrowright_one" />
+                            </div>
+                        </div>
+                        <div class="container-8">
+                            <div class="container-10">
+                                <p class="finanzapp ui text size-textmd">Gastos</p>
+                                <h2 class="pricetext ui heading size-heading2x1">{{get_cant_gastos}}</h2>
                             </div>
                             <div class="container-10">
-                                <p class="finanzapp ui text size-textmd">Dinero restante</p>
+                                <p class="finanzapp ui text size-textmd">Ingresos</p>
+                                <h2 class="pricetext ui heading size-heading2x1">{{get_cant_ingresos}}</h2>
                             </div>
                         </div>
                     </div>

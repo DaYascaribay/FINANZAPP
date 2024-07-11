@@ -14,8 +14,6 @@ from sqlalchemy import Column, Integer, String, Boolean
 app = Flask(__name__, template_folder="templates")
 app.secret_key = '12345678' # Necesario para redirigir templates con valores
 
-id_usuario=""
-
 Base = declarative_base()
 
 class Usuario(Base):
@@ -26,6 +24,22 @@ class Usuario(Base):
     Contrasena = Column(String)
     Email = Column(String)
     Premiun = Column(Boolean)
+    
+def conectarDB():
+    # Variables de conexión
+    server = 'DESKTOP-VQQ74TJ'
+    bd = 'FINANZAPP'
+    user = 'sa2'
+    password = '12345678'
+    try:
+        conexion_str = f"mssql+pyodbc://{user}:{password}@{server}/{bd}?driver=ODBC+Driver+17+for+SQL+Server"
+        engine = create_engine(conexion_str)
+        print('Conexión exitosa')
+    except Exception as e:
+        print(f'Error al intentar conectarse: {e}')
+        engine = None
+
+    return engine
 
 @app.route('/PaginaPrincipal')
 @app.route('/')
@@ -49,10 +63,35 @@ def inicio_exitoso():
         df_usuarios = pd.read_sql(query, conexion_BD)
         for i,user in df_usuarios.iterrows():
             if usuario==f"{user['Email']}" and contrasena==f"{user['Contrasena']}":
-                print("Bienvenido "+f"{user['Nombre']}")
-                queryId="SELECT Usuario_ID FROM Usuario where Email='"+f"{user['Email']}"+"'"
-                id_usuario = str(pd.read_sql(queryId, conexion_BD))
-                return render_template("ObservarGastos.html")
+                #queryId="SELECT Usuario_ID FROM Usuario where Email='"+f"{user['Email']}"+"'"
+
+                # Obtención de dinero restante y dinero utilizado
+                query="SELECT SUM(Valor) FROM Registro WHERE ID_Usuario='1'AND Tipo_Registro='Gasto'"
+                suma_gastos = pd.read_sql(query, conexion_BD)
+                suma_gastos_val = round(suma_gastos.iloc[0, 0],2)  # Accede al elemento en la posición (0, 0)
+
+                query="SELECT SUM(Valor) FROM Registro WHERE ID_Usuario='1'AND Tipo_Registro='Ingreso'"
+                suma_ingresos = pd.read_sql(query, conexion_BD)
+                suma_ingresos_val = round(suma_ingresos.iloc[0, 0],2)  # Accede al elemento en la posición (0, 0)
+
+                dinero_restante = "$"+str(suma_ingresos_val-suma_gastos_val)
+                suma_gastos_val = "$"+str(suma_gastos_val) 
+
+                # Obtención de cantidad de ingresos y gastos
+                query="SELECT COUNT(*) FROM Registro WHERE ID_Usuario='1'AND Tipo_Registro='Gasto'"
+                cant_gastos = pd.read_sql(query, conexion_BD)
+                cant_gastos_val = str(cant_gastos.iloc[0, 0]) # Accede al elemento en la posición (0, 0)
+
+                query="SELECT COUNT(*) FROM Registro WHERE ID_Usuario='1'AND Tipo_Registro='Ingreso'"
+                cant_ingresos = pd.read_sql(query, conexion_BD)
+                cant_ingresos_val = str(cant_ingresos.iloc[0, 0]) # Accede al elemento en la posición (0, 0)
+
+                # Cálculo de dinero utilizadoS
+                
+                return render_template("ObservarGastos.html",get_dinero_restante=dinero_restante, 
+                                       get_dinero_utilizado=suma_gastos_val,
+                                       get_cant_gastos=cant_gastos_val,
+                                       get_cant_ingresos=cant_ingresos_val)
         session['msj_enviado_login'] = "Correo electrónico o contraseña incorrectos"
         return redirect(url_for('login'))
 
@@ -105,28 +144,12 @@ def registro_correcto():
         try:
             session2.add(nuevo_usuario)
             session2.commit()
-            print("0s")
             session['msj_enviado_login'] = "Cuenta creada de manera exitosa"
             return redirect(url_for('login'))
         except:
             session['msj_enviado_registro'] = "No se pudo crear el usuario"
             return redirect(url_for('registro'))
-    
-def conectarDB():
-    # Variables de conexión
-    server = 'DESKTOP-VQQ74TJ'
-    bd = 'FINANZAPP'
-    user = 'sa2'
-    password = '12345678'
-    try:
-        conexion_str = f"mssql+pyodbc://{user}:{password}@{server}/{bd}?driver=ODBC+Driver+17+for+SQL+Server"
-        engine = create_engine(conexion_str)
-        print('Conexión exitosa')
-    except Exception as e:
-        print(f'Error al intentar conectarse: {e}')
-        engine = None
 
-    return engine
 
 @app.route('/olvcontrasena')
 def olvidado_contrena():
