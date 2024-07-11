@@ -115,6 +115,40 @@
 /*
 4. Button CSS
 */
+
+.ui.button{
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.ui.button.fill {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.ui.button.fill:hover {
+    background-color: #0056b3;
+}
+
+.ui.button.outline {
+    background-color: transparent;
+    color: #007bff;
+    border-color: #007bff;
+}
+
+
+.ui.button.outline:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
 .ui.button.square {
     border-radius: 0px;
 }
@@ -122,52 +156,52 @@
 .ui.button.round {
     border-radius: var(--radius-1g);
 }
-  
+
 .ui.button.size-xl {
     height: 102px;
     padding-left: var(--space-6x1);
     padding-right: var(--space-11x1);
     font-size: 12px;
 }
-  
+
 .ui.button.size-lg {
     height: 52px;
     padding-left: var(--space-11x1);
     padding-right: var(--space-11x1);
     font-size: 18px;
 }
-  
+
 .ui.button.size-md {
     height: 44px;
     padding-left: var(--space-11x1);
     padding-right: var(--space-11x1);
     font-size: 16px;
 }
-  
+
 .ui.button.size-xs {
     height: 28px;
     padding-left: var(--space-md);
     padding-right: var(--space-md);
     font-size: 12px;
 }
-  
+
 .ui.button.size-sm {
     height: 34px;
     padding-left: var(--space-3x1);
     padding-right: var(--space-3x1);
     font-size: 16px;
 }
-  
+
 .ui.button.fill.green_300 {
     background-color: var(--green_300);
     color: var(--white_a700);
 }
-  
+
 .ui.button.fill.white_a700 {
     background-color: var(--white_a700);
     color: var(--blue_400);
 }
-  
+
 .ui.button.fill.gray_100_02 {
     background-color: var(--gray_100_02);
     color: var(--green_400);
@@ -188,16 +222,8 @@
     color: var(--blue_400);
     border: 1px solid var(--blue_400);
 }
-  
-.ui.button {
-    text-align: center;
-    display: flex;
-    cursor: pointer;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
-  
+
+
 /* 
 5. Selectbox CSS 
 */   
@@ -292,7 +318,7 @@
   
 .ui.heading-size-headingmd {
     font-size: 18px;
-    font-weight: 700;
+    font-weight: 100;
     font-style: bold;
 }
 

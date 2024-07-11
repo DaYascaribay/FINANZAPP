@@ -18,17 +18,26 @@
 
 .container-3 {
     border-top-left-radius: var(--radius-1g);
-    gap: var(--space-5xl);
+    gap: var(--space-16xl);
     background-color: var(--white_a700);
     width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: start;
     padding: var(--space-8x1);
     @media only screen and (max-width: 550px) {
         padding: 20px;
     }
 }
+
+.container-4{
+    left: 129px; 
+    width: 376px; 
+    height: 222px; 
+    background: #FFFFFFFF; /* white */
+    border-radius: 8px 0px 0px 0px; /* border-tl-xl */ top: 149px; 
+}
+
 
 .image {
     height: 48px;
@@ -147,9 +156,9 @@
 .row {
     align-self: stretch;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
-    gap: 20px;
+    gap: 80px;
     @media only screen and (max-width: 1050px) {
         flex-direction: column;
     }
@@ -169,8 +178,9 @@
 .rowinicio {
     gap: 80px;
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
-    @media only screen and (max-width: 1050px) {
+    @media only screen and (max-width: 1080px) {
         gap: 20px;
     }
 }
@@ -189,12 +199,55 @@
     font-family: Cabin;
     min-width: 102px;
     border-radius: var(--radius-sm);
+    position: absolute; 
+    top: 18px; 
+    left: 1300px; 
+    padding: 10px 20px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-family: Cabin; 
+    font-size: 14px; 
+    line-height: 22px; 
+    font-weight: 400; 
+    color: #FFFFFFFF; /* white */
+    background: #70C29EFF; /* tertiary1-500 */
+    opacity: 1; 
+    cursor: pointer;
+    border: none; 
+    border-radius: 4px; 
 }
+.crear_cuenta:hover {
+    background-color: #3E916DFF; /* Cambio de color de fondo al pasar el mouse */
+    color: #ffffff; /* Cambio de color de texto al pasar el mouse */
+}
+
 
 .iniciar_sesin {
     font-family: Cabin;
-    min-width: 98px;
+    min-width: 102px;
     border-radius: var(--radius-sm);
+    position: absolute; 
+    top: 18px; 
+    left: 1450px; 
+    padding: 10px 20px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-family: Cabin; 
+    font-size: 14px; 
+    line-height: 22px; 
+    font-weight: 400; 
+    color: #48BF84FF; /* primary-500 */
+    background: #F4FBF7FF; /* primary-100 */
+    opacity: 1; 
+    border: none; 
+    cursor: pointer;
+    border-radius: 4px;
+}
+.iniciar_sesin:hover{
+    color: #48BF84FF; /* primary-500 */
+    background: rgb(202, 200, 200)
 }
 
 .newscreenbody {
@@ -222,13 +275,15 @@
 }
 
 .imageinicio_one {
-    height: 394px;
-    width: 42%;
-    object-fit: cover;
-    border-radius: var(--radius-4x1);
-    @media only screen and (max-width: 1050px) {
-        width: 100%;
-    }
+    position: absolute; 
+    top: 148px; 
+    left: 200px; 
+    width: 506px; 
+    height: 394px; 
+    border-radius: 197px; 
+    border-width: 1px; 
+    border-color: #DEE1E6; 
+    border-style: solid; 
 }
 
 .columncuidalaec {
@@ -242,25 +297,38 @@
 }
     
 .cuidalaeconoma {
-    color: var(--green_400) !important;
-    font-family: Cabin !important;
-    line-height: 78px;
+    position: absolute; 
+    top: 226px; 
+    left: 800px; 
+    width: 594px; 
+    font-family: Cabin; /* Heading */
+    font-size: 56px; 
+    line-height: 78px; 
+    font-weight: 700; 
+    color: #48BF84FF;
 }
 
 .gestionesusgast {
-    font-family: Cabin !important;
-    line-height: 26px;
+    position: absolute; 
+    top: 394px; 
+    left: 800px; 
+    width: 501px; 
+    font-family: Cabin; /* Heading */
+    font-size: 16px; 
+    line-height: 26px; 
+    font-weight: 400; 
+    color: #171A1FFF;
 }
 
 .row_two {
-    margin-top: 104px;
+    margin-top: 450px;
     display: flex;
     justify-content: center;
 }
 
 .rowfinanzapp {
     padding-left: 56px;
-    padding-right: 56px;
+    padding-right: 80px;
     display: flex;
     justify-content: center;
     @media only screen and (max-width: 1050px) {
@@ -270,6 +338,15 @@
     }
 }
     
+.finanzapp{
+    top: 29px; 
+    left: 597px; 
+    font-family: Cabin; /* Heading */
+    font-size: 50px; 
+    line-height: 68px; 
+    font-weight: 700; 
+    color: #323743FF;
+}
 .columnfinanzapp {
     gap: 52px;
     display: flex;
@@ -281,21 +358,6 @@
     }
 }
 
-.container-2 {
-    align-self: stretch;
-    display: grid;
-    gap: var(--space-10x1);
-    row-gap: var(--space-8x1);
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    justify-content: center;
-    @media only screen and (max-width: 1050px) {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    @media only screen and (max-width: 550px) {
-        grid-template-columns: repeat(1, minmax(0, 1fr));
-    }
-}
 
 .container {
     margin-top: 108px;
