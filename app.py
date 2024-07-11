@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect, url_for, session
 
 # Lectura de BD
 import pandas as pd
@@ -12,6 +12,7 @@ from sqlalchemy import Column, Integer, String, Boolean
 #from classes import Usuario #Creación de usuarios
 
 app = Flask(__name__, template_folder="templates")
+app.secret_key = '12345678' # Necesario para redirigir templates con valores
 
 id_usuario=""
 
@@ -33,14 +34,14 @@ def aplicacion():
 
 @app.route('/login')
 def iniciar_sesion():
-    return render_template("IniciarSesion.html")
+    error = session.pop('error', " ")  # Obtener el mensaje de error de la sesión
+    return render_template("IniciarSesion.html", error=error)
 
-@app.route('/login_correcto', methods=['POST'])
+@app.route('/app/observar_gastos', methods=['POST'])
 def inicio_exitoso():
     # Datos del formulario
     usuario = request.form['email']
     contrasena = request.form['lock_key']
-
     conexion_BD = conectarDB() # Conexión a la BD
 
     if conexion_BD:
@@ -52,8 +53,8 @@ def inicio_exitoso():
                 queryId="SELECT Usuario_ID FROM Usuario where Email='"+f"{user['Email']}"+"'"
                 id_usuario = str(pd.read_sql(queryId, conexion_BD))
                 return render_template("ObservarGastos.html")
-        
-        return render_template("IniciarSesion.html")
+        session['error'] = "Correo electrónico o contraseña incorrectos"
+        return redirect(url_for('iniciar_sesion'))
 
 @app.route('/registro')
 def registrar_cuenta():
