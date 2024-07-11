@@ -1,7 +1,7 @@
 @font-face {
     font-display: swap;
     font-style: normal;
-    src: url("../fonts/CabinRegular.ttf");
+    src: url("../fonts/CabinBold.ttf");
     font-family: "Cabin";
     font-weight: 700;
 }
@@ -47,5 +47,3 @@
     font-family: "Poppins";
     font-weight: 700;
 }
-  
-  
