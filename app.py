@@ -1,14 +1,11 @@
 from flask import Flask, request, render_template, redirect, url_for, session
 
 # Lectura de BD
-#import pyodbc
 import pandas as pd
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String, Float, Date, Boolean
-
-#from classes import Usuario #Creación de usuarios
 
 app = Flask(__name__, template_folder="templates")
 app.secret_key = '12345678' # Necesario para redirigir templates con valores
@@ -55,6 +52,7 @@ def conectarDB():
 def aplicacion():
     return render_template("PaginaPrincipal.html")
 
+# LOGEARSE
 @app.route('/login')
 def login():
     msj_recibido_login = session.pop('msj_enviado_login', " ")  # Obtener el mensaje de error de la sesión
@@ -115,7 +113,8 @@ def inicio_exitoso():
         session['msj_enviado_login'] = "Correo electrónico o contraseña incorrectos"
         return redirect(url_for('login'))
 
-@app.route('/registro')
+# CREAR CUENTA
+@app.route('/registrar_cuenta')
 def registro():
     msj_recibido_registro = session.pop('msj_enviado_registro', " ")  # Obtener el mensaje de error de la sesión
     return render_template("CrearCuenta.html", msj_registro=msj_recibido_registro)
@@ -174,69 +173,101 @@ def registro_correcto():
 def olvidado_contrena():
     return render_template("OlvidasteContrasena.html")
 
-@app.route('/app/crear_registros')
-def agregar_registros():
-    # Cargar los tipos de gastos 
-    query = "SELECT * FROM Tipo_Gasto"
-    conexion_BD = conectarDB()
-    df_opciones = pd.read_sql(query, conexion_BD)
-    opciones_val = [(row['ID_Tipo_Gasto'], row['Nombre']) for index, row in df_opciones.iterrows()][1:] 
 
-    return render_template("RegistrarGastos.html",get_opciones=opciones_val)
+# REGISTRAR GASTOS
+registros_temporales = []  # Lista para almacenar temporalmente los registros
 
-
-@app.route('/app/crear_registro_exitoso', methods=['POST'])
-def agregar_registros_exitoso():
+@app.route('/app/crear_registro')
+def crear_registro():
     # Cargar los tipos de gastos 
     query = "SELECT * FROM Tipo_Gasto"
     conexion_BD = conectarDB()
     df_opciones = pd.read_sql(query, conexion_BD)
     opciones_val = [(row['ID_Tipo_Gasto'], row['Nombre']) for index, row in df_opciones.iterrows()][1:]
 
-    # Crear registro
-    # Obtener usuario
-    usuario_id = '1'
-    # Datos del formulario
+    return render_template("RegistrarGastos.html", get_opciones=opciones_val, get_registros_temporales=registros_temporales)
+
+
+@app.route('/app/agregar_registro', methods=['POST'])
+def agregar_registro():
+    # Cargar los tipos de gastos 
+    query = "SELECT * FROM Tipo_Gasto"
+    conexion_BD = conectarDB()
+    df_opciones = pd.read_sql(query, conexion_BD)
+    opciones_val = [(row['ID_Tipo_Gasto'], row['Nombre']) for index, row in df_opciones.iterrows()][1:]
+
+    # Obtener usuario (debes implementar cómo obtienes el usuario ID)
+    usuario_id = '1'  # Ejemplo estático, debes cambiar esto según tu lógica
+
+    # Obtener datos del formulario
     nombre = request.form['nombre']
     valor = request.form['valor']
     fecha = request.form['fecha']
     tipo_registro = request.form['group51']
-
-    if tipo_registro=='Ingreso':
-        tipo_gasto="0"
-    else:
-        tipo_gasto = request.form['dropdown']
     
+    try:
+        tipo_gasto = request.form['dropdown']
+    except :
+        tipo_gasto = "0"
+
     # Contar registros por usuario
-    query = "SELECT count(*) FROM Registro where Usuario_ID="+usuario_id
+    query = f"SELECT count(*) FROM Registro where Usuario_ID = {usuario_id}"
     cant_Registros = pd.read_sql(query, conexion_BD)
     num_registro = cant_Registros.iloc[0, 0]  # Accede al elemento en la posición (0, 0)
-    num_registro_increment = num_registro + 1  # Suma 1 al valor obtenido
+    num_registro_increment = num_registro + len(registros_temporales) + 1  # Suma 1 al valor obtenido
+    registro_id = f"{usuario_id}.{num_registro_increment}"
 
-    registro_id = usuario_id+'.'+str(num_registro_increment)
+    # Añadir el registro a la lista temporal
+    nuevo_registro = {
+        'Usuario_ID': usuario_id,
+        'Registro_ID': registro_id,
+        'Nombre': nombre,
+        'Valor': valor,
+        'Fecha': fecha,
+        'Tipo_Registro': tipo_registro,
+        'Tipo_Gasto': tipo_gasto
+    }
+    registros_temporales.append(nuevo_registro)
 
-    print(usuario_id,registro_id,nombre,valor,fecha,tipo_registro,tipo_gasto)
+    # Redirigir de vuelta al formulario con la lista de opciones y registros temporales
+    return render_template("RegistrarGastos.html", get_opciones=opciones_val, get_registros_temporales=registros_temporales)
 
-    # Crear una sesión
+
+@app.route('/app/guardar_registros', methods=['POST'])
+def guardar_registros():
+    # Conectar a la base de datos
+    conexion_BD = conectarDB()
     Session = sessionmaker(bind=conexion_BD)
     session_DB = Session()
 
-    nuevo_registro = Registro(
-        Usuario_ID = usuario_id,
-        Registro_ID = registro_id,
-        Nombre = nombre,
-        Valor = valor,
-        Fecha = fecha,
-        Tipo_Registro = tipo_registro,
-        Tipo_Gasto = tipo_gasto
-    )
     try:
-        session_DB.add(nuevo_registro)
+        # Guardar todos los registros en la base de datos
+        for registro in registros_temporales:
+            nuevo_registro = Registro(
+                Usuario_ID=registro['Usuario_ID'],
+                Registro_ID=registro['Registro_ID'],
+                Nombre=registro['Nombre'],
+                Valor=registro['Valor'],
+                Fecha=registro['Fecha'],
+                Tipo_Registro=registro['Tipo_Registro'],
+                Tipo_Gasto=registro['Tipo_Gasto']
+            )
+            session_DB.add(nuevo_registro)
+
         session_DB.commit()
-    except:
-        print("xd")
-    
-    return render_template("RegistrarGastos.html",get_opciones=opciones_val)
+
+    except Exception as e:
+        print(f"Error al guardar registros en la base de datos: {e}")
+        session_DB.rollback()
+
+    finally:
+        # Limpiar la lista de registros temporales después de guardar en la base de datos
+        registros_temporales.clear()
+
+    # Redirigir a alguna página de éxito o volver al formulario
+    return redirect(url_for('crear_registro'))
+
+
 
 if __name__=="__main__": 
     app.run(debug=True, port=7777)
