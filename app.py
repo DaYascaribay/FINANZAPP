@@ -33,9 +33,9 @@ def aplicacion():
     return render_template("PaginaPrincipal.html")
 
 @app.route('/login')
-def iniciar_sesion():
-    error = session.pop('error', " ")  # Obtener el mensaje de error de la sesión
-    return render_template("IniciarSesion.html", error=error)
+def login():
+    msj_recibido_login = session.pop('msj_enviado_login', " ")  # Obtener el mensaje de error de la sesión
+    return render_template("IniciarSesion.html", msj_login=msj_recibido_login)
 
 @app.route('/app/observar_gastos', methods=['POST'])
 def inicio_exitoso():
@@ -53,21 +53,21 @@ def inicio_exitoso():
                 queryId="SELECT Usuario_ID FROM Usuario where Email='"+f"{user['Email']}"+"'"
                 id_usuario = str(pd.read_sql(queryId, conexion_BD))
                 return render_template("ObservarGastos.html")
-        session['error'] = "Correo electrónico o contraseña incorrectos"
-        return redirect(url_for('iniciar_sesion'))
+        session['msj_enviado_login'] = "Correo electrónico o contraseña incorrectos"
+        return redirect(url_for('login'))
 
 @app.route('/registro')
-def registrar_cuenta():
-    return render_template("CrearCuenta.html")
+def registro():
+    msj_recibido_registro = session.pop('msj_enviado_registro', " ")  # Obtener el mensaje de error de la sesión
+    return render_template("CrearCuenta.html", msj_registro=msj_recibido_registro)
 
 @app.route('/registro_correcto', methods=['POST'])
-def registrar_cuenta_correcto():
+def registro_correcto():
     # Datos del formulario
     nombre = request.form['nombre']
     apellido = request.form['apellido']
     email = request.form['email_usuario']
     contrasena = request.form['password_one']
-    contrasena_repeated = request.form['password_repeated']
 
     conexion_BD = conectarDB() # Conexión a la BD
     if conexion_BD:
@@ -77,7 +77,8 @@ def registrar_cuenta_correcto():
 
         for i,user in informacion_usuarios.iterrows():
             if email==f"{user['Email']}":
-                return render_template("CrearCuenta.html", error="El correo ya está utilizado")
+                session['msj_enviado_registro'] = "El correo electrónico ya utilizado"
+                return redirect(url_for('registro'))
 
         # Calcular cantidad de usuarios
         query = "SELECT count(*) FROM Usuario"
@@ -91,7 +92,7 @@ def registrar_cuenta_correcto():
 
         # Crear una sesión
         Session = sessionmaker(bind=conexion_BD)
-        session = Session()
+        session2 = Session()
 
         nuevo_usuario = Usuario(
             Usuario_ID = str(num_usuario_increment),
@@ -102,11 +103,14 @@ def registrar_cuenta_correcto():
             Premiun = False
         )
         try:
-            session.add(nuevo_usuario)
-            session.commit()
-            return render_template("IniciarSesion.html")
+            session2.add(nuevo_usuario)
+            session2.commit()
+            print("0s")
+            session['msj_enviado_login'] = "Cuenta creada de manera exitosa"
+            return redirect(url_for('login'))
         except:
-            return render_template("CrearCuenta.html", error="No se ha podido crear el usuario")
+            session['msj_enviado_registro'] = "No se pudo crear el usuario"
+            return redirect(url_for('registro'))
     
 def conectarDB():
     # Variables de conexión
