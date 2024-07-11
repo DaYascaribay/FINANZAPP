@@ -6,7 +6,7 @@ import pandas as pd
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, String, Boolean
+from sqlalchemy import Column, String, Float, Date, Boolean
 
 #from classes import Usuario #Creación de usuarios
 
@@ -23,7 +23,17 @@ class Usuario(Base):
     Contrasena = Column(String)
     Email = Column(String)
     Premiun = Column(Boolean)
-    
+
+class Registro(Base):
+    __tablename__ = 'Registro'
+    Usuario_ID = Column(String)
+    Registro_ID = Column(String, primary_key=True)
+    Nombre = Column(String)
+    Valor = Column(Float)
+    Fecha = Column(Date)
+    Tipo_Registro = Column(String)
+    Tipo_Gasto = Column(String)
+
 def conectarDB():
     # Variables de conexión
     server = 'DESKTOP-VQQ74TJ'
@@ -67,7 +77,6 @@ def inicio_exitoso():
                 
                 # Obtención de dinero restante y dinero utilizado
                 query="SELECT SUM(Valor) FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"'AND Tipo_Registro='Gasto'"
-                print(query)
                 suma_gastos = pd.read_sql(query, conexion_BD)
                 try:
                     suma_gastos = round(suma_gastos.iloc[0, 0],2)  # Accede al elemento en la posición (0, 0)
@@ -167,13 +176,66 @@ def olvidado_contrena():
 
 @app.route('/app/crear_registros')
 def agregar_registros():
-    query = "SELECT Nombre FROM Tipo_Gasto"
+    # Cargar los tipos de gastos 
+    query = "SELECT * FROM Tipo_Gasto"
     conexion_BD = conectarDB()
     df_opciones = pd.read_sql(query, conexion_BD)
+    opciones_val = [(row['ID_Tipo_Gasto'], row['Nombre']) for index, row in df_opciones.iterrows()][1:] 
 
-    opciones_val = df_opciones['Nombre'].tolist()
-    opciones_val =opciones_val[1:] # Se excluye el primer registro
-    print(opciones_val)
+    return render_template("RegistrarGastos.html",get_opciones=opciones_val)
+
+
+@app.route('/app/crear_registro_exitoso', methods=['POST'])
+def agregar_registros_exitoso():
+    # Cargar los tipos de gastos 
+    query = "SELECT * FROM Tipo_Gasto"
+    conexion_BD = conectarDB()
+    df_opciones = pd.read_sql(query, conexion_BD)
+    opciones_val = [(row['ID_Tipo_Gasto'], row['Nombre']) for index, row in df_opciones.iterrows()][1:]
+
+    # Crear registro
+    # Obtener usuario
+    usuario_id = '1'
+    # Datos del formulario
+    nombre = request.form['nombre']
+    valor = request.form['valor']
+    fecha = request.form['fecha']
+    tipo_registro = request.form['group51']
+
+    if tipo_registro=='Ingreso':
+        tipo_gasto="0"
+    else:
+        tipo_gasto = request.form['dropdown']
+    
+    # Contar registros por usuario
+    query = "SELECT count(*) FROM Registro where Usuario_ID="+usuario_id
+    cant_Registros = pd.read_sql(query, conexion_BD)
+    num_registro = cant_Registros.iloc[0, 0]  # Accede al elemento en la posición (0, 0)
+    num_registro_increment = num_registro + 1  # Suma 1 al valor obtenido
+
+    registro_id = usuario_id+'.'+str(num_registro_increment)
+
+    print(usuario_id,registro_id,nombre,valor,fecha,tipo_registro,tipo_gasto)
+
+    # Crear una sesión
+    Session = sessionmaker(bind=conexion_BD)
+    session_DB = Session()
+
+    nuevo_registro = Registro(
+        Usuario_ID = usuario_id,
+        Registro_ID = registro_id,
+        Nombre = nombre,
+        Valor = valor,
+        Fecha = fecha,
+        Tipo_Registro = tipo_registro,
+        Tipo_Gasto = tipo_gasto
+    )
+    try:
+        session_DB.add(nuevo_registro)
+        session_DB.commit()
+    except:
+        print("xd")
+    
     return render_template("RegistrarGastos.html",get_opciones=opciones_val)
 
 if __name__=="__main__": 

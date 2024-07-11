@@ -16,6 +16,26 @@
     <link rel="stylesheet" type="text/css" href="../static/css/styles.css" />
     <link rel="stylesheet" type="text/css" href="../static/css/components.css" />
     <link rel="stylesheet" type="text/css" href="../static/css/RegistrarGastos.css" />
+    <script>
+        // Función para desactivar/activar el select según el valor del radio button seleccionado
+        function toggleDropdown() {
+            var gastoRadio = document.getElementById('radio-gasto');
+            var ingresoRadio = document.getElementById('radio-ingreso');
+            var dropdown = document.getElementById('dropdown-tipo-gasto');
+
+            if (ingresoRadio.checked) {
+                dropdown.disabled = true;
+            } else if (gastoRadio.checked) {
+                dropdown.disabled = false;
+            }
+        }
+
+        // Agregar event listeners a los radio buttons
+        window.onload = function() {
+            document.getElementById('radio-gasto').addEventListener('change', toggleDropdown);
+            document.getElementById('radio-ingreso').addEventListener('change', toggleDropdown);
+        };
+    </script>
 </head>
 <body>
     <div class="registrargastos">
@@ -59,33 +79,35 @@
                 <div class="rownombre">
                     <div class="columnnombre">
                         <div class="container-13">
-                            <label class="nombre ui input size-xs fill round">
-                                <input name="nombre" placeholder="Nombre..." type="text" />
-                            </label>
-                            <label class="valor ui input size-xs fill round">
-                                <input name="valor" placeholder="Valor..." type="text" />
-                            </label>
-                            <label class="valor ui input size-xs fill round">
-                                <input name="ddmmaaaa" placeholder="aaaa/mm/dd..." type="text" />
-                            </label>
-                            <div class="group51">
-                                <label class="group51-1 ui radio">
-                                    <input type="radio" class="ui radio size-sm primary" value="gasto" name="group51" />
-                                    <span> Gasto</span>
+                            <form action="/app/crear_registro_exitoso" method="post">
+                                <label class="nombre ui input size-xs fill round">
+                                    <input name="nombre" placeholder="Nombre..." type="text" required/>
                                 </label>
-                                <label class="group51-2 ui radio">
-                                    <input type="radio" class="ui radio size-sm primary" value="ingreso" name="group51" />
-                                    <span> Ingreso</span>
+                                <label class="valor ui input size-xs fill round">
+                                    <input name="valor" placeholder="Valor..." type="number" required/>
                                 </label>
-                            </div>
-                            <select class="dropdown-1 ui selectbox size-xs fill round" name="dropdown">
-                                {% for opcion in get_opciones %}
-                                    <option value="{{ opcion }}">{{ opcion }}</option>
-                                {% endfor %}
-                            </select>
-                            <a href="https://www.youtube.com/embed/bv8Fxk0sz71" target="_blank">
-                                <button class="agregar ui button size-md fill round">Agregar</button>
-                            </a>
+                                <label class="valor ui input size-xs fill round">
+                                    <input name="fecha" placeholder="dd/mm/aaaa..." type="date" required/>
+                                </label>
+                                <div class="group51">
+                                    <label class="group51-1 ui radio">
+                                        <input type="radio" class="ui radio size-sm primary" value="gasto" name="group51" id="radio-gasto" checked/>
+                                        <span> Gasto</span>
+                                    </label>
+                                    <label class="group51-2 ui radio">
+                                        <input type="radio" class="ui radio size-sm primary" value="ingreso" name="group51" id="radio-ingreso" />
+                                        <span> Ingreso</span>
+                                    </label>
+                                </div>
+                                <select class="dropdown-1 ui selectbox size-xs fill round" name="dropdown" id="dropdown-tipo-gasto" required>
+                                    {% for id, opcion in get_opciones %}
+                                        <option value="{{ id }}">{{ opcion }}</option>
+                                    {% endfor %}
+                                </select>
+                                <a href="#" target="_blank">
+                                    <button class="agregar ui button size-md fill round">Agregar</button>
+                                </a>
+                            </form>
                         </div>
                     </div>
                     <div class="row ten">
