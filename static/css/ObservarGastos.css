@@ -212,3 +212,15 @@
         margin-right: 0px;
     }
 }
+
+.stackresumen {
+    height: 198px;
+    margin-bottom: 26px;
+    margin-left: 32px;
+    align-self: stretch;
+    position: relative;
+    @media only screen and (max-width: 1050px) {
+        height: auto;
+        margin-left: 0px;
+    }
+}
