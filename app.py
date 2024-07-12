@@ -10,6 +10,7 @@ from sqlalchemy import Column, String, Float, Date, Boolean
 app = Flask(__name__, template_folder="templates")
 app.secret_key = '12345678' # Necesario para redirigir templates con valores
 
+
 Base = declarative_base()
 
 class Usuario(Base):
@@ -33,10 +34,10 @@ class Registro(Base):
 
 def conectarDB():
     # Variables de conexión
-    server = 'DESKTOP-VQQ74TJ'
+    server = 'PC_INGLPA42'
     bd = 'FINANZAPP'
-    user = 'sa2'
-    password = '12345678'
+    user = 'sa'
+    password = 'labcom,2015'
     try:
         conexion_str = f"mssql+pyodbc://{user}:{password}@{server}/{bd}?driver=ODBC+Driver+17+for+SQL+Server"
         engine = create_engine(conexion_str)
@@ -173,7 +174,6 @@ def registro_correcto():
 def olvidado_contrena():
     return render_template("OlvidasteContrasena.html")
 
-
 # REGISTRAR GASTOS
 registros_temporales = []  # Lista para almacenar temporalmente los registros
 
@@ -197,7 +197,7 @@ def agregar_registro():
     opciones_val = [(row['ID_Tipo_Gasto'], row['Nombre']) for index, row in df_opciones.iterrows()][1:]
 
     # Obtener usuario (debes implementar cómo obtienes el usuario ID)
-    usuario_id = '1'  # Ejemplo estático, debes cambiar esto según tu lógica
+    usuario_id = session.get('usuario_id')  # Ejemplo estático, debes cambiar esto según tu lógica
 
     # Obtener datos del formulario
     nombre = request.form['nombre']
