@@ -130,12 +130,11 @@
 }
 
 .ui.button.fill {
-    background-color: #007bff;
     color: #fff;
 }
 
 .ui.button.fill:hover {
-    background-color: #0056b3;
+    background-color: #2F865AFF;
 }
 
 .ui.button.outline {
@@ -206,12 +205,12 @@
     background-color: var(--gray_100_02);
     color: var(--green_400);
 }
-  
+
 .ui.button.outline.green_400 {
     color: var(--green_400);
     border: 1px solid var(--green_400);
 }
-  
+
 .ui.button.fill-green_400 {
     background-color: var(--green_400);
     box-shadow: var(--shadow-md);
