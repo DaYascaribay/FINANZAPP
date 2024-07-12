@@ -59,60 +59,100 @@ def login():
     msj_recibido_login = session.pop('msj_enviado_login', " ")  # Obtener el mensaje de error de la sesión
     return render_template("IniciarSesion.html", msj_login=msj_recibido_login)
 
-@app.route('/app/observar_gastos', methods=['POST'])
+@app.route('/app/observar_gastos', methods=['GET','POST'])
 def inicio_exitoso():
-    # Datos del formulario
-    usuario = request.form['email']
-    contrasena = request.form['lock_key']
-    conexion_BD = conectarDB() # Conexión a la BD
+    if request.method=='POST':
+        # Datos del formulario
+        usuario = request.form['email']
+        contrasena = request.form['lock_key']
+        conexion_BD = conectarDB() # Conexión a la BD
 
-    if conexion_BD:
-        query = "SELECT * FROM Usuario"
-        df_usuarios = pd.read_sql(query, conexion_BD)
-        for i,user in df_usuarios.iterrows():
-            if usuario==f"{user['Email']}" and contrasena==f"{user['Contrasena']}":
-                #queryId="SELECT Usuario_ID FROM Usuario where Email='"+f"{user['Email']}"+"'"
-                session['usuario_id'] = f"{user['Usuario_ID']}"  # Guardar el ID del usuario en la sesión
-                
-                # Obtención de dinero restante y dinero utilizado
-                query="SELECT SUM(Valor) FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"'AND Tipo_Registro='Gasto'"
-                suma_gastos = pd.read_sql(query, conexion_BD)
-                try:
-                    suma_gastos = round(suma_gastos.iloc[0, 0],2)  # Accede al elemento en la posición (0, 0)
-                    suma_gastos_val = "$"+str(suma_gastos) 
-                except:
-                    suma_gastos_val="$0"
+        if conexion_BD:
+            query = "SELECT * FROM Usuario"
+            df_usuarios = pd.read_sql(query, conexion_BD)
+            for i,user in df_usuarios.iterrows():
+                if usuario==f"{user['Email']}" and contrasena==f"{user['Contrasena']}":
+                    #queryId="SELECT Usuario_ID FROM Usuario where Email='"+f"{user['Email']}"+"'"
+                    session['usuario_id'] = f"{user['Usuario_ID']}"  # Guardar el ID del usuario en la sesión
+                    
+                    # Obtención de dinero restante y dinero utilizado
+                    query="SELECT SUM(Valor) FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"'AND Tipo_Registro='Gasto'"
+                    suma_gastos = pd.read_sql(query, conexion_BD)
+                    try:
+                        suma_gastos = round(suma_gastos.iloc[0, 0],2)  # Accede al elemento en la posición (0, 0)
+                        suma_gastos_val = "$"+str(suma_gastos) 
+                    except:
+                        suma_gastos_val="$0"
 
-                query="SELECT SUM(Valor) FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"'AND Tipo_Registro='Ingreso'"
-                suma_ingresos = pd.read_sql(query, conexion_BD)
-                try:
-                    suma_ingresos = round(suma_ingresos.iloc[0, 0],2)  # Accede al elemento en la posición (0, 0)
-                    dinero_restante = "$"+str(suma_ingresos-suma_gastos)
-                except:
-                    dinero_restante="$0"
+                    query="SELECT SUM(Valor) FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"'AND Tipo_Registro='Ingreso'"
+                    suma_ingresos = pd.read_sql(query, conexion_BD)
+                    try:
+                        suma_ingresos = round(suma_ingresos.iloc[0, 0],2)  # Accede al elemento en la posición (0, 0)
+                        dinero_restante = "$"+str(suma_ingresos-suma_gastos)
+                    except:
+                        dinero_restante="$0"
 
-                # Obtención de cantidad de ingresos y gastos
-                query="SELECT COUNT(*) FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"'AND Tipo_Registro='Gasto'"
-                cant_gastos = pd.read_sql(query, conexion_BD)
-                try:
-                    cant_gastos_val = str(cant_gastos.iloc[0, 0]) # Accede al elemento en la posición (0, 0)
-                except:
-                    cant_gastos_val="0"
+                    # Obtención de cantidad de ingresos y gastos
+                    query="SELECT COUNT(*) FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"'AND Tipo_Registro='Gasto'"
+                    cant_gastos = pd.read_sql(query, conexion_BD)
+                    try:
+                        cant_gastos_val = str(cant_gastos.iloc[0, 0]) # Accede al elemento en la posición (0, 0)
+                    except:
+                        cant_gastos_val="0"
 
-                query="SELECT COUNT(*) FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"'AND Tipo_Registro='Ingreso'"
-                cant_ingresos = pd.read_sql(query, conexion_BD)
-                try:
-                    cant_ingresos_val = str(cant_ingresos.iloc[0, 0]) # Accede al elemento en la posición (0, 0)
-                except:
-                    cant_ingresos_val="0" 
-                # Cálculo de dinero utilizadoS
-                
-                return render_template("ObservarGastos.html",get_dinero_restante=dinero_restante, 
-                                       get_dinero_utilizado=suma_gastos_val,
-                                       get_cant_gastos=cant_gastos_val,
-                                       get_cant_ingresos=cant_ingresos_val)
-        session['msj_enviado_login'] = "Correo electrónico o contraseña incorrectos"
-        return redirect(url_for('login'))
+                    query="SELECT COUNT(*) FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"'AND Tipo_Registro='Ingreso'"
+                    cant_ingresos = pd.read_sql(query, conexion_BD)
+                    try:
+                        cant_ingresos_val = str(cant_ingresos.iloc[0, 0]) # Accede al elemento en la posición (0, 0)
+                    except:
+                        cant_ingresos_val="0" 
+                    # Cálculo de dinero utilizadoS
+                    
+                    return render_template("ObservarGastos.html",get_dinero_restante=dinero_restante, 
+                                        get_dinero_utilizado=suma_gastos_val,
+                                        get_cant_gastos=cant_gastos_val,
+                                        get_cant_ingresos=cant_ingresos_val)
+            session['msj_enviado_login'] = "Correo electrónico o contraseña incorrectos"
+            return redirect(url_for('login'))
+    else:
+        conexion_BD = conectarDB() # Conexión a la BD
+        query="SELECT SUM(Valor) FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"'AND Tipo_Registro='Gasto'"
+        suma_gastos = pd.read_sql(query, conexion_BD)
+        try:
+            suma_gastos = round(suma_gastos.iloc[0, 0],2)  # Accede al elemento en la posición (0, 0)
+            suma_gastos_val = "$"+str(suma_gastos) 
+        except:
+            suma_gastos_val="$0"
+
+        query="SELECT SUM(Valor) FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"'AND Tipo_Registro='Ingreso'"
+        suma_ingresos = pd.read_sql(query, conexion_BD)
+        try:
+            suma_ingresos = round(suma_ingresos.iloc[0, 0],2)  # Accede al elemento en la posición (0, 0)
+            dinero_restante = "$"+str(suma_ingresos-suma_gastos)
+        except:
+            dinero_restante="$0"
+
+        # Obtención de cantidad de ingresos y gastos
+        query="SELECT COUNT(*) FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"'AND Tipo_Registro='Gasto'"
+        cant_gastos = pd.read_sql(query, conexion_BD)
+        try:
+            cant_gastos_val = str(cant_gastos.iloc[0, 0]) # Accede al elemento en la posición (0, 0)
+        except:
+            cant_gastos_val="0"
+
+        query="SELECT COUNT(*) FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"'AND Tipo_Registro='Ingreso'"
+        cant_ingresos = pd.read_sql(query, conexion_BD)
+        try:
+            cant_ingresos_val = str(cant_ingresos.iloc[0, 0]) # Accede al elemento en la posición (0, 0)
+        except:
+            cant_ingresos_val="0" 
+        # Cálculo de dinero utilizadoS
+        
+        return render_template("ObservarGastos.html",get_dinero_restante=dinero_restante, 
+                            get_dinero_utilizado=suma_gastos_val,
+                            get_cant_gastos=cant_gastos_val,
+                            get_cant_ingresos=cant_ingresos_val)
+
 
 # CREAR CUENTA
 @app.route('/registrar_cuenta')
