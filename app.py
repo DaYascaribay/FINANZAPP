@@ -56,6 +56,7 @@ def aplicacion():
 # LOGEARSE
 @app.route('/login')
 def login():
+    session['usuario_id'] = " " # Elimina la sesión
     msj_recibido_login = session.pop('msj_enviado_login', " ")  # Obtener el mensaje de error de la sesión
     return render_template("IniciarSesion.html", msj_login=msj_recibido_login)
 
@@ -115,6 +116,9 @@ def inicio_exitoso():
             session['msj_enviado_login'] = "Correo electrónico o contraseña incorrectos"
             return redirect(url_for('login'))
     else:
+        if session['usuario_id'] == " ": #Verifica que haya una sesión activa
+            session['msj_enviado_login'] = "Por favor inicie sesión"
+            return redirect(url_for('login'))
         conexion_BD = conectarDB() # Conexión a la BD
         query="SELECT SUM(Valor) FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"'AND Tipo_Registro='Gasto'"
         suma_gastos = pd.read_sql(query, conexion_BD)
@@ -219,6 +223,9 @@ registros_temporales = []  # Lista para almacenar temporalmente los registros
 
 @app.route('/app/crear_registro')
 def crear_registro():
+    if session['usuario_id'] == " ": #Verifica que haya una sesión activa
+        session['msj_enviado_login'] = "Por favor inicie sesión"
+        return redirect(url_for('login'))
     # Cargar los tipos de gastos 
     query = "SELECT * FROM Tipo_Gasto"
     conexion_BD = conectarDB()
@@ -230,6 +237,9 @@ def crear_registro():
 
 @app.route('/app/agregar_registro', methods=['POST'])
 def agregar_registro():
+    if session['usuario_id'] == " ": #Verifica que haya una sesión activa
+        session['msj_enviado_login'] = "Por favor inicie sesión"
+        return redirect(url_for('login'))
     # Cargar los tipos de gastos 
     query = "SELECT * FROM Tipo_Gasto"
     conexion_BD = conectarDB()
@@ -275,6 +285,9 @@ def agregar_registro():
 
 @app.route('/app/guardar_registros', methods=['POST'])
 def guardar_registros():
+    if session['usuario_id'] == " ": #Verifica que haya una sesión activa
+        session['msj_enviado_login'] = "Por favor inicie sesión"
+        return redirect(url_for('login'))
     # Conectar a la base de datos
     conexion_BD = conectarDB()
     Session = sessionmaker(bind=conexion_BD)
