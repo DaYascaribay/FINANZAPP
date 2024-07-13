@@ -6,9 +6,22 @@
 /*
  1. Common CSS
  */
-.email-2 {
+
+body{
+    overflow: hidden;
+    background: #48BF84FF;
+}
+
+
+.email {
     color: var(--blue_gray_800) !important;
 }
+
+.email-2 {
+    color: var(--blue_gray_800) !important;
+    margin-left: 25px; 
+}
+
 .error {
     color: #E23737 !important;
 }
@@ -27,24 +40,21 @@
  2. Page CSS
  */
 .containercrear {
-    z-index: 1;
-    background-color: var(--white_a700);
-    box-shadow: var(--shadow-sm);
-    width: 42%;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    padding: var(--space-lg);
-    border-radius: var(--radius-sm);
-    @media only screen and (max-width: 1050px) {
-        width: 100%;
-        padding: 20px;
-    }
+    top: 181px; 
+    left: 72px; 
+    width: 644px; 
+    height: 650px; 
+    background: #FFFFFFFF; /* white */
+    border-radius: 8px; /* border-xl */
+    box-shadow: 0px 0px 1px #171a1f, 0px 0px 2px #171a1f;
+    margin-left: 250px;
+    position: absolute; 
+    margin-top: -120px;
 }
 
 .column-5 {
     margin-top: 16px;
-    gap: var (--space-13x1);
+    gap: var(--space-13x1);
     display: flex;
     width: 100%;
     flex-direction: column;
@@ -52,14 +62,21 @@
 }
 
 .crear_cuenta-1 {
-    color: var(--blue_gray_700_01) !important;
-    font-family: Cabin !important;
+    top: 70px; 
+    left: 256px; 
+    font-family: Cabin; /* Heading */
+    font-size: 32px; 
+    line-height: 48px; 
+    font-weight: 700; 
+    color: #565D6DFF;
 }
+
 
 .rownombre-2 {
     gap: 20px;
     display: flex;
     align-self: stretch;
+    margin-top: 50px;
     @media only screen and (max-width: 550px) {
         flex-direction: column;
     }
@@ -74,6 +91,51 @@
     @media only screen and (max-width: 550px) {
         width: 100%;
     }
+}
+
+.email-5{
+        width: 590px; 
+        height: 36px; 
+        padding-left: 12px; 
+        padding-right: 12px; 
+        font-family: Inter; 
+        font-size: 14px; 
+        line-height: 22px; 
+        font-weight: 400; 
+        background: #F3F4F6FF; /* neutral-200 */
+        border-radius: 4px; /* border-m */
+        border-width: 0px; 
+        outline: none; 
+}
+
+.email-3{
+    width: 231px; 
+    height: 36px; 
+    padding-left: 12px; 
+    padding-right: 12px; 
+    font-family: Inter; 
+    font-size: 14px; 
+    line-height: 22px; 
+    font-weight: 400; 
+    background: #F3F4F6FF; /* neutral-200 */
+    border-radius: 4px; /* border-m */
+    border-width: 0px; 
+    outline: none; 
+}   
+.email-4{
+    width: 300px; 
+    height: 36px; 
+    padding-left: 20px; 
+    padding-right: 12px; 
+    font-family: Inter; 
+    font-size: 14px; 
+    line-height: 22px; 
+    font-weight: 400; 
+    background: #F3F4F6FF; /* neutral-200 */
+    border-radius: 4px; /* border-m */
+    border-width: 0px; 
+    outline: none; 
+    margin-left: 35px;
 }
 
 .columnapellido {
@@ -107,7 +169,7 @@
 
 .columconfirmar {
     margin-top: 10px;
-    gap: var (--space-xs);
+    gap: var(--space-xs);
     display: flex;
     align-self: stretch;
     flex-direction: column;
@@ -115,21 +177,34 @@
 }
 
 .aceptotrminosd {
-    color: var (--gray_900_01);
-    margin-top: 20px;
-    font-family: Cabin;
-    font-size: 14px;
-    align-self: start;
+    top: 450px; 
+    left: 64px; 
+    font-family: Cabin; /* Heading */
+    font-size: 14px; 
+    line-height: 22px; 
+    font-weight: 400; 
+    color: #171A1FFF;
+    margin-top: 25px;
 }
 
 .crear_cuenta-2 {
-    margin-top: 20px;
-    width: 100%;
-    border-radius: var(--radius-sm);
-    @media only screen and (max-width: 550px) {
-        padding-left: 20px;
-        padding-right: 20px;
-    }
+    top: 493px; 
+    left: 28px; 
+    width: 588px; 
+    height: 44px; 
+    padding: 0 16px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-family: Inter; 
+    font-size: 16px; 
+    line-height: 26px; 
+    font-weight: 400; 
+    color: #FFFFFFFF; /* white */
+    background: #48BF84FF; /* primary-500 */
+    opacity: 1; 
+    border: none; 
+    border-radius: 4px
 }
 
 .rowyatienesunac {
@@ -137,16 +212,14 @@
     gap: var(--space-sm);
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .imagefondo_one-1 {
-    height: 900px;
-    margin-left: -92px;
-    position: relative;
-    width: 52%;
-    object-fit: cover;
-    @media only screen and (max-width: 1050px) {
-        width: 100%;
-        margin-left: 0px;
-    }
+    top: 0px; 
+    left: 628px; 
+    width: 850px; 
+    height: 900px; 
+    border-radius: 0px; 
+    margin-left: 850px;
 }

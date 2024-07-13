@@ -1,11 +1,11 @@
-<!doctype html>
+<!Doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+    <meta name="description" content="Web site created using create-react-app">
     <title>Finanzapp</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#000000" />
-    <meta name="description" content="Web site created using create-react-app" />
     <img
         alt="Logo"
         src="https://appproject.dhiwise.com/dhiwise-logo.png?c=&v="
@@ -46,46 +46,48 @@
     </script>
 </head>
 <body>
-    <div class="iniciarsesion">
+    <div class="crearcuenta">
         <div class="rowemail">
-            <div class="containercrear">
+            <div class="flex-col-center-center containercrear">
                 <div class="column-5">
                     <div class="rowheaderlogo">
                         <img src="../static/images/img_image_1.svg" alt="Imagelogo" class="imagelogo_one">
-                        <p class="crear_cuenta-1 ui text size-text2xl">Crear Cuenta</p>
+                        <a href="/PaginaPrincipal">
+                        <p class="crear_cuenta-1 ui heading size-heading2x1">REGISTRARSE</p>
+                        </a>
                     </div>
                     <div class="columnaceptotr">
                         <form id="registroForm" action="/registro_correcto" method="post">
                             <div class="rownombre-2">
                                 <div class="columnnombre-2">
-                                    <h4 class="email-2 ui heading size-headingxs">Nombre</h4>
+                                    <h4 class="email ui heading size-headingxs">Nombre</h4>
                                     <label class="email-3 ui input size-xs fill round">
                                         <input name="nombre" placeholder="David" type="text" required>
                                     </label>
                                 </div>
                                 <div class="columnapellido">
-                                    <h4 class="email-2 ui heading size-headingxs">Apellido</h4>
-                                    <label class="email-3 ui input size-xs fill round">
+                                    <h4 class="email-2 ui heading size-headingxs">&nbsp;&nbsp;&nbsp;&nbsp;Apellido</h4>
+                                    <label class="email-4 ui input size-xs fill round">
                                         <input name="apellido" placeholder="Yascaribay" type="text" required>
                                     </label>
                                 </div>
                             </div>
                             <div class="columnemail-1">
-                                <h4 class="email-2 ui heading size-headingxs">Email</h4>
-                                <label class="email-3 ui input size-xs fill round">
+                                <h4 class="email ui heading size-headingxs">Email</h4>
+                                <label class="email-5 ui input size-xs fill round">
                                     <input name="email_usuario" placeholder="ejemplo@gmail.com" type="email" required>
                                 </label>
                             </div>
                             <div class="columncontrasea">
-                                <h4 class="email-2 ui heading size-headingxs">Contraseña</h4>
-                                <label class="hide ui input size-xs fill round">
+                                <h4 class="email ui heading size-headingxs">Contraseña</h4>
+                                <label class="email-5 ui input size-xs fill round">
                                     <input name="password_one" placeholder="Ingresa 8+ caracteres" type="password" required>
                                     <img src="../static/images/img_hide.svg" alt="Hide" class="hide-1">
                                 </label>
                             </div>
                             <div class="columncontrasea">
-                                <h4 class="email-2 ui heading size-headingxs">Confirmar Contraseña</h4>
-                                <label class="hide ui input size-xs fill round">
+                                <h4 class="email ui heading size-headingxs">Confirmar Contraseña</h4>
+                                <label class="email-5 ui input size-xs fill round">
                                     <input name="password_repeated" placeholder="Repite la contraseña" type="password" required>
                                     <img src="../static/images/img_hide.svg" alt="Hide" class="hide-1">
                                 </label>
@@ -100,7 +102,7 @@
                         <div class="rowyatienesunac">
                             <p class="ui text size-texts">¿Ya tienes una cuenta?</p>
                             <a href="/login">
-                                <h5 class="crea_una_ahora ui heading size-headingxs">Inicia sesión</h5>
+                                <h4 class="crea_una_ahora ui heading size-headingxs">Inicia sesión</h4>
                             </a>
                         </div>
                     </div>
