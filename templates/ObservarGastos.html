@@ -100,65 +100,29 @@
                     <div class="rowresumen">
                         <div class="container-g">
                             <p class="resumen_mensual ui text size-textxl">Resumen mensual</p>
-                            <p class="este_mes ui text size-texts">Este mes</p>
                             <div class="viewhierarchy">
-                                <a href="https://www.youtube.com/embed/bv8Fxk@sz7I" target="_blank">
-                                    <div class="viewhierarchy-1">
-                                        <div class="column-1">
-                                            <img src="../static/images/img_arrow_up_right.svg" alt="Image" class="logotwitter_one" />
+                                {% for mes in get_meses %}
+                                    <p class="este_mes ui text size-texts">{{ mes['Mes'] }} de {{ mes['Año'] }}</p>
+                                    <a href="https://www.youtube.com/embed/bv8Fxk@sz7I" target="_blank">
+                                        <div class="viewhierarchy-1">
+                                            <div class="column-1">
+                                                <img src="../static/images/img_arrow_up_right.svg" alt="Image" class="logotwitter_one" />
+                                            </div>
+                                            <div class="columntitle">
+                                                <p class="ui text size-texts">Resumen de {{ mes['Mes'] }} de {{ mes['Año'] }}</p>
+                                                <p class="subtitle ui text size-textxs">{{ mes['Cant_Gastos'] }} gastos<br />{{ mes['Cant_Ingresos'] }} ingresos</p>
+                                            </div>
+                                            <div class="row-3">
+                                                <button class="button-1 ui button size-xs outline undefined undefined undefined undefined border">
+                                                    Visualizar
+                                                </button>
+                                            </div>
+                                            <div class="row one-3">
+                                                <img src="../static/images/img_slider.svg" alt="Image" class="image-5" />
+                                            </div>
                                         </div>
-                                        <div class="columntitle">
-                                            <p class="ui text size-texts">Resumen de julio de 2024</p>
-                                            <p class="subtitle ui text size-textxs">46 gastos<br />0 ingresos</p>
-                                        </div>
-                                        <div class="row-3">
-                                            <button 
-                                                class="button-1 ui button size-xs outline undefined undefined undefined undefined border"
-                                            >
-                                                Visualizar
-                                            </button>
-                                        </div>
-                                        <div class="row one-3">
-                                            <img src="../static/images/img_slider.svg" alt="Image" class="image-5" />
-                                        </div>
-                                    </div>
-                                </a>
-                                <p class="junio ui text size-texts">Junio</p>
-                                <div class="viewhierarchy-1">
-                                    <div class="column-1">
-                                        <img src="../static/images/img_arrow_up_right.svg" alt="Image" class="logotwitter_one" />
-                                    </div>
-                                    <div class="columntitle">
-                                        <p class="ui text size-texts">Resumen de junio de 2024</p>
-                                        <p class="subtitle ui text size-texts">24 gastos<br />4 ingresos</p>
-                                    </div>
-                                    <div class="row-3">
-                                        <button class="button-1 ui button size-xs outline undefined undefined undefined border">
-                                            Visualizar
-                                        </button>
-                                    </div>
-                                    <div class="row one-3">
-                                        <img src="../static/images/img_slider.svg" alt="Image" class="image-5" />
-                                    </div>
-                                </div>
-                                <p class="junio ui text size-texts">Mayo</p>
-                                <div class="viewhierarchy-1">
-                                    <div class="column-1">
-                                        <img src="../static/images/img_arrow_up_right.svg" alt="Image" class="logotwitter_one" />
-                                    </div>
-                                    <div class="columntitle">
-                                        <p class="ui text size-texts">Resumen de mayo de 2024</p>
-                                        <p class="subtitle ui text size-texts">3 gastos<br />5 ingresos</p>
-                                    </div>
-                                    <div class="row-3">
-                                        <button class="button-1 ui button size-xs outline undefined undefined undefined border">
-                                            Visualizar
-                                        </button>
-                                    </div>
-                                    <div class="row_one-3">
-                                        <img src="../static/images/img_slider.svg" alt="Image" class="image-5" />
-                                    </div>
-                                </div>
+                                    </a>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -169,7 +133,7 @@
                                 <div class="stackpie_one">
                                     <div class="column_one-1">
                                         <p class="finanzapp ui text size-textmd">Dinero utilizado</p>
-                                        <h4 class="ui heading size-heading3x1">$1345.50</h4>
+                                        <h4 class="ui heading size-heading3x1">{{get_dinero_utilizado}}</h4>
                                     </div>
                                     <div data-progress="47" style="--progress: 47%" class="pie one"></div>
                                 </div>
@@ -178,14 +142,14 @@
                                         <div class="view_eight"></div>
                                         <p class="dinerorestante ui text size-texts">Dinero restante</p>
                                     </div>
-                                    <h5 class="ui heading size-headings">$1600.45</h5>
+                                    <h5 class="ui heading size-headings">{{get_dinero_restante}}</h5>
                                 </div>
                                 <div class="row_twentyseven">
                                     <div class="ronview_eight">
                                         <div class="view_nine"></div>
                                         <p class="dinerorestante ui text size-texts">Dinero utilizado</p>
                                     </div>
-                                    <h6 class="ui heading size-headings">$1345.50</h6>
+                                    <h6 class="ui heading size-headings">{{get_dinero_utilizado}}</h6>
                                 </div>
                             </div>
                         </div>
