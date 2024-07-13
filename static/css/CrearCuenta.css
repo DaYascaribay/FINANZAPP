@@ -177,22 +177,31 @@ body{
 }
 
 .aceptotrminosd {
-    top: 450px; 
-    left: 64px; 
-    font-family: Cabin; /* Heading */
-    font-size: 14px; 
-    line-height: 22px; 
-    font-weight: 400; 
-    color: #171A1FFF;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
     margin-top: 25px;
 }
 
+.acep {
+    margin-right: 10px;
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+}
+
+.aceptotrminosd div {
+    font-size: 14px;
+    color: #333;
+    line-height: 16px; /* Match this to the height of the checkbox */
+}
+
+
 .crear_cuenta-2 {
-    top: 493px; 
-    left: 28px; 
+    cursor: pointer;
     width: 588px; 
     height: 44px; 
-    padding: 0 16px; 
+    padding: 25 16px; 
     display: flex; 
     align-items: center; 
     justify-content: center; 
@@ -202,13 +211,17 @@ body{
     font-weight: 400; 
     color: #FFFFFFFF; /* white */
     background: #48BF84FF; /* primary-500 */
-    opacity: 1; 
-    border: none; 
+    margin-top: 25px;
     border-radius: 4px
 }
 
+.crear_cuenta-2:hover{
+    color: #FFFFFFFF; /* white */
+    background: #2F865AFF;
+}
+
 .rowyatienesunac {
-    margin-top: 12px;
+    margin-top: 20px;
     gap: var(--space-sm);
     display: flex;
     flex-wrap: wrap;

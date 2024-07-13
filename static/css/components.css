@@ -40,6 +40,8 @@
 */
 .ui.checkbox.square {
     border-radius: 0px;
+    display: flex;
+    align-items: center;
 }
   
 .ui.checkbox.size-xs {
@@ -50,7 +52,6 @@
   
 .ui.checkbox {
     display: flex;
-    align-items: center;
     gap: 5px;
     cursor: pointer;
 }
