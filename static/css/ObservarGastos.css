@@ -237,7 +237,25 @@ body{
 }
 
 .vistageneral {
-    color: var(--blue_gray_500);
+    top: 24px; 
+    left: 32px; 
+    font-family: Cabin; /* Heading */
+    font-size: 24px; 
+    line-height: 36px; 
+    font-weight: 400; 
+    color: #323743FF;
+}
+
+.vistageneral1 {
+    top: 24px; 
+    left: 32px; 
+    font-family: Cabin; /* Heading */
+    font-size: 24px; 
+    line-height: 36px; 
+    font-weight: 400; 
+    color: #323743FF;
+    margin-top: 30px;
+    margin-left: 35px;
 }
 
 .resumen_mensual {
@@ -351,17 +369,9 @@ body{
     display: flex;
     flex-direction: column;
     gap: var(--space-lg);
+    
 }
 
-.columnpie_one {
-    background-color: var(--white_a700);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-xs);
-    padding: var(--space-lg);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-lg);
-}
 
 .stackpie_one {
     display: flex;
@@ -370,29 +380,62 @@ body{
     gap: var(--space-md);
 }
 
-.pie {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: conic-gradient(var(--green_400) calc(var(--progress) * 1%), var(--gray_300) calc(var(--progress) * 1%));
+.dinut{
+    top: 219px; 
+    left: 139px; 
+    font-family: Cabin; /* Heading */
+    font-size: 40px; 
+    line-height: 56px; 
+    font-weight: 700; 
+    color: #171A1FFF;
+    margin-left: 194px;
+    margin-top: 14px;
 }
 
-.view_eight,
-.view_nine {
-    height: 12px;
-    width: 12px;
+.pie_one {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; 
+}
+
+.view_eight{
+    height: 15px;
+    width: 15px;
     background-color: var(--green_400);
+    border-radius: 50%;
+}
+
+.view_nine {
+    height: 15px;
+    width: 15px;
+    background-color: #26413CFF;
     border-radius: 50%;
 }
 
 .ronview_eight {
     display: flex;
     align-items: center;
-    gap: var(--space-sm);
+    gap: var(--space-lg);
+    margin-top: 100px;
+    margin-left: 35px;
+}
+
+.ronview_eight1 {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    margin-top: 30px;
+    margin-left: 35px;
 }
 
 .dinerorestante {
-    color: var(--blue_gray_500);
+    top: 409px; 
+    left: 60px; 
+    font-family: Inter; /* Body */
+    font-size: 14px; 
+    line-height: 22px; 
+    font-weight: 500; 
+    color: #171A1FFF; /* neutral-900 */
 }
 
 .finanzapp {
@@ -405,6 +448,18 @@ body{
     color: #323743FF;
     margin-top: 20px;
     margin-left: 25px;
+}
+
+.finanzapp2 {
+    top: 181px; 
+    left: 163px; 
+    font-family: Inter; /* Body */
+    font-size: 18px; 
+    line-height: 26px; 
+    font-weight: 400; 
+    color: #323743FF; 
+    margin-top: 105px;
+    margin-left: 180px;
 }
 
 .pricetext {
@@ -423,6 +478,30 @@ body{
     display: flex; /* Hace que los elementos hijos se alineen en una fila */
     gap: var(--space-6x1); /* Espacio entre los contenedores (opcional) */
     margin-top: 35px;
+}
+
+.dinrest{
+    position: absolute;
+    top: 407px; 
+    left: 335px; 
+    font-family: Inter; /* Body */
+    font-size: 16px; 
+    line-height: 26px; 
+    font-weight: bold; 
+    color: #171A1FFF; /* neutral-900 */
+    margin-top: -28px;
+}
+
+.dinrest1{
+    position: absolute;
+    top: 459px; 
+    left: 335px; 
+    font-family: Inter; /* Body */
+    font-size: 16px; 
+    line-height: 26px; 
+    font-weight: bold; 
+    color: #171A1FFF;
+    margin-top: -29px;
 }
 
 .resu{
