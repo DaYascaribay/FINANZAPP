@@ -523,7 +523,9 @@
     line-height: 68px; 
     font-weight: 700; 
     color: #323743FF;
+    margin-top: 80px;
 }
+
 .columnfinanzapp {
     gap: 52px;
     display: flex;
@@ -566,6 +568,7 @@
     line-height: 68px; 
     font-weight: 700; 
     color: #171A1FFF;
+    margin-top: 50px;
 }
 
 .columnhazte {
@@ -575,7 +578,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-top: -10px;
+    margin-top: 20px;
     @media only screen and (max-width: 1050px) {
         gap: 54px;
         padding-left: 20px;
