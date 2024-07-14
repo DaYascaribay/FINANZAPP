@@ -34,7 +34,7 @@ class Registro(Base):
 
 def conectarDB():
     # Variables de conexión
-    server = 'David_0728\SQLEXPRESS'
+    server = 'DESKTOP-VQQ74TJ'
     bd = 'FINANZAPP'
     user = 'sa2'
     password = '12345678'
@@ -89,7 +89,7 @@ def inicio_exitoso():
                     suma_ingresos = pd.read_sql(query, conexion_BD)
                     try:
                         suma_ingresos = round(suma_ingresos.iloc[0, 0],2)  # Accede al elemento en la posición (0, 0)
-                        dinero_restante = "$"+str(suma_ingresos-suma_gastos)
+                        dinero_restante = "$"+str(round(suma_ingresos-suma_gastos,2))
                     except:
                         dinero_restante="$0"
 
