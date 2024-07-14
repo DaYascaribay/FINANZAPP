@@ -60,6 +60,45 @@ body{
     height: 40px;
     width: 40px;
     border-radius: 50%;
+    cursor: pointer;
+}
+
+.user-profile {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    z-index: 1;
+}
+
+.logout-button {
+    background-color: #FFFFFFFF; /* Red color */
+    color: #000000FF;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    cursor: pointer;
+    width: 180px;
+    gap: 8px;
+}
+
+.logout-button:hover{
+    color: #28714CFF; /* primary-700 */
+    background: #C9ECDBFF;
+}
+
+.user-profile:hover .dropdown-menu {
+    display: block;
 }
 
 /* Dashboard */

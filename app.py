@@ -367,6 +367,9 @@ def guardar_registros():
     # Redirigir a alguna página de éxito o volver al formulario
     return redirect(url_for('crear_registro'))
 
+@app.route('/app/recomendaciones')
+def recomendaciones():
+    return render_template("Recomendaciones.html")
 
 
 if __name__=="__main__": 
