@@ -117,9 +117,11 @@
                                             <p class="gasin">{{ mes['Cant_Gastos'] }} gastos<br/>{{ mes['Cant_Ingresos'] }} ingresos</p>
                                         </div>
                                         <div class="row-3">
-                                            <button class="btnvisu">
-                                                Visualizar
-                                            </button>
+                                            <a href="/app/observar_gastos_mes?mes={{ mes['Mes'] }}&año={{ mes['Año'] }}">
+                                                <button class="btnvisu">
+                                                    Visualizar
+                                                </button>
+                                            </a>
                                         </div>
                                         <div class="row_one-3">
                                             <img src="../static/images/img_slider.svg" alt="Image" class="image-5" />

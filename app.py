@@ -371,6 +371,48 @@ def guardar_registros():
 def recomendaciones():
     return render_template("Recomendaciones.html")
 
+@app.route('/app/observar_gastos_mes')
+def observar_gastos_mes():
+    if session.get('usuario_id') == " ": # Verifica que haya una sesión activa
+        session['msj_enviado_login'] = "Por favor inicie sesión"
+        return redirect(url_for('login'))
+    
+    meses_espanol = {
+        'Enero': 1, 'Febrero': 2, 'Marzo': 3, 'Abril': 4,
+        'Mayo': 5, 'Junio': 6, 'Julio': 7, 'Agosto': 8,
+        'Septiembre': 9, 'Octubre': 10, 'Noviembre': 11, 'Diciembre': 12
+    }
+    
+    mes = request.args.get('mes')
+    mes_numero = meses_espanol.get(mes)
+    año = request.args.get('año')
+
+    conexion_BD = conectarDB()
+    
+    # Obtención de dinero restante y dinero utilizado
+    query="SELECT SUM(Valor) FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"'AND Tipo_Registro='Gasto' AND MONTH(Fecha)="+str(mes_numero)+" AND YEAR(Fecha)="+str(año)
+    suma_gastos = pd.read_sql(query, conexion_BD)
+    try:
+        suma_gastos = round(suma_gastos.iloc[0, 0],2)  # Accede al elemento en la posición (0, 0)
+        suma_gastos_val = "$"+str(suma_gastos) 
+    except:
+        suma_gastos_val="$0"
+
+    query="SELECT SUM(Valor) FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"'AND Tipo_Registro='Ingreso' AND MONTH(Fecha)="+str(mes_numero)+" AND YEAR(Fecha)="+str(año)
+    suma_ingresos = pd.read_sql(query, conexion_BD)
+    try:
+        suma_ingresos = round(suma_ingresos.iloc[0, 0],2)  # Accede al elemento en la posición (0, 0)
+        dinero_restante = "$"+str(round(suma_ingresos-suma_gastos,2))
+    except:
+        dinero_restante="$0"
+    
+    query = "SELECT Registro_ID, Nombre, Valor, Fecha, Tipo_Registro, Tipo_Gasto FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"' AND MONTH(Fecha)="+str(mes_numero)+" AND YEAR(Fecha)="+str(año)
+    df_registros_mes = pd.read_sql(query, conexion_BD)
+
+    return render_template("ResumenMensual.html", registros=df_registros_mes.to_dict(orient='records'), mes=mes, año=año,
+                           get_dinero_restante=dinero_restante,
+                           get_dinero_utilizado=suma_gastos_val)
+
 
 if __name__=="__main__": 
     app.run(debug=True, port=7777)
