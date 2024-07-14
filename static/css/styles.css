@@ -180,7 +180,6 @@
 }
 
 .observareconom {
-    color: var(--green_400) !important;
     align-self: start;
 }
 
@@ -198,7 +197,6 @@
 }
 
 .crearregistros {
-    color: var(--gray_700) !important;
     align-self: end;
 }    
 
@@ -219,7 +217,6 @@
 }
 
 .recomendaciones {
-    color: var(--gray_700) !important;
     align-self: start;
 }
 
