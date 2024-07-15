@@ -90,13 +90,13 @@
                         <div class="container_13">
                             <form action="/app/agregar_registro" method="post">
                                 <label class="nombre ui input size-xs fill round">
-                                    <input class="inputname" name="nombre" placeholder="Nombre..." type="text"/>
+                                    <input class="inputname" name="nombre" placeholder="Nombre..." type="text" required/>
                                 </label>
                                 <label class="valor ui input size-xs fill round">
-                                    <input class="inputval" name="valor" placeholder="Valor..."type="number" step="any" />
+                                    <input class="inputval" name="valor" placeholder="Valor..."type="number" step="any" required/>
                                 </label>
                                 <label class="valor ui input size-xs fill round">
-                                    <input class="inputcal" name="fecha" placeholder="dd/mm/aaaa..." type="date" />
+                                    <input class="inputcal" name="fecha" placeholder="dd/mm/aaaa..." type="date" required/>
                                 </label>
                                 <div class="group51">
                                     <label class="group51-1 ui radio">
@@ -118,7 +118,7 @@
                             <form action="/app/guardar_registros" method="post">
                                 <button class="agregar1" type="submit" name="action" value="guardar">Guardar</button>
                             </form>
-                            <form>
+                            <form action="/app/eliminar_registros">
                                 <button class="agregar2" type="submit" name="action" value="guardar">Eliminar</button>
                             </form>
                         </div>
@@ -165,32 +165,32 @@
                                     <tr>
                                         <td>
                                             <div class="rowframe">
-                                                <p class="registro">{{ loop.index }}</p>
+                                                <p class="frame-1 ui text size-texts">{{ loop.index }}</p>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="rownombre_one">
-                                                <p class="registro">{{ registro['Nombre'] }}</p>
+                                                <p class="frame-1 ui text size-texts">{{ registro['Nombre'] }}</p>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="rownombre_one">
-                                                <p class="registro">${{ registro['Valor'] }}</p>
+                                                <p class="frame-1 ui text size-texts">${{ registro['Valor'] }}</p>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="rownombre_one">
-                                                <p class="registro">{{ registro['Fecha'] }}</p>
+                                                <p class="frame-1 ui text size-texts">{{ registro['Fecha'] }}</p>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="rownombre_one">
-                                                <p class="registro">{{ registro['Tipo_Registro'] }}</p>
+                                                <p class="frame-1 ui text size-texts">{{ registro['Tipo_Registro'] }}</p>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="rownombre_one">
-                                                <p class="registro">{{ registro['Tipo_Gasto'] }}</p>
+                                                <p class="frame-1 ui text size-texts">{{ registro['Tipo_Gasto'] }}</p>
                                             </div>
                                         </td>
                                     </tr>

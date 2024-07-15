@@ -434,6 +434,14 @@ input, select, button {
     color: #565D6DFF
 }
 
+.frame-1 {
+    background-color: var(--white_a700);
+    padding: 5px var(--space-11xl) 5px var(--space-4x1);
+    @media only screen and (max-width: 550px) {
+      padding-right: 20px;
+    }
+}
+
 .cabecera{
     height: 80px;
 }

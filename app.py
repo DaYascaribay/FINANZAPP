@@ -10,7 +10,6 @@ from sqlalchemy import Column, String, Float, Date, Boolean
 app = Flask(__name__, template_folder="templates")
 app.secret_key = '12345678' # Necesario para redirigir templates con valores
 
-
 Base = declarative_base()
 
 class Usuario(Base):
@@ -34,7 +33,7 @@ class Registro(Base):
 
 def conectarDB():
     # Variables de conexión
-    server = 'DAVID_0728\SQLEXPRESS'
+    server = 'DESKTOP-VQQ74TJ'
     bd = 'FINANZAPP'
     user = 'sa2'
     password = '12345678'
@@ -367,6 +366,15 @@ def guardar_registros():
     # Redirigir a alguna página de éxito o volver al formulario
     return redirect(url_for('crear_registro'))
 
+@app.route('/app/eliminar_registros')
+def eliminar_registros():
+    if session['usuario_id'] == " ": #Verifica que haya una sesión activa
+        session['msj_enviado_login'] = "Por favor inicie sesión"
+        return redirect(url_for('login'))
+    registros_temporales.clear()
+    # Redirigir a alguna página de éxito o volver al formulario
+    return redirect(url_for('crear_registro'))
+
 @app.route('/app/recomendaciones')
 def recomendaciones():
     return render_template("Recomendaciones.html")
@@ -406,7 +414,7 @@ def observar_gastos_mes():
     except:
         dinero_restante="$0"
     
-    query = "SELECT Registro_ID, Nombre, Valor, Fecha, Tipo_Registro, Tipo_Gasto FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"' AND MONTH(Fecha)="+str(mes_numero)+" AND YEAR(Fecha)="+str(año)
+    query = "SELECT Registro_ID, Nombre, Valor, Fecha, Tipo_Registro, Tipo_Gasto FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"' AND MONTH(Fecha)="+str(mes_numero)+" AND YEAR(Fecha)="+str(año)+" order by Fecha"
     df_registros_mes = pd.read_sql(query, conexion_BD)
 
     return render_template("ResumenMensual.html", registros=df_registros_mes.to_dict(orient='records'), mes=mes, año=año,
