@@ -445,6 +445,52 @@ def observar_gastos_general():
                            get_dinero_utilizado=suma_gastos_val)
 
 
+# RECOMENDACIONES
+
+@app.route('/app/recomendaciones', methods=['GET', 'POST'])
+def recomendaciones():
+    if session.get('usuario_id') == " ": # Verifica que haya una sesión activa
+        session['msj_enviado_login'] = "Por favor inicie sesión"
+        return redirect(url_for('login'))
+    
+    conexion_BD = conectarDB()
+    #Obtener los meses por separado
+    query = "SELECT MONTH(Fecha) Mes, YEAR(Fecha) Año FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"' GROUP BY MONTH(Fecha), YEAR(Fecha)"
+    df_meses = pd.read_sql(query, conexion_BD)
+
+    meses_espanol = {
+        1: 'Enero', 2: 'Febrero', 3: 'Marzo', 4: 'Abril',
+        5: 'Mayo', 6: 'Junio', 7: 'Julio', 8: 'Agosto',
+        9: 'Septiembre', 10: 'Octubre', 11: 'Noviembre', 12: 'Diciembre'
+    }
+
+    # Crear un DataFrame con las columnas requeridas
+    datos = []
+    for index, fila in df_meses.iterrows():
+        mes_numero = fila['Mes']
+        año = fila['Año']
+        mes_nombre = meses_espanol.get(mes_numero, 'Desconocido')
+        datos.append({
+            'mes_num': mes_numero,
+            'mes_palabra': mes_nombre,
+            'año_num': año
+        })
+
+    meses_val = pd.DataFrame(datos)
+
+    if request.method == 'POST':
+        fecha = request.form['dropdown']
+        mes, año = fecha.split('-') 
+
+        # Obtener las clasificaciones de registros con valor
+        query=f"SELECT sum(R.Valor) Valor, T.Nombre FROM Registro R, Tipo_Gasto T WHERE Usuario_ID='{session.get('usuario_id')}' AND MONTH(Fecha)={mes} AND YEAR(Fecha)={año} AND T.ID_Tipo_Gasto=R.Tipo_Gasto GROUP BY T.Nombre ORDER BY Valor DESC"
+        df_dist_gastos = pd.read_sql(query, conexion_BD)
+        return render_template("Recomendaciones.html", get_meses=meses_val.to_dict('records'), get_dist_gastos=df_dist_gastos.to_dict('records'))
+
+    return render_template("Recomendaciones.html", get_meses=meses_val.to_dict('records'))
+
+
 if __name__=="__main__": 
     app.run(debug=True, port=7777)
+
 
