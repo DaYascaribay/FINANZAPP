@@ -8,7 +8,7 @@ body{
     display: flex;
     margin-left: -30px;
     margin-top: 3px;
-    color: var(--gray_700)
+    color: var(--gray_700);
 }
 
 .logotwitter_one1{
@@ -25,14 +25,14 @@ body{
     margin-left: 30px;
     margin: -20px;
     margin-left: 20px;
-    color: var(--green_400) 
+    color: var(--green_400);
 }
 
 .recomendaciones{
     display: flex;
     margin-left: 40px;
     margin-top: 3px;
-    color: var(--gray_700)
+    color: var(--gray_700);
 }
 
 .logotwitter_one{
