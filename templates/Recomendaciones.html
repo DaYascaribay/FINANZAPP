@@ -150,10 +150,15 @@
                     <div class="column_one-2">
                         <div class="rowultimo_mes">
                             <div class="columnultimo">
-                                <p class="vista_general1">Último mes</p>
-                                <select class="dropdown-1" name="dropdown" id="dropdown-tipo-gasto">
-                                        <option  value="{{ id }}">Enero</option>
-                                </select>
+                                <p class="vista_general1">Seleccione el mes</p>
+                                <form action="/app/recomendaciones" method="POST">
+                                    <select class="dropdown-1" name="dropdown" id="dropdown-tipo-gasto">
+                                        {% for fila in df_meses %}
+                                            <option value="{{ fila.mes_num }}-{{ fila.año_num }}">{{ fila['mes_palabra'] }} {{ fila['año_num'] }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <button class="agregar" type="submit">Actualizar</button>
+                                </form>
                                 <div class="rowcurrencydoll">
                                     <img src="../static/images/img_currency dollar.svg" alt="Currencydollar" class="archivecheckone" />
                                     <h5 class="pricetext ui heading size-headingg">Gasto más significativo</h5>
