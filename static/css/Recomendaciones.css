@@ -1077,3 +1077,25 @@ body{
     margin-left: 600px;
     margin-top: 180px;
 }
+
+.agregar {
+    top: 345px; 
+    left: 46px; 
+    width: 100px; 
+    height: 37px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-family: Inter; 
+    font-size: 16px; 
+    line-height: 26px; 
+    font-weight: 400; 
+    color: #FFFFFFFF; /* white */
+    background: #48BF84FF; /* primary-500 */
+    opacity: 1; 
+    border: none; 
+    border-radius: 8px; /* border-xl */
+    margin-left: 41px;
+    cursor: pointer;
+    margin-top: 20px;
+}

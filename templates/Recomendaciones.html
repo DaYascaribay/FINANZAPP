@@ -86,17 +86,13 @@
                                 </div>
                                 <div>            
                                     <div class="columnview">
-                                        <div class="row_seven">
-                                            <div class="rowview_eight">
-                                                <div class="view_nine"></div>
-                                                <p class="dinerorestante">Comida rápida</p>
-                                            </div>
-                                            <h3 class="predis">$60.45</h3>
-                                        </div>
-                                        <div class="row_seven">
-                                            <div class="rowview_eight">
-                                                <div class="view_nine"></div>
-                                                <p class="dinerorestante">Medicina</p>
+                                        {% for fila in get_dist_gastos %}
+                                            <div class="row_seven">
+                                                <div class="rowview_eight">
+                                                    <div class="view_nine"></div>
+                                                    <p class="dinerorestante">{{fila['Nombre']}}</p>
+                                                </div>
+                                                <h3 class="predis">${{fila['Valor']}}</h3>
                                             </div>
                                             <h3 class="predis">$46.25</h3>
                                         </div>
@@ -116,7 +112,7 @@
                                         </div>
                                         <div class="row_seven">
                                             <div class="rowview_eight">
-                                                <div class="view_three"></div>
+                                                <div class="view_eight"></div>
                                                 <p class="dinerorestante">Dulce</p>
                                             </div>
                                             <h3 class="predis">$3.50</h3>
@@ -150,10 +146,15 @@
                     <div class="column_one-2">
                         <div class="rowultimo_mes">
                             <div class="columnultimo">
-                                <p class="vista_general1">Último mes</p>
-                                <select class="dropdown-1" name="dropdown" id="dropdown-tipo-gasto">
-                                        <option  value="{{ id }}">Enero</option>
-                                </select>
+                                <p class="vista_general1">Seleccione el mes</p>
+                                <form action="/app/recomendaciones" method="POST">
+                                    <select class="dropdown-1" name="dropdown" id="dropdown-tipo-gasto">
+                                        {% for fila in get_meses %}
+                                            <option value="{{ fila.mes_num }}-{{ fila.año_num }}">{{ fila['mes_palabra'] }} {{ fila['año_num'] }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <button class="agregar" type="submit">Actualizar</button>
+                                </form>
                                 <div class="rowcurrencydoll">
                                     <img src="../static/images/img_currency_dollar.svg" alt="Currencydollar" class="archivecheckone" />
                                     <h5 class="pricetext">Gasto más significativo</h5>
