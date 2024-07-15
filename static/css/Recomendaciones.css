@@ -212,35 +212,63 @@ body{
     width: 100%;
     flex-direction: column;
     align-items: center;
+    height: 1px;
+}
+
+.dropdown-1{
+    width: 192px; 
+    height: 36px; 
+    padding-left: 12px; 
+    padding-right: 34px; 
+    font-family: Inter; 
+    font-size: 14px; 
+    line-height: 22px; 
+    font-weight: 400; 
+    color: #171A1FFF; /* neutral-900 */
+    background: #FFFFFFFF; /* white */
+    border-radius: 4px; /* border-m */
+    border-width: 1px; 
+    border-color: #BDC1CAFF; /* neutral-400 */
+    outline: none; 
 }
 
 .newscreenbody-1 {
-    margin-right: 12px;
-    gap: var(--space-12xl);
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    @media only screen and (max-width: 1050px) {
-        margin-right: 0px;
-    }
+    top: 208px; 
+    left: 65px; 
+    width: 1296px; 
+    height: 1900px; 
+    background: #FFFFFFFF; /* white */
+    border-radius: 4px; /* border-m */
+    border-width: 1px; 
+    border-color: #DEE1E6FF; /* neutral-300 */
+    border-style: solid; 
 }
 
 .container-16 {
-    gap: var(--space-5x1);
-    background-color: var(--white_a700);
-    display: flex;
-    align-self: stretch;
-    align-items: start;
-    padding: var(--space-11x1);
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--gray_300);
-    @media only screen and (max-width: 1050px) {
-        flex-direction: column;
-    }
+    margin-top: 30px;
+    margin-left: 30px;
+    top: 32px; 
+    left: 30px; 
+    width: 539px; 
+    height: 624px; 
+    background: #FFFFFFFF; /* white */
+    border-radius: 8px; /* border-xl */
+    border-width: 1px; 
+    border-color: #DEE1E6FF; /* neutral-300 */
+    border-style: solid; 
+}
 
-    @media only screen and (max-width: 550px) {
-        padding: 20px;
-    }
+.newscreenbody-1{
+    top: 208px; 
+    left: 65px; 
+    width: 1296px; 
+    height: 100%; 
+    background: #FFFFFFFF; /* white */
+    border-radius: 4px; /* border-m */
+    border-width: 1px; 
+    border-color: #DEE1E6FF; /* neutral-300 */
+    border-style: solid;
+    margin-top: 25px;
 }
 
 .columndistribuc {
@@ -381,9 +409,20 @@ body{
 }
     
 .columnview {
-    gap: var(--space-5xl);
-    display: flex;
     flex-direction: column;
+    margin-left: 30px;
+    margin-top: 100px;
+}
+
+.predis{
+    top: 402px; 
+    left: 451px; 
+    font-family: Inter; /* Body */
+    font-size: 16px; 
+    line-height: 26px; 
+    font-weight: 700; 
+    color: #171A1FFF; /* neutral-900 */
+    margin-right: 30px;
 }
 
 .rowview_three {
@@ -441,6 +480,8 @@ body{
 }
     
 .column_one-1 {
+    margin-top: 100px;
+    margin-left: 210px;
     gap: var(--space-13x1);
     display: flex;
     flex: 1;
@@ -448,6 +489,28 @@ body{
     @media only screen and (max-width: 1050px) {
         align-self: stretch;
     }
+}
+
+.finanzapp{
+    top: 181px; 
+    left: 212px; 
+    font-family: Inter; /* Body */
+    font-size: 18px; 
+    line-height: 26px; 
+    font-weight: 400; 
+    color: #323743FF; /* neutral-700 */
+}
+
+.dinul{
+    top: 219px; 
+    left: 196px; 
+    font-family: Cabin; /* Heading */
+    font-size: 40px; 
+    line-height: 56px; 
+    font-weight: 700; 
+    color: #171A1FFF; /* neutral-900 */
+    margin-top: 15px;
+    margin-left: -15px;
 }
 
 .rowltimo_mes {
@@ -622,4 +685,56 @@ body{
     line-height: 22px;
     border-radius: var(--radius-lg);
     border: 1px solid var(--gray_300);
+}
+
+.dashboard{
+    top: 120px; 
+    left: 65px; 
+    font-family: Cabin; /* Heading */
+    font-size: 40px; 
+    line-height: 56px; 
+    font-weight: 700; 
+    color: #171A1FFF; /* neutral-900 */
+    margin-top: 100px;
+}
+
+.vista_general{
+    top: 24px; 
+    left: 32px; 
+    font-family: Cabin; /* Heading */
+    font-size: 24px; 
+    line-height: 36px; 
+    font-weight: 400; 
+    color: #323743FF; /* neutral-700 */   
+    margin-top: 20px;
+    margin-left: 30px;
+}
+
+.dinerorestante{
+    top: 404px; 
+    left: 60px; 
+    width: 130px; 
+    font-family: Inter; /* Body */
+    font-size: 14px; 
+    line-height: 22px; 
+    font-weight: 500; 
+    color: #171A1FFF; /* neutral-900 */
+}
+
+.vista_general1{
+    margin-top: -1340px;
+    top: 32px; 
+    left: 586px; 
+    font-family: Cabin; /* Heading */
+    font-size: 24px; 
+    line-height: 36px; 
+    font-weight: 400; 
+    color: #323743FF; /* neutral-700 */
+
+}
+
+.column_one-2,
+.columnarchivech,
+.rowarrowupright{
+    margin-left: 600px;
 }

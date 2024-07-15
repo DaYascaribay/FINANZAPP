@@ -63,61 +63,63 @@
             </div>
         </header>
         <div class="column_three container-xs">
+            <h1 class="dashboard">Recomendación</h1>
             <div class="newscreenbody-1">
-                <h1 class="dashboard ui heading size-heading3x1">Recomendación</h1>
                 <div class="container-15">
                     <div class="columndistribuc">
                         <div class="container-16">
-                            <p class="vista_general ui text size-textxl">Distribución de los gastos</p>
+                            <p class="vista_general">Distribución de los gastos</p>
                             <div class="column-4">
                                 <div class="stackdinero">
+                                    <!-- 
                                     <div class="piechart1">
                                         <div data-progress="24" style="--progress: 24%" class="circleprogressb"></div>
                                         <div data-progress="7" style="--progress: 7%" class="circleprogressb-1"></div>
                                         <div data-progress="24" style="--progress: 24%" class="circleprogressb-2"></div>
                                         <div data-progress="3" style="--progress: 3%" class="circleprogressb-3"></div>
                                     </div>
+                                    -->
                                     <div class="column_one-1">
-                                        <p class="finanzapp ui text size-textmd">Dinero utilizado</p>
-                                        <h2 class="ui heading size-heading3x1">$142.00</h2>
+                                        <p class="finanzapp">Dinero utilizado</p>
+                                        <h2 class="dinul">$142.00</h2>
                                     </div>
                                 </div>
                                 <div>            
                                     <div class="columnview">
-                                        <div class="row seven">
+                                        <div class="row_seven">
                                             <div class="rowview_eight">
                                                 <div class="view_nine"></div>
-                                                <p class="dinerorestante ui text size-texts">Comida rápida</p>
+                                                <p class="dinerorestante">Comida rápida</p>
                                             </div>
-                                            <h3 class="ui heading size-headings">$60.45</h3>
+                                            <h3 class="predis">$60.45</h3>
                                         </div>
                                         <div class="row_seven">
                                             <div class="rowview_eight">
                                                 <div class="view_nine"></div>
-                                                <p class="dinerorestante ui text size-texts">Medicina</p>
+                                                <p class="dinerorestante">Medicina</p>
                                             </div>
-                                            <h4 class="ui heading size-headings">$46.25</h4>
+                                            <h3 class="predis">$46.25</h3>
                                         </div>
                                         <div class="row_seven">
                                             <div class="rowview_eight">
                                                 <div class="view_nine"></div>
-                                                <p class="dinerorestante ui text size-texts">Transporte privado</p>
+                                                <p class="dinerorestante">Transporte privado</p>
                                             </div>
-                                            <h5 class="ui heading size-headings">$24.80</h5>
+                                            <h3 class="predis">$24.80</h3>
                                         </div>
-                                        <div class="row seven">
+                                        <div class="row_seven">
                                             <div class="rowview_three">
                                                 <div class="view_three"></div>
-                                                <p class="dinerorestante ui text size-texts">Transporte público</p>
+                                                <p class="dinerorestante">Transporte público</p>
                                             </div>
-                                            <h6 class="ui heading size-headings">$7.00</h6>
+                                            <h3 class="predis">$7.00</h3>
                                         </div>
                                         <div class="row_seven">
                                             <div class="rowview_eight">
                                                 <div class="view_eight"></div>
-                                                <p class="dinerorestante ui text size-texts">Dulce</p>
+                                                <p class="dinerorestante">Dulce</p>
                                             </div>
-                                            <h6 class="ui heading size-headings">$3.50</h6>
+                                            <h3 class="predis">$3.50</h3>
                                         </div>
                                     </div>
                                 </div>
@@ -148,7 +150,10 @@
                     <div class="column_one-2">
                         <div class="rowultimo_mes">
                             <div class="columnultimo">
-                                <p class="vista_general ui text size-textxl">Último mes</p>
+                                <p class="vista_general1">Último mes</p>
+                                <select class="dropdown-1" name="dropdown" id="dropdown-tipo-gasto">
+                                        <option  value="{{ id }}">Enero</option>
+                                </select>
                                 <div class="rowcurrencydoll">
                                     <img src="../static/images/img_currency dollar.svg" alt="Currencydollar" class="archivecheckone" />
                                     <h5 class="pricetext ui heading size-headingg">Gasto más significativo</h5>
