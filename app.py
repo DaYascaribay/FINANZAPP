@@ -33,7 +33,7 @@ class Registro(Base):
 
 def conectarDB():
     # Variables de conexión
-    server = 'David_0728\SQLEXPRESS'
+    server = 'DESKTOP-VQQ74TJ'
     bd = 'FINANZAPP'
     user = 'sa2'
     password = '12345678'
@@ -106,6 +106,24 @@ def obtener_cant_gasto_ingreso_mes(Usuario_ID,Tipo,Mes,Año):
     except:
         contador = 0
     return str(contador)
+
+def obtener_gasto_fuerte(Usuario_ID,Mes,Año):
+    conexion_BD=conectarDB()
+    query = f"SELECT R.Nombre, T.Nombre as Tipo_gasto, COUNT(R.Valor) Cantidad, SUM(R.Valor) Valor_total, AVG(R.Valor) Promedio, ROUND((SUM(R.Valor) / (SELECT SUM(R.Valor) FROM Registro R WHERE Usuario_ID='{Usuario_ID}' AND MONTH(Fecha)={Mes} AND YEAR(Fecha)={Año})) * 100, 2) as Porcentaje FROM Registro R JOIN Tipo_Gasto T ON T.ID_Tipo_Gasto=R.Tipo_Gasto WHERE R.Usuario_ID='{Usuario_ID}' AND MONTH(R.Fecha)={Mes} AND YEAR(R.Fecha)={Año} GROUP BY R.Nombre, T.Nombre ORDER BY Valor_total DESC"
+    df_gastos_fuertes = pd.read_sql(query, conexion_BD)
+
+    if not df_gastos_fuertes.empty:
+        gasto_fuerte = df_gastos_fuertes.iloc[0].to_dict()
+    else:
+        gasto_fuerte = {
+            'Nombre': 'N/A',
+            'Tipo_gasto': 'N/A',
+            'Cantidad': 0,
+            'Valor_total': 0,
+            'Promedio': 0.0,
+            'Porcentaje': 0
+        }
+    return gasto_fuerte
 
 
 @app.route('/PaginaPrincipal')
@@ -455,7 +473,7 @@ def recomendaciones():
     
     conexion_BD = conectarDB()
     #Obtener los meses por separado
-    query = "SELECT MONTH(Fecha) Mes, YEAR(Fecha) Año FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"' GROUP BY MONTH(Fecha), YEAR(Fecha)"
+    query = "SELECT MONTH(Fecha) Mes, YEAR(Fecha) Año FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"'  GROUP BY YEAR(Fecha), MONTH(Fecha) ORDER BY Año DESC, Mes DESC"
     df_meses = pd.read_sql(query, conexion_BD)
 
     meses_espanol = {
@@ -483,14 +501,50 @@ def recomendaciones():
         mes, año = fecha.split('-') 
 
         # Obtener las clasificaciones de registros con valor
-        query=f"SELECT sum(R.Valor) Valor, T.Nombre FROM Registro R, Tipo_Gasto T WHERE Usuario_ID='{session.get('usuario_id')}' AND MONTH(Fecha)={mes} AND YEAR(Fecha)={año} AND T.ID_Tipo_Gasto=R.Tipo_Gasto GROUP BY T.Nombre ORDER BY Valor DESC"
+        query = f"SELECT sum(R.Valor) Valor, T.Nombre FROM Registro R, Tipo_Gasto T WHERE Usuario_ID='{session.get('usuario_id')}' AND MONTH(Fecha)={mes} AND YEAR(Fecha)={año} AND T.ID_Tipo_Gasto=R.Tipo_Gasto GROUP BY T.Nombre ORDER BY Valor DESC"
         df_dist_gastos = pd.read_sql(query, conexion_BD)
-        return render_template("Recomendaciones.html", get_meses=meses_val.to_dict('records'), get_dist_gastos=df_dist_gastos.to_dict('records'))
 
-    return render_template("Recomendaciones.html", get_meses=meses_val.to_dict('records'))
+        dinero_utilizado_val =  obtener_gasto_ingreso_mes(session.get('usuario_id'),'Ingreso',mes,año)
+        gasto_val =  obtener_gasto_ingreso_mes(session.get('usuario_id'),'Gasto',mes,año)
+        cant_ingresos_val = obtener_cant_gasto_ingreso_mes(session.get('usuario_id'),'Ingreso',mes,año)
+        cant_gastos_val = obtener_cant_gasto_ingreso_mes(session.get('usuario_id'),'Gasto',mes,año)
+
+        mes_palabra = meses_espanol[int(mes)]
+        # Obtener gasto más fuerte
+        gasto_fuerte = obtener_gasto_fuerte(session.get('usuario_id'),mes,año)
+        return render_template("Recomendaciones.html", get_meses=meses_val.to_dict('records'), 
+                                                       get_mes=mes_palabra,get_año=año,
+                                                       get_dist_gastos=df_dist_gastos.to_dict('records'),
+                                                       get_dinero_utilizado=dinero_utilizado_val,
+                                                       get_gasto_val=gasto_val,
+                                                       get_cant_ingresos=cant_ingresos_val,
+                                                       get_cant_gastos=cant_gastos_val,
+                                                       get_gasto_fuerte=gasto_fuerte)
+
+    # Obtener las clasificaciones de registros con valor
+    mes=7
+    año=2024
+    query = f"SELECT sum(R.Valor) Valor, T.Nombre FROM Registro R, Tipo_Gasto T WHERE Usuario_ID='{session.get('usuario_id')}' AND MONTH(Fecha)={mes} AND YEAR(Fecha)={año} AND T.ID_Tipo_Gasto=R.Tipo_Gasto GROUP BY T.Nombre ORDER BY Valor DESC"
+    df_dist_gastos = pd.read_sql(query, conexion_BD)
+
+    dinero_utilizado_val =  obtener_gasto_ingreso_mes(session.get('usuario_id'),'Ingreso',mes,año)
+    gasto_val =  obtener_gasto_ingreso_mes(session.get('usuario_id'),'Gasto',mes,año)
+    cant_ingresos_val = obtener_cant_gasto_ingreso_mes(session.get('usuario_id'),'Ingreso',mes,año)
+    cant_gastos_val = obtener_cant_gasto_ingreso_mes(session.get('usuario_id'),'Gasto',mes,año)
+
+    gasto_fuerte = obtener_gasto_fuerte(session.get('usuario_id'),mes,año)
+    mes_palabra = meses_espanol[int(mes)]
+    return render_template("Recomendaciones.html", get_meses=meses_val.to_dict('records'), 
+                                                    get_dist_gastos=df_dist_gastos.to_dict('records'),
+                                                    get_mes=mes_palabra,get_año=año,
+                                                    get_dinero_utilizado=dinero_utilizado_val,
+                                                    get_gasto_val=gasto_val,
+                                                    get_cant_ingresos=cant_ingresos_val,
+                                                    get_cant_gastos=cant_gastos_val,
+                                                    get_gasto_fuerte=gasto_fuerte)
 
 
 if __name__=="__main__": 
-    app.run(debug=True, port=7777)
+    app.run(debug=True, port=777)
 
 

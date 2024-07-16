@@ -81,7 +81,7 @@
                                     -->
                                     <div class="column_one-1">
                                         <p class="finanzapp">Dinero utilizado</p>
-                                        <h2 class="dinul">$142.00</h2>
+                                        <h2 class="dinul">${{get_dinero_utilizado}}</h2>
                                     </div>
                                 </div>
                                 <div>            
@@ -94,30 +94,7 @@
                                                 </div>
                                                 <h3 class="predis">${{fila['Valor']}}</h3>
                                             </div>
-                                            <h3 class="predis">$46.25</h3>
-                                        </div>
-                                        <div class="row_seven">
-                                            <div class="rowview_eight">
-                                                <div class="view_nine"></div>
-                                                <p class="dinerorestante">Transporte privado</p>
-                                            </div>
-                                            <h3 class="predis">$24.80</h3>
-                                        </div>
-                                        <div class="row_seven">
-                                            <div class="rowview_three">
-                                                <div class="view_three"></div>
-                                                <p class="dinerorestante">Transporte público</p>
-                                            </div>
-                                            <h3 class="predis">$7.00</h3>
-                                        </div>
                                         {% endfor %}
-                                        <div class="row_seven">
-                                            <div class="rowview_eight">
-                                                <div class="view_eight"></div>
-                                                <p class="dinerorestante">Dulce</p>
-                                            </div>
-                                            <h3 class="predis">$3.50</h3>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -164,37 +141,37 @@
                                     <div class="columnnombre-1">
                                         <div class="rownombre-1">
                                             <p class="finanzapp2">Nombre</p>
-                                            <p class="finanzapp3">Pizza</p>
+                                            <p class="finanzapp3">{{ get_gasto_fuerte['Nombre'] }}</p>
                                             <div class="rowpizza">
                                                 <div class="rowpreciopromed">
                                                     <p class="preciprom">Precio promedio</p>
-                                                    <p class="finanzapp4">$21.34</p>
+                                                    <p class="finanzapp4">${{get_gasto_fuerte['Promedio']}}</p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="rownombre-1">
                                             <p class="finanzapp5">Tipo</p>
                                             <div class="rowpizza">
-                                                <p class="finanzapp6">Comida rápida</p>
+                                                <p class="finanzapp6">{{get_gasto_fuerte['Tipo_gasto']}}</p>
                                                 <div class="rowporcentaje">
                                                     <p class="finanzapp7">Porcentaje</p>
-                                                    <p class="finanzapp8">%18.60</p>
+                                                    <p class="finanzapp8">%{{get_gasto_fuerte['Porcentaje']}}</p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="rowvecesreincid">
                                             <p class="finanzapp9">Veces reincido</p>
-                                            <p class="finanzapp10">4</p>
+                                            <p class="finanzapp10">{{get_gasto_fuerte['Cantidad']}}</p>
                                         </div>
                                     </div>
                                     <div class="containercant">
                                         <div class="containercant-1">
                                             <p class="contgas">Gastos</p>
-                                            <h5 class="fortysix">46</h5>
+                                            <h5 class="fortysix">{{get_cant_gastos}}</h5>
                                         </div>
                                         <div class="containercant-1">
                                             <p class="contgas">Ingresos</p>
-                                            <h5 class="fortysix">0</h5>
+                                            <h5 class="fortysix">{{get_cant_ingresos}}</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -212,12 +189,12 @@
                             <div class="columnarrowupri">
                                 <img src="../static/images/img_arrow_up_right.svg" alt="Arrowupright" class="logotwitter_one3" />
                                 <div class="columntitle1">
-                                    <p class="res">Resumen de julio de 2024</p>
-                                    <p class="rescon">5 gastos<br />0 ingresos</p>
+                                    <p class="res">Resumen de {{ get_mes }} de {{ get_año }}</p>
+                                    <p class="rescon">{{get_cant_gastos}} gastos<br />{{get_cant_ingresos}} ingresos</p>
                                 </div>
                             </div>
                             <div class="row-3">
-                                <a href="">
+                                <a href="/app/observar_gastos_mes?mes={{ get_mes }}&año={{ get_año }}">
                                     <button class="btnvisu">
                                         Visualizar
                                     </button>
