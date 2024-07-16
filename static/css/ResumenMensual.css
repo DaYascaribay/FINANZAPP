@@ -152,7 +152,7 @@
     padding: var(--space-5xl) var(--space-11xl) var(--space-5x1) var(--space-4x1);
     border: 0.5px solid var(--gray_300);
     @media only screen and (max-width: 550px) {
-      padding-right: 20px;
+        padding-right: 20px;
     }
 }
 
@@ -161,34 +161,44 @@
     padding: 14px 20px 14px var(--space-4x1);
     border: 0.5px solid var(--gray_300);
 }
-  
-.price-10 {
-    background-color: var(--white_a700);
-    padding: 14px var(--space-10x1) 14px var(--space-4x1);
-    border: 0.5px solid var(--gray_300);
-    @media only screen and (max-width: 550px) {
-      padding-right: 20px;
-    }
+
+.pricetext {
+    font-weight: bold;
+    margin-top: 10px;
+    margin-left: 25px;
+    font-size: 32px;
 }
-  
+
+.finanzapp{
+    top: 24px; 
+    left: 24px; 
+    font-family: Inter; /* Body */
+    font-size: 21px; 
+    line-height: 26px; 
+    font-weight: 400; 
+    color: #323743FF;
+    margin-top: 20px;
+    margin-left: 25px;
+}
+
 .frame_eleven {
     background-color: var(--white_a700);
     padding: 14px var(--space-7x1) 14px var(--space-4x1);
     border: 0.5px solid var(--gray_300);
     @media only screen and (max-width: 550px) {
-      padding-right: 20px;
+        padding-right: 20px;
     }
 }
-  
+
 .frame-1 {
     background-color: var(--white_a700);
     padding: 14px var(--space-11xl) 14px var(--space-4x1);
     border: 0.5px solid var(--gray_300);
     @media only screen and (max-width: 550px) {
-      padding-right: 20px;
+        padding-right: 20px;
     }
 }
- 
+
 /*
 2. Page CSS
 */
@@ -206,42 +216,75 @@
     display: flex;
     flex-direction: column;
     @media only screen and (max-width: 1050px) {
-      padding: 20px;
+        padding: 20px;
     }
 
     @media only screen and (max-width: 550px) {
         gap: 27px;
     }
 }
-  
+
 .rowdashboard {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 20px;
+    margin-top: 100px;
 }
-  
-.dashboard-1 {
-    margin-left: 6px;
-    text-transform: uppercase;
+
+.dashboard {
+    top: 104px; 
+    left: 72px; 
+    font-family: Cabin; /* Heading */
+    font-size: 32px; 
+    line-height: 48px; 
+    font-weight: 700; 
+    color: #171A1FFF;
 }
-  
+
 .regresar {
-    min-width: 82px;
+    top: 110px; 
+    left: 1289px; 
+    height: 36px; 
+    padding: 0 12px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-family: Inter; 
+    font-size: 14px; 
+    line-height: 22px; 
+    font-weight: 400; 
+    color: #48BF84FF; /* primary-500 */
+    background: #00000000; /* transparent */
+    opacity: 1; 
+    border-radius: 8px; /* border-xl */
+    border-width: 1px; 
+    border-color: #48BF84FF; /* primary-500 */
+    border-style: solid; 
+    cursor: pointer;
+    position: absolute;
+    margin-top: -1px;
+    margin-left: 110px;
 }
-  
+
+.regresar:hover{
+    color: #2F865AFF; /* primary-650 */
+    background: #00000000; /* transparent */
+}
+
 .stackresumengen {
-    height: 198px;
-    margin-left: 38px;
-    margin-right: 34px;
-    position: relative;
-    @media only screen and (max-width: 1050px) {
-        height: auto;
-        margin-left: 0px;
-        margin-right: 0px;
-    }
+    top: 182px; 
+    left: 72px; 
+    width: 1296px; 
+    height: 250px; 
+    background: #FFFFFFFF; /* white */
+    border-radius: 8px; /* border-xl */
+    border-width: 1px; 
+    border-color: #DEE1E6FF; /* neutral-300 */
+    border-style: solid; 
+    margin-top: -15px;
 }
-  
+
 .row_twentyeight {
     gap: var(--space-4x1);
     display: flex;
@@ -250,7 +293,7 @@
         flex-direction: column;
     }
 }
-  
+
 .resumenmes {
     gap: var(--space-7xl);
     background-color: var(--white_a700);
@@ -380,10 +423,42 @@
     align-items: center;
 }
 
-.vista_general-2 {
-    color: var(--blue_gray_900_02) !important;
-    font-family: Cabin !important;
-    align-self: start;
+.vista_general {
+    top: 24px; 
+    left: 32px; 
+    font-family: Cabin; /* Heading */
+    font-size: 24px; 
+    line-height: 36px; 
+    font-weight: 400; 
+    color: #323743FF; /* neutral-700 */
+    margin-top: 20px;
+    margin-left: 30px;
+}
+
+.container-g{
+    display: flex;
+    gap: var(--space-6x1); /* Espacio entre los contenedores */
+    position: absolute;
+    margin-top: 20px;
+    margin-left: 35px;
+}
+
+.container-10{
+    top: 84px; 
+    left: 32px; 
+    width: 280px; 
+    height: 134px; 
+    background: #F4FBF7FF; /* primary-100 */
+    border-radius: 8px; /* border-xl */
+}
+
+.container-11{
+    top: 84px; 
+    left: 336px; 
+    width: 280px; 
+    height: 134px; 
+    background: #FDFAEEFF; 
+    border-radius: 8px; /* border-xl */
 }
 
 .columbar {
