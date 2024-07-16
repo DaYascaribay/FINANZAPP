@@ -522,8 +522,9 @@ def recomendaciones():
                                                        get_gasto_fuerte=gasto_fuerte)
 
     # Obtener las clasificaciones de registros con valor
-    mes=7
-    año=2024
+    mes_default = df_meses.iloc[0].to_dict()
+    mes=mes_default['Mes']
+    año=mes_default['Año']
     query = f"SELECT sum(R.Valor) Valor, T.Nombre FROM Registro R, Tipo_Gasto T WHERE Usuario_ID='{session.get('usuario_id')}' AND MONTH(Fecha)={mes} AND YEAR(Fecha)={año} AND T.ID_Tipo_Gasto=R.Tipo_Gasto GROUP BY T.Nombre ORDER BY Valor DESC"
     df_dist_gastos = pd.read_sql(query, conexion_BD)
 
