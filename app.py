@@ -139,6 +139,9 @@ def login():
     msj_recibido_login = session.pop('msj_enviado_login', " ")  # Obtener el mensaje de error de la sesión
     return render_template("IniciarSesion.html", msj_login=msj_recibido_login)
 
+
+# OBSERVAR REGISTROS
+
 @app.route('/app/observar_gastos', methods=['GET','POST'])
 def inicio_exitoso():
     if request.method=='POST':
@@ -147,6 +150,7 @@ def inicio_exitoso():
         contrasena = request.form['lock_key']
         conexion_BD = conectarDB() # Conexión a la BD
 
+        session['msj_enviado_login'] = "Por favor inicie sesión"
         if conexion_BD:
             query = "SELECT * FROM Usuario"
             df_usuarios = pd.read_sql(query, conexion_BD)
@@ -196,6 +200,7 @@ def inicio_exitoso():
             session['msj_enviado_login'] = "Por favor inicie sesión"
             return redirect(url_for('login'))
         
+
         conexion_BD = conectarDB() # Conexión a la BD
         
         suma_gastos_val = obtener_gasto_ingreso_total(session.get('usuario_id'),'Gasto')
@@ -227,11 +232,74 @@ def inicio_exitoso():
         lista_meses = [{'Mes': mes, 'Año': año, 'Cant_Gastos': valores['Cant_Gastos'], 'Cant_Ingresos': valores['Cant_Ingresos']}
                        for (mes, año), valores in meses_val.items()]
 
+        msj_recibido_observar_gastos = session.pop('msj_error', " ")  # Obtener el mensaje de error de la sesión
+
         return render_template("ObservarGastos.html",get_dinero_restante=dinero_restante, 
                             get_dinero_utilizado=suma_gastos_val,
                             get_cant_gastos=cant_gastos_val,
                             get_cant_ingresos=cant_ingresos_val,
-                            get_meses=lista_meses)
+                            get_meses=lista_meses,
+                            get_error=msj_recibido_observar_gastos)
+
+@app.route('/app/observar_gastos_mes')
+def observar_gastos_mes():
+    if session.get('usuario_id') == " ": # Verifica que haya una sesión activa
+        session['msj_enviado_login'] = "Por favor inicie sesión"
+        return redirect(url_for('login'))
+    
+    meses_espanol = {
+        'Enero': 1, 'Febrero': 2, 'Marzo': 3, 'Abril': 4,
+        'Mayo': 5, 'Junio': 6, 'Julio': 7, 'Agosto': 8,
+        'Septiembre': 9, 'Octubre': 10, 'Noviembre': 11, 'Diciembre': 12
+    }
+    
+    mes = request.args.get('mes')
+    mes_numero = meses_espanol.get(mes)
+    año = request.args.get('año')
+
+    conexion_BD = conectarDB()
+    
+    # Obtención de dinero restante y dinero utilizado
+    suma_gastos_val = obtener_gasto_ingreso_mes(session.get('usuario_id'),'Gasto',str(mes_numero),str(año))
+
+    dinero_restante = obtener_gasto_ingreso_mes(session.get('usuario_id'),'Ingreso',str(mes_numero),str(año))
+    
+    # Obtener registros del usuario en la fecha
+    query = f"SELECT R.Registro_ID, R.Nombre, R.Valor, R.Fecha, R.Tipo_Registro, T.Nombre Tipo_Gasto FROM Registro R, Tipo_Gasto T WHERE R.Tipo_Gasto=T.ID_Tipo_Gasto AND Usuario_ID='{session.get('usuario_id')}' AND MONTH(Fecha)={mes_numero} AND YEAR(Fecha)={año} order by Fecha"
+    df_registros_mes = pd.read_sql(query, conexion_BD)
+    
+    return render_template("ResumenMensual.html", registros=df_registros_mes.to_dict(orient='records'), mes=mes, año=año,
+                           get_dinero_restante=dinero_restante,
+                           get_dinero_utilizado=suma_gastos_val)
+
+@app.route('/app/observar_gastos_general')
+def observar_gastos_general():
+    if session.get('usuario_id') == " ": # Verifica que haya una sesión activa
+        session['msj_enviado_login'] = "Por favor inicie sesión"
+        return redirect(url_for('login'))
+    
+    mes = request.args.get('mes')
+    año = request.args.get('año')
+
+    conexion_BD = conectarDB()
+    
+    # Obtención de dinero restante y dinero utilizado
+    
+    suma_gastos_val = obtener_gasto_ingreso_total(session.get('usuario_id'),'Gasto')
+    dinero_restante = obtener_gasto_ingreso_total(session.get('usuario_id'),'Ingreso')
+    
+    query = f"SELECT R.Registro_ID, R.Nombre, R.Valor, R.Fecha, R.Tipo_Registro, T.Nombre Tipo_Gasto FROM Registro R, Tipo_Gasto T WHERE R.Tipo_Gasto=T.ID_Tipo_Gasto AND Usuario_ID='{session.get('usuario_id')}' order by Fecha"
+    #query = "SELECT Registro_ID, Nombre, Valor, Fecha, Tipo_Registro, Tipo_Gasto FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"' order by Fecha"
+    df_registros_mes = pd.read_sql(query, conexion_BD)
+
+    if df_registros_mes.empty:
+        session['msj_error'] = "Para acceder al debe ingresar registros"
+        return redirect(url_for('inicio_exitoso'))
+    
+    return render_template("ResumenGeneral.html", registros=df_registros_mes.to_dict(orient='records'), mes=mes, año=año,
+                           get_dinero_restante=dinero_restante,
+                           get_dinero_utilizado=suma_gastos_val)
+
 
 
 # CREAR CUENTA
@@ -406,63 +474,6 @@ def eliminar_registros():
     return redirect(url_for('crear_registro'))
 
 
-# OBSERVAR REGISTROS
-
-@app.route('/app/observar_gastos_mes')
-def observar_gastos_mes():
-    if session.get('usuario_id') == " ": # Verifica que haya una sesión activa
-        session['msj_enviado_login'] = "Por favor inicie sesión"
-        return redirect(url_for('login'))
-    
-    meses_espanol = {
-        'Enero': 1, 'Febrero': 2, 'Marzo': 3, 'Abril': 4,
-        'Mayo': 5, 'Junio': 6, 'Julio': 7, 'Agosto': 8,
-        'Septiembre': 9, 'Octubre': 10, 'Noviembre': 11, 'Diciembre': 12
-    }
-    
-    mes = request.args.get('mes')
-    mes_numero = meses_espanol.get(mes)
-    año = request.args.get('año')
-
-    conexion_BD = conectarDB()
-    
-    # Obtención de dinero restante y dinero utilizado
-    suma_gastos_val = obtener_gasto_ingreso_mes(session.get('usuario_id'),'Gasto',str(mes_numero),str(año))
-
-    dinero_restante = obtener_gasto_ingreso_mes(session.get('usuario_id'),'Ingreso',str(mes_numero),str(año))
-    
-    # Obtener registros del usuario en la fecha
-    query = "SELECT Registro_ID, Nombre, Valor, Fecha, Tipo_Registro, Tipo_Gasto FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"' AND MONTH(Fecha)="+str(mes_numero)+" AND YEAR(Fecha)="+str(año)+" order by Fecha"
-    df_registros_mes = pd.read_sql(query, conexion_BD)
-
-    return render_template("ResumenMensual.html", registros=df_registros_mes.to_dict(orient='records'), mes=mes, año=año,
-                           get_dinero_restante=dinero_restante,
-                           get_dinero_utilizado=suma_gastos_val)
-
-@app.route('/app/observar_gastos_general')
-def observar_gastos_general():
-    if session.get('usuario_id') == " ": # Verifica que haya una sesión activa
-        session['msj_enviado_login'] = "Por favor inicie sesión"
-        return redirect(url_for('login'))
-    
-    mes = request.args.get('mes')
-    año = request.args.get('año')
-
-    conexion_BD = conectarDB()
-    
-    # Obtención de dinero restante y dinero utilizado
-    
-    suma_gastos_val = obtener_gasto_ingreso_total(session.get('usuario_id'),'Gasto')
-    dinero_restante = obtener_gasto_ingreso_total(session.get('usuario_id'),'Ingreso')
-    
-    query = "SELECT Registro_ID, Nombre, Valor, Fecha, Tipo_Registro, Tipo_Gasto FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"' order by Fecha"
-    df_registros_mes = pd.read_sql(query, conexion_BD)
-
-    return render_template("ResumenGeneral.html", registros=df_registros_mes.to_dict(orient='records'), mes=mes, año=año,
-                           get_dinero_restante=dinero_restante,
-                           get_dinero_utilizado=suma_gastos_val)
-
-
 # RECOMENDACIONES
 
 @app.route('/app/recomendaciones', methods=['GET', 'POST'])
@@ -475,6 +486,11 @@ def recomendaciones():
     #Obtener los meses por separado
     query = "SELECT MONTH(Fecha) Mes, YEAR(Fecha) Año FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"'  GROUP BY YEAR(Fecha), MONTH(Fecha) ORDER BY Año DESC, Mes DESC"
     df_meses = pd.read_sql(query, conexion_BD)
+    
+    if df_meses.empty:
+        session['msj_error'] = "Para acceder a la recomendación debe ingresar registros"
+        return redirect(url_for('inicio_exitoso'))
+
 
     meses_espanol = {
         1: 'Enero', 2: 'Febrero', 3: 'Marzo', 4: 'Abril',
@@ -496,6 +512,7 @@ def recomendaciones():
 
     meses_val = pd.DataFrame(datos)
 
+    
     if request.method == 'POST':
         fecha = request.form['dropdown']
         mes, año = fecha.split('-') 
