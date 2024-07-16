@@ -791,6 +791,7 @@ body{
     line-height: 22px; 
     font-weight: 400; 
     color: #323743FF; /* neutral-700 */
+    white-space: nowrap;
 }
 
 .finanzapp4{
@@ -888,7 +889,7 @@ body{
 }
     
 .rowcinfoone_one {
-    margin-top: -35px;
+    margin-top: -10px;
     gap: var(--space-3x1);
     display: flex;
 }
@@ -903,7 +904,7 @@ body{
     gap: var(--space-md);
     width: 669px;
     height: 102px;
-    margin-top: 5px;
+    margin-top: 0px;
 }
 
 .columntitle1{
@@ -1055,8 +1056,8 @@ body{
 
 .dropdown-1{
     position: absolute;
-    margin-top: -35px;
-    margin-left: 140px;
+    margin-top: -57px;
+    margin-left: 200px;
 }
 
 .vista_general2{
@@ -1098,4 +1099,9 @@ body{
     margin-left: 41px;
     cursor: pointer;
     margin-top: 20px;
+}
+
+.agregar:hover{
+    color: #FFFFFFFF; /* white */
+    background: #369B68FF; /* primary-600 */
 }

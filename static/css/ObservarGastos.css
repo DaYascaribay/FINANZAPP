@@ -245,7 +245,17 @@ body{
     align-items: center;
     gap: var(--space-sm);
     cursor: pointer;
+    margin-top: 10px;
 }
+
+.buttondetalle1 {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    cursor: pointer;
+    margin-top: 5px;
+}
+
 
 .arrowright_one {
     height: 16px;
@@ -542,6 +552,7 @@ body{
     color: #48BF84FF;
     font-size: 12px;
 }
+
 
 .row_three {
     display: flex; /* Hace que los elementos hijos se alineen en una fila */
