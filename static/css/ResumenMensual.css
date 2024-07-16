@@ -134,15 +134,14 @@
     margin-left: -325px;
 }
 
-.registro-1 {
-    color: var(--gray_700) !important;
-    font-weight: 600 !important;
-    background-color: var(--gray_50);
-    justify-content: center;
-    display: flex;
-    align-items: center;
-    padding: var(--space-5x1) var(--space-4x1);
-    border: 0.5px solid var(--gray_300);
+.registro {
+    top: 23px; 
+    left: 16px; 
+    font-family: Cabin; /* Heading */
+    font-size: 16px; 
+    line-height: 22px; 
+    font-weight: 600; 
+    color: #565D6DFF
 }
 
 .nombre-3 {
@@ -191,9 +190,8 @@
 }
 
 .frame-1 {
-    background-color: var(--white_a700);
-    padding: 14px var(--space-11xl) 14px var(--space-4x1);
-    border: 0.5px solid var(--gray_300);
+    background-color: transparent;
+    padding: 5px var(--space-11xl) 5px var(--space-4x1);
     @media only screen and (max-width: 550px) {
         padding-right: 20px;
     }
@@ -317,20 +315,29 @@
     }
 }
 
-.tableregistros {
-    margin-left: 6px;
-    align-self: stretch;
-    border-radius: var(--radius-sm);
-    border: 0.5px solid var(--gray_300);
-    @media only screen and (max-width: 1050px) {
-        margin-left: 0px;
-    }
 
-    @media only screen and (max-width: 550px) {
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
-    }
+.cabecera{
+    height: 50px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.table th, .table td {
+    text-align: left;
+    padding: 0.5rem;
+    border: 1px solid #e1e4e8;
+}
+
+.table th {
+    background-color: #f2f2f2;
+}
+
+.table tr:nth-child(even) {
+    background-color: #fafafa;
 }
 
 .valor-1 {

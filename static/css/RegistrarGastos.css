@@ -434,7 +434,7 @@ input, select, button {
 }
 
 .frame-1 {
-    background-color: var(--white_a700);
+    background-color: transparent;
     padding: 5px var(--space-11xl) 5px var(--space-4x1);
     @media only screen and (max-width: 550px) {
         padding-right: 20px;
