@@ -16,6 +16,34 @@
     <link rel="stylesheet" type="text/css" href="../static/css/styles.css" />
     <link rel="stylesheet" type="text/css" href="../static/css/components.css" />
     <link rel="stylesheet" type="text/css" href="../static/css/ObservarGastos.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Obtener los datos desde el contexto de Flask
+        var dineroRestante = {{get_dinero_restante}};
+        var dineroUtilizado = {{get_dinero_utilizado}};
+        
+        // Configurar el gráfico de pastel
+        window.onload = function() {
+            var ctx = document.getElementById('graficoPastel').getContext('2d');
+            var myPieChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Dinero Restante', 'Dinero Utilizado'], //Labels
+                    datasets: [{ //Datos para el gráfico
+                        data: [dineroRestante, dineroUtilizado],
+                        backgroundColor: ['#48BF84', '#26413C'],
+                    }]
+                },
+                options: {
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        },
+                    }
+                }
+            });
+        }
+    </script>
 </head>
 <body>
     <div class="observargastos">
@@ -142,6 +170,7 @@
                                     </div>
                                     <div data-progress="47" style="--progress: 47%" class="pie one">
                                     </div>
+                                    <canvas id="graficoPastel"></canvas>
                                 </div>
                                 <div class="row_twentysix">
                                     <div class="ronview_eight">
