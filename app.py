@@ -7,6 +7,11 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String, Float, Date, Boolean
 
+# Openai
+import openai
+
+openai.api_key = 'colocar key'
+
 app = Flask(__name__, template_folder="templates")
 app.secret_key = '12345678' # Necesario para redirigir templates con valores
 
@@ -44,6 +49,12 @@ def conectarDB():
         engine = None
 
     return engine
+
+def validar_sesion():
+    if session.get('usuario_id') == " ": # Verifica que haya una sesión activa
+        session['msj_enviado_login'] = "Por favor inicie sesión"
+        print("No hay sesion")
+        return redirect(url_for('login'))
 
 def obtener_gasto_ingreso_total(Usuario_ID,Tipo):
     conexion_BD=conectarDB()
@@ -126,15 +137,40 @@ def obtener_gasto_fuerte(Usuario_ID,Mes,Año):
     return gasto_fuerte
 
 def df_a_texto(df):
-    textos = []
-    for _, fila in df.iterrows():
-        texto = (f"Nombre: {fila['Nombre']}, Tipo_registro: {fila['Tipo_gasto']}, Cantidad: {fila['Cantidad']}, Valor: ${fila['Valor_total']},  {fila['Promedio']} y un porcentaje de {fila['Porcentaje']}% del total.")
-        textos.append(texto)
-    return " ".join(textos)
+        textos = []
+        for _, fila in df.iterrows():
+            texto = (f"{fila['Nombre']} ({fila['Tipo_Gasto']}): valor de {fila['Valor']} "
+                     f"registrado el {fila['Fecha']}.")
+            textos.append(texto)
+        return " ".join(textos)
 
-def obtener_recomendacion(Usuario_ID, Mes, Año):
+def obtener_recomendacion_IA(Usuario_ID, Mes, Año):
+    conexion_BD=conectarDB()
+    query = f"SELECT R.Nombre, R.Valor, T.Nombre Tipo_Gasto, R.Fecha FROM Registro R, Tipo_Gasto T WHERE R.Tipo_Gasto=T.ID_Tipo_Gasto AND R.Usuario_ID={Usuario_ID} AND MONTH(R.Fecha)={Mes} AND YEAR(R.Fecha)={Año}"
+    df_registros=pd.read_sql(query, conexion_BD)
+
+    role = (
+        "Eres un experto en gestión económica para estudiantes universitarios y los microgastos. "
+        "Se te va a proporcionar registros de microgastos e ingresos de un mes. "
+        "Debes retornar una conclusión con una recomendación basada en los registros proporcionados. "
+        "Adicionalmente, usa '\\n' para indicar saltos de línea."
+    )
+
+    texto_gastos = df_a_texto(df_registros)
+    full_prompt = f"Registros:\n{texto_gastos}"
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": role},
+            {"role": "user", "content": full_prompt}
+        ],
+        temperature=0.55,
+        max_tokens=500
+    )
+    result = response['choices'][0]['message']['content']
     
-    print("")
+    print(full_prompt)
+    return result
 
 @app.route('/PaginaPrincipal')
 @app.route('/')
@@ -490,7 +526,7 @@ def eliminar_registros():
 @app.route('/app/recomendaciones', methods=['GET', 'POST'])
 def recomendaciones():
     validar_sesion()
-    
+    recomendacion_val = "Aquí se generará su recomendación..."
     conexion_BD = conectarDB()
     #Obtener los meses por separado
     query = "SELECT MONTH(Fecha) Mes, YEAR(Fecha) Año FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"'  GROUP BY YEAR(Fecha), MONTH(Fecha) ORDER BY Año DESC, Mes DESC"
@@ -542,7 +578,8 @@ def recomendaciones():
                                                        get_gasto_val=gasto_val,
                                                        get_cant_ingresos=cant_ingresos_val,
                                                        get_cant_gastos=cant_gastos_val,
-                                                       get_gasto_fuerte=gasto_fuerte)
+                                                       get_gasto_fuerte=gasto_fuerte,
+                                                       get_recomendacion=recomendacion_val)
 
     # Obtener las clasificaciones de registros con valor
     mes_default = df_meses.iloc[0].to_dict()
@@ -565,18 +602,74 @@ def recomendaciones():
                                                     get_gasto_val=gasto_val,
                                                     get_cant_ingresos=cant_ingresos_val,
                                                     get_cant_gastos=cant_gastos_val,
-                                                    get_gasto_fuerte=gasto_fuerte)
+                                                    get_gasto_fuerte=gasto_fuerte,
+                                                    get_recomendacion=recomendacion_val)
 
-@app.route('/app/obtener_recomendacion', methods=['GET', 'POST'])
+@app.route('/app/obtener_recomendacion', methods=['POST'])
 def obtener_recomendacion():
     validar_sesion()
     
+    # Obtención de mes y año numérico  
+    meses_espanol = {
+        'Enero': 1, 'Febrero': 2, 'Marzo': 3, 'Abril': 4,
+        'Mayo': 5, 'Junio': 6, 'Julio': 7, 'Agosto': 8,
+        'Septiembre': 9, 'Octubre': 10, 'Noviembre': 11, 'Diciembre': 12
+    }
 
-def validar_sesion():
-    if session.get('usuario_id') == " ": # Verifica que haya una sesión activa
-        session['msj_enviado_login'] = "Por favor inicie sesión"
-        print("No hay sesion")
-        return redirect(url_for('login'))
+    mes = request.args.get('mes')
+    mes_numero = meses_espanol.get(mes)
+    año = request.args.get('año')
+
+
+    conexion_BD = conectarDB()
+    #Obtener los meses por separado
+    query = "SELECT MONTH(Fecha) Mes, YEAR(Fecha) Año FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"'  GROUP BY YEAR(Fecha), MONTH(Fecha) ORDER BY Año DESC, Mes DESC"
+    df_meses = pd.read_sql(query, conexion_BD)
+
+    meses_espanol = {
+        1: 'Enero', 2: 'Febrero', 3: 'Marzo', 4: 'Abril',
+        5: 'Mayo', 6: 'Junio', 7: 'Julio', 8: 'Agosto',
+        9: 'Septiembre', 10: 'Octubre', 11: 'Noviembre', 12: 'Diciembre'
+    }
+
+    # Crear un DataFrame con las columnas requeridas
+    datos = []
+    for index, fila in df_meses.iterrows():
+        mes_num = fila['Mes']
+        año = fila['Año']
+        mes_nombre = meses_espanol.get(mes_num, 'Desconocido')
+        datos.append({
+            'mes_num': mes_num,
+            'mes_palabra': mes_nombre,
+            'año_num': año
+        })
+    meses_val = pd.DataFrame(datos)
+
+     # Obtener las clasificaciones de registros con valor
+    query = f"SELECT sum(R.Valor) Valor, T.Nombre FROM Registro R, Tipo_Gasto T WHERE Usuario_ID='{session.get('usuario_id')}' AND MONTH(Fecha)={mes_numero} AND YEAR(Fecha)={año} AND T.ID_Tipo_Gasto=R.Tipo_Gasto GROUP BY T.Nombre ORDER BY Valor DESC"
+    df_dist_gastos = pd.read_sql(query, conexion_BD)
+
+    dinero_utilizado_val =  obtener_gasto_ingreso_mes(session.get('usuario_id'),'Ingreso',mes_numero,año)
+    gasto_val =  obtener_gasto_ingreso_mes(session.get('usuario_id'),'Gasto',mes_numero,año)
+    cant_ingresos_val = obtener_cant_gasto_ingreso_mes(session.get('usuario_id'),'Ingreso',mes_numero,año)
+    cant_gastos_val = obtener_cant_gasto_ingreso_mes(session.get('usuario_id'),'Gasto',mes_numero,año)
+
+    mes_palabra = meses_espanol[int(mes_numero)]
+    # Obtener gasto más fuerte
+    gasto_fuerte = obtener_gasto_fuerte(session.get('usuario_id'),mes_numero,año)
+
+    recomendacion_val = obtener_recomendacion_IA(session.get('usuario_id'),mes_numero,año)
+
+    return render_template("Recomendaciones.html", get_meses=meses_val.to_dict('records'), 
+                                                    get_mes=mes_palabra,get_año=año,
+                                                    get_dist_gastos=df_dist_gastos.to_dict('records'),
+                                                    get_dinero_utilizado=dinero_utilizado_val,
+                                                    get_gasto_val=gasto_val,
+                                                    get_cant_ingresos=cant_ingresos_val,
+                                                    get_cant_gastos=cant_gastos_val,
+                                                    get_gasto_fuerte=gasto_fuerte,
+                                                    get_recomendacion=recomendacion_val)
+
 
 if __name__=="__main__": 
     app.run(debug=True, port=777)

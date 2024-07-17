@@ -189,15 +189,18 @@
                     <div class="rowarchivecheck">
                         <img src="../static/images/img_archive_check_1.svg" alt="Archivecheckone" class="archivecheckone" />
                         <h5 class="reco">Recomendación</h5>
-                        <button class="generar" type="submit" name="action" value="generar">Generar</button>
+                        <form action="/app/obtener_recomendacion?mes={{ get_mes }}&año={{ get_año }}" method="post">
+                            <button class="generar" type="submit" name="action" value="generar">Generar</button>
+                        </form>
                     </div>
                     <label class="description-4">
                         <input
                             class="indes"
                             name="description"
-                            Placeholder="A continución te presentaremos lo que creemos que es mejor para ti..."
+                            Placeholder="¿Texto?"
                             type="text"
                         />
+                        {{get_recomendacion}}
                     </label>
                 </div>
             </div>
