@@ -152,7 +152,7 @@ def df_a_texto(df):
         textos = []
         for _, fila in df.iterrows():
             texto = (f"{fila['Nombre']} ({fila['Tipo_Gasto']}): valor de {fila['Valor']} "
-                     f"registrado el {fila['Fecha']}.")
+                        f"registrado el {fila['Fecha']}.")
             textos.append(texto)
         return " ".join(textos)
 
@@ -288,7 +288,7 @@ def inicio_exitoso():
                 meses_val[clave]['Cant_Ingresos'] += reg['Cant']
 
         lista_meses = [{'Mes': mes, 'Año': año, 'Cant_Gastos': valores['Cant_Gastos'], 'Cant_Ingresos': valores['Cant_Ingresos']}
-                       for (mes, año), valores in meses_val.items()]
+                        for (mes, año), valores in meses_val.items()]
 
         msj_recibido_observar_gastos = session.pop('msj_error', " ")  # Obtener el mensaje de error de la sesión
 
@@ -323,10 +323,10 @@ def observar_gastos_mes():
     df_registros_mes = obtener_registros(session.get('usuario_id'),'Mensual',str(mes_numero),str(año))
     
     return render_template("ResumenMensual.html", registros=df_registros_mes.to_dict(orient='records'), mes=mes, año=año,
-                           get_dinero_restante=dinero_restante,
-                           get_dinero_utilizado=suma_gastos_val,
-                           get_cant_gastos=cant_gastos_val,
-                           get_cant_ingresos=cant_ingresos_val)
+                            get_dinero_restante=dinero_restante,
+                            get_dinero_utilizado=suma_gastos_val,
+                            get_cant_gastos=cant_gastos_val,
+                            get_cant_ingresos=cant_ingresos_val)
 
 @app.route('/app/observar_gastos_general')
 def observar_gastos_general():
@@ -347,10 +347,10 @@ def observar_gastos_general():
         return redirect(url_for('inicio_exitoso'))
     
     return render_template("ResumenGeneral.html", registros=df_registros_mes.to_dict(orient='records'), mes=mes, año=año,
-                           get_dinero_restante=dinero_restante,
-                           get_dinero_utilizado=suma_gastos_val,
-                           get_cant_gastos=cant_gastos_val,
-                           get_cant_ingresos=cant_ingresos_val)
+                            get_dinero_restante=dinero_restante,
+                            get_dinero_utilizado=suma_gastos_val,
+                            get_cant_gastos=cant_gastos_val,
+                            get_cant_ingresos=cant_ingresos_val)
 
 
 
@@ -562,14 +562,14 @@ def recomendaciones():
         mes_palabra = meses_espanol[int(mes)] # Datos del gasto más representativo
         gasto_fuerte = obtener_gasto_fuerte(session.get('usuario_id'),mes,año)
         return render_template("Recomendaciones.html", get_meses=meses_val.to_dict('records'), 
-                                                       get_mes=mes_palabra,get_año=año,
-                                                       get_dist_gastos=df_dist_gastos.to_dict('records'),
-                                                       get_dinero_utilizado=dinero_utilizado_val,
-                                                       get_gasto_val=gasto_val,
-                                                       get_cant_ingresos=cant_ingresos_val,
-                                                       get_cant_gastos=cant_gastos_val,
-                                                       get_gasto_fuerte=gasto_fuerte,
-                                                       get_recomendacion=recomendacion_val)
+                                                        get_mes=mes_palabra,get_año=año,
+                                                        get_dist_gastos=df_dist_gastos.to_dict('records'),
+                                                        get_dinero_utilizado=dinero_utilizado_val,
+                                                        get_gasto_val=gasto_val,
+                                                        get_cant_ingresos=cant_ingresos_val,
+                                                        get_cant_gastos=cant_gastos_val,
+                                                        get_gasto_fuerte=gasto_fuerte,
+                                                        get_recomendacion=recomendacion_val)
 
     # Obtener las clasificaciones de registros con valor
     mes_default = df_meses.iloc[0].to_dict()
@@ -631,7 +631,7 @@ def obtener_recomendacion():
         })
     meses_val = pd.DataFrame(datos)
 
-     # Obtener las clasificaciones de registros con valor
+    # Obtener las clasificaciones de registros con valor
     query = f"SELECT sum(R.Valor) Valor, T.Nombre FROM Registro R, Tipo_Gasto T WHERE Usuario_ID='{session.get('usuario_id')}' AND MONTH(Fecha)={mes_numero} AND YEAR(Fecha)={año} AND T.ID_Tipo_Gasto=R.Tipo_Gasto GROUP BY T.Nombre ORDER BY Valor DESC"
     df_dist_gastos = pd.read_sql(query, conexion_BD)
 
