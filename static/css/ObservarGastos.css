@@ -258,9 +258,11 @@ body{
 
 
 .arrowright_one {
-    height: 16px;
-    width: 16px;
+    height: 20px;
+    width: 20px;
 }
+
+
 
 .container-7 {
     display: flex;
@@ -325,6 +327,17 @@ body{
     color: #323743FF;
 }
 
+.vistageneral3 {
+    top: 24px; 
+    left: 32px; 
+    font-family: Cabin; /* Heading */
+    font-size: 24px; 
+    line-height: 36px; 
+    font-weight: 400; 
+    color: #323743FF;
+    margin-left: 110px;
+}
+
 .vistageneral1 {
     top: 24px; 
     left: 32px; 
@@ -334,7 +347,7 @@ body{
     font-weight: 400; 
     color: #323743FF;
     margin-top: 30px;
-    margin-left: 35px;
+    margin-left: 50px;
 }
 
 .resumen_mensual {
@@ -550,7 +563,13 @@ body{
 
 .del{
     color: #48BF84FF;
-    font-size: 12px;
+    font-size: 15px;
+    margin-left: 350px;
+    cursor: pointer;
+}
+
+.del:hover{
+    color: rgb(34, 105, 70); /* primary-500 */
 }
 
 

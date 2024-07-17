@@ -169,6 +169,15 @@
     font-size: 32px;
 }
 
+.pricetext1 {
+    font-weight: bold;
+    margin-top: -2px;
+    margin-left: 25px;
+    font-size: 32px;
+    color: var(--green_400);
+    font-family: Cabin;
+}
+
 .finanzapp{
     top: 24px; 
     left: 24px; 
@@ -683,6 +692,42 @@
     gap: var(--space-lg);
     margin-top: 1px;
     margin-right: 150px;
+}
+
+.rowresumen-2 {
+    display: flex;
+    justify-content:end;
+    margin-bottom: 190px;
+    gap: var(--space-6x1);
+    margin-right: 550px;
+    color: #323743FF;
+    margin-top: -30px;
+}
+
+.container-12{
+    top: 89px; 
+    left: 690px; 
+    width: 280px; 
+    height: 134px; 
+    background: #F4FAF8FF; /* tertiary1-100 */
+    border-radius: 8px; /* border-xl */
+}
+
+.container-13{
+    top: 84px; 
+    left: 986px; 
+    width: 280px; 
+    height: 134px; 
+    background: #F7F8F7FF; /* tertiary3-100 */
+    border-radius: 8px; /* border-xl */
+}
+
+.container-7 {
+    display: flex;
+    gap: var(--space-6x1); /* Espacio entre los contenedores */
+    position: absolute;
+    margin-top: -170px;
+    margin-left: 680px;
 }
 
 
