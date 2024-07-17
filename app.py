@@ -136,6 +136,17 @@ def obtener_gasto_fuerte(Usuario_ID,Mes,Año):
         }
     return gasto_fuerte
 
+def obtener_registros(Usuario_ID,Tipo,Mes,Año):
+    conexion_BD=conectarDB()
+    query=""
+    if Tipo=='General':
+        query = f"SELECT R.Registro_ID, R.Nombre, R.Valor, R.Fecha, R.Tipo_Registro, T.Nombre Tipo_Gasto FROM Registro R, Tipo_Gasto T WHERE R.Tipo_Gasto=T.ID_Tipo_Gasto AND Usuario_ID='{Usuario_ID}' order by Fecha"
+    elif Tipo=='Mensual':
+        query = f"SELECT R.Registro_ID, R.Nombre, R.Valor, R.Fecha, R.Tipo_Registro, T.Nombre Tipo_Gasto FROM Registro R, Tipo_Gasto T WHERE R.Tipo_Gasto=T.ID_Tipo_Gasto AND Usuario_ID='{Usuario_ID}' AND MONTH(Fecha)={Mes} AND YEAR(Fecha)={Año} order by Fecha"
+    
+    df_registros = pd.read_sql(query, conexion_BD)
+    return df_registros
+
 def df_a_texto(df):
         textos = []
         for _, fila in df.iterrows():
@@ -144,7 +155,9 @@ def df_a_texto(df):
             textos.append(texto)
         return " ".join(textos)
 
+
 def obtener_recomendacion_IA(Usuario_ID, Mes, Año):
+    # Lectura de registros por mes del usuario
     conexion_BD=conectarDB()
     query = f"SELECT R.Nombre, R.Valor, T.Nombre Tipo_Gasto, R.Fecha FROM Registro R, Tipo_Gasto T WHERE R.Tipo_Gasto=T.ID_Tipo_Gasto AND R.Usuario_ID={Usuario_ID} AND MONTH(R.Fecha)={Mes} AND YEAR(R.Fecha)={Año}"
     df_registros=pd.read_sql(query, conexion_BD)
@@ -156,7 +169,7 @@ def obtener_recomendacion_IA(Usuario_ID, Mes, Año):
         "Adicionalmente, usa '\\n' para indicar saltos de línea."
     )
 
-    texto_gastos = df_a_texto(df_registros)
+    texto_gastos = df_a_texto(df_registros) #Transformación a texto los registros
     full_prompt = f"Registros:\n{texto_gastos}"
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
@@ -176,7 +189,6 @@ def obtener_recomendacion_IA(Usuario_ID, Mes, Año):
 @app.route('/')
 def aplicacion():
     return render_template("PaginaPrincipal.html")
-
 
 # LOGEARSE
 @app.route('/login')
@@ -301,18 +313,13 @@ def observar_gastos_mes():
     mes = request.args.get('mes')
     mes_numero = meses_espanol.get(mes)
     año = request.args.get('año')
-
-    conexion_BD = conectarDB()
     
-    # Obtención de dinero restante y dinero utilizado
+    # Obtención de datos del usuario
     suma_gastos_val = obtener_gasto_ingreso_mes(session.get('usuario_id'),'Gasto',str(mes_numero),str(año))
     dinero_restante = obtener_gasto_ingreso_mes(session.get('usuario_id'),'Ingreso',str(mes_numero),str(año))
     cant_gastos_val = obtener_cant_gasto_ingreso_mes(session.get('usuario_id'),'Gasto',str(mes_numero),str(año))
     cant_ingresos_val = obtener_cant_gasto_ingreso_mes(session.get('usuario_id'),'Ingreso',str(mes_numero),str(año))
-
-    # Obtener registros del usuario en la fecha
-    query = f"SELECT R.Registro_ID, R.Nombre, R.Valor, R.Fecha, R.Tipo_Registro, T.Nombre Tipo_Gasto FROM Registro R, Tipo_Gasto T WHERE R.Tipo_Gasto=T.ID_Tipo_Gasto AND Usuario_ID='{session.get('usuario_id')}' AND MONTH(Fecha)={mes_numero} AND YEAR(Fecha)={año} order by Fecha"
-    df_registros_mes = pd.read_sql(query, conexion_BD)
+    df_registros_mes = obtener_registros(session.get('usuario_id'),'Mensual',str(mes_numero),str(año))
     
     return render_template("ResumenMensual.html", registros=df_registros_mes.to_dict(orient='records'), mes=mes, año=año,
                            get_dinero_restante=dinero_restante,
@@ -327,18 +334,12 @@ def observar_gastos_general():
     mes = request.args.get('mes')
     año = request.args.get('año')
 
-    conexion_BD = conectarDB()
-    
-    # Obtención de dinero restante y dinero utilizado
-    
+    # Obtención de datos del usuario
     suma_gastos_val = obtener_gasto_ingreso_total(session.get('usuario_id'),'Gasto')
     dinero_restante = obtener_gasto_ingreso_total(session.get('usuario_id'),'Ingreso')
     cant_gastos_val = obtener_cant_gasto_ingreso_total(session.get('usuario_id'),'Gasto')
     cant_ingresos_val = obtener_cant_gasto_ingreso_total(session.get('usuario_id'),'Ingreso')
-
-    query = f"SELECT R.Registro_ID, R.Nombre, R.Valor, R.Fecha, R.Tipo_Registro, T.Nombre Tipo_Gasto FROM Registro R, Tipo_Gasto T WHERE R.Tipo_Gasto=T.ID_Tipo_Gasto AND Usuario_ID='{session.get('usuario_id')}' order by Fecha"
-    #query = "SELECT Registro_ID, Nombre, Valor, Fecha, Tipo_Registro, Tipo_Gasto FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"' order by Fecha"
-    df_registros_mes = pd.read_sql(query, conexion_BD)
+    df_registros_mes = obtener_registros(session.get('usuario_id'),'General',str(0),str(0))
 
     if df_registros_mes.empty:
         session['msj_error'] = "Para acceder al debe ingresar registros"
@@ -365,48 +366,45 @@ def registro_correcto():
     apellido = request.form['apellido']
     email = request.form['email_usuario']
     contrasena = request.form['password_one']
-
-    conexion_BD = conectarDB() # Conexión a la BD
-    if conexion_BD:
-        # Verificar correo duplicado
-        query = "SELECT * FROM Usuario"
-        informacion_usuarios = pd.read_sql(query, conexion_BD)
-
-        for i,user in informacion_usuarios.iterrows():
-            if email==f"{user['Email']}":
-                session['msj_enviado_registro'] = "El correo electrónico ya utilizado"
-                return redirect(url_for('registro'))
-
-        # Calcular cantidad de usuarios
-        query = "SELECT count(*) FROM Usuario"
-        cant_Usuarios = pd.read_sql(query, conexion_BD)
-        num_usuario = cant_Usuarios.iloc[0, 0]  # Accede al elemento en la posición (0, 0)
-        num_usuario_increment = num_usuario + 1  # Suma 1 al valor obtenido
-
-        Base = declarative_base() # Definir la estructura de la tabla
     
-        Base.metadata.create_all(conexion_BD) # Crear las tablas en la base de datos
+    # Verificar correo duplicado
+    conexion_BD = conectarDB() # Conexión a la BD
+    query = "SELECT * FROM Usuario"
+    df_usuarios = pd.read_sql(query, conexion_BD)
 
-        # Crear una sesión
-        Session = sessionmaker(bind=conexion_BD)
-        session_DB = Session()
-
-        nuevo_usuario = Usuario(
-            Usuario_ID = str(num_usuario_increment),
-            Nombre = nombre,
-            Apellido = apellido,
-            Contrasena = contrasena,
-            Email = email,
-            Premiun = False
-        )
-        try:
-            session_DB.add(nuevo_usuario)
-            session_DB.commit()
-            session['msj_enviado_login'] = "Cuenta creada de manera exitosa"
-            return redirect(url_for('login'))
-        except:
-            session['msj_enviado_registro'] = "No se pudo crear el usuario"
+    for i,user in df_usuarios.iterrows():
+        if email==f"{user['Email']}": # Se valida que no existan dos correos iguales
+            session['msj_enviado_registro'] = "El correo electrónico ya utilizado"
             return redirect(url_for('registro'))
+
+    # Calcular cantidad de usuarios
+    query = "SELECT count(*) FROM Usuario"
+    cant_Usuarios = pd.read_sql(query, conexion_BD)
+    num_usuario = cant_Usuarios.iloc[0, 0]  # Accede al elemento en la posición (0, 0)
+    num_usuario_increment = num_usuario + 1  # Suma 1 al valor obtenido
+
+    Base = declarative_base() # Definir la estructura de la tabla
+    Base.metadata.create_all(conexion_BD) # Crear las tablas en la base de datos
+
+    Session = sessionmaker(bind=conexion_BD)# Crear una sesión
+    session_DB = Session()
+
+    nuevo_usuario = Usuario(
+        Usuario_ID = str(num_usuario_increment),
+        Nombre = nombre,
+        Apellido = apellido,
+        Contrasena = contrasena,
+        Email = email,
+        Premiun = False
+    )
+    try:
+        session_DB.add(nuevo_usuario)
+        session_DB.commit()
+        session['msj_enviado_login'] = "Cuenta creada de manera exitosa"
+        return redirect(url_for('login'))
+    except:
+        session['msj_enviado_registro'] = "No se pudo crear el usuario"
+        return redirect(url_for('registro'))
 
 @app.route('/olvcontrasena')
 def olvidado_contrena():
@@ -424,7 +422,8 @@ def crear_registro():
     query = "SELECT * FROM Tipo_Gasto"
     conexion_BD = conectarDB()
     df_opciones = pd.read_sql(query, conexion_BD)
-    opciones_val = [(row['ID_Tipo_Gasto'], row['Nombre']) for index, row in df_opciones.iterrows()][1:]
+
+    opciones_val = [(row['ID_Tipo_Gasto'], row['Nombre']) for index, row in df_opciones.iterrows()][1:] # Se toma del segundo registro en adelante (el primero es ingreso)
 
     return render_template("RegistrarGastos.html", get_opciones=opciones_val, get_registros_temporales=registros_temporales)
 
@@ -436,20 +435,19 @@ def agregar_registro():
     query = "SELECT * FROM Tipo_Gasto"
     conexion_BD = conectarDB()
     df_opciones = pd.read_sql(query, conexion_BD)
-    opciones_val = [(row['ID_Tipo_Gasto'], row['Nombre']) for index, row in df_opciones.iterrows()][1:]
-
-    # Obtener usuario (debes implementar cómo obtienes el usuario ID)
-    usuario_id = session.get('usuario_id')  # Ejemplo estático, debes cambiar esto según tu lógica
+    opciones_val = [(row['ID_Tipo_Gasto'], row['Nombre']) for index, row in df_opciones.iterrows()][1:] # Se toma del segundo registro en adelante (el primero es ingreso)
 
     # Obtener datos del formulario
     nombre = request.form['nombre']
     valor = request.form['valor']
     fecha = request.form['fecha']
     tipo_registro = request.form['group51']
-    
-    try:
+
+    usuario_id = session.get('usuario_id') # Obtener usuario de la sesión
+
+    try: # Validar si elije un tipo de gasto o un ingreso
         tipo_gasto = request.form['dropdown']
-    except :
+    except : # Ingreso
         tipo_gasto = "0"
 
     # Contar registros por usuario
@@ -457,7 +455,7 @@ def agregar_registro():
     cant_Registros = pd.read_sql(query, conexion_BD)
     num_registro = cant_Registros.iloc[0, 0]  # Accede al elemento en la posición (0, 0)
     num_registro_increment = num_registro + len(registros_temporales) + 1  # Suma 1 al valor obtenido
-    registro_id = f"{usuario_id}.{num_registro_increment}"
+    registro_id = f"{usuario_id}.{num_registro_increment}" # Se concatenan el id de usuario y el id de registro
 
     # Añadir el registro a la lista temporal
     nuevo_registro = {
@@ -471,14 +469,12 @@ def agregar_registro():
     }
     registros_temporales.append(nuevo_registro)
 
-    # Redirigir de vuelta al formulario con la lista de opciones y registros temporales
     return render_template("RegistrarGastos.html", get_opciones=opciones_val, get_registros_temporales=registros_temporales)
 
 @app.route('/app/guardar_registros', methods=['POST'])
 def guardar_registros():
-    if session.get('usuario_id') == " ": # Verifica que haya una sesión activa
-        session['msj_enviado_login'] = "Por favor inicie sesión"
-        return redirect(url_for('login'))
+    validar_sesion()
+
     # Conectar a la base de datos
     conexion_BD = conectarDB()
     Session = sessionmaker(bind=conexion_BD)
@@ -499,29 +495,24 @@ def guardar_registros():
             session_DB.add(nuevo_registro)
 
         session_DB.commit()
-
     except Exception as e:
         print(f"Error al guardar registros en la base de datos: {e}")
         session_DB.rollback()
 
     finally:
-        # Limpiar la lista de registros temporales después de guardar en la base de datos
-        registros_temporales.clear()
+        registros_temporales.clear() # Limpiar la lista de registros temporales después de guardar en la base de datos
 
-    # Redirigir a alguna página de éxito o volver al formulario
     return redirect(url_for('crear_registro'))
 
 @app.route('/app/eliminar_registros')
 def eliminar_registros():
-    if session.get('usuario_id') == " ": # Verifica que haya una sesión activa
-        session['msj_enviado_login'] = "Por favor inicie sesión"
-        return redirect(url_for('login'))
+    validar_sesion()
     registros_temporales.clear()
-    # Redirigir a alguna página de éxito o volver al formulario
+
     return redirect(url_for('crear_registro'))
 
 
-# RECOMENDACIONES
+# RECOMENDACIONES SEGUIR ESTANDARIZANDO EL CODIGO
 
 @app.route('/app/recomendaciones', methods=['GET', 'POST'])
 def recomendaciones():
