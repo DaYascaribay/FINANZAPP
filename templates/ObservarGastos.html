@@ -28,7 +28,6 @@
             var myPieChart = new Chart(ctx, {
                 type: 'pie',
                 data: {
-                    labels: ['Dinero Restante', 'Dinero Utilizado'], //Labels
                     datasets: [{ //Datos para el gráfico
                         data: [dineroRestante, dineroUtilizado],
                         backgroundColor: ['#48BF84', '#26413C'],
@@ -167,10 +166,9 @@
                                     <div class="column_one-1">
                                         <p class="finanzapp2">Dinero utilizado</p>
                                         <h4 class="dinut">${{get_dinero_utilizado}}</h4>
+                                        <img src="../static/images/circle.svg" class="circle-svg" alt="Circle SVG" />
+                                        <canvas class="canvas" id="graficoPastel"></canvas>
                                     </div>
-                                    <div data-progress="47" style="--progress: 47%" class="pie one">
-                                    </div>
-                                    <canvas id="graficoPastel"></canvas>
                                 </div>
                                 <div class="row_twentysix">
                                     <div class="ronview_eight">

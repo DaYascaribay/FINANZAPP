@@ -39,7 +39,7 @@ class Registro(Base):
 # Funciones para obtencion de datos
 def conectarDB():
     # Variables de conexión
-    server = 'DESKTOP-VQQ74TJ'
+    server = 'DAVID_0728\SQLEXPRESS'
     bd = 'FINANZAPP'
     user = 'sa2'
     password = '12345678'
