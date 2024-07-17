@@ -363,7 +363,33 @@ body{
     border-style: solid; 
 }
 
+.generar {
+    top: 345px; 
+    left: 46px; 
+    width: 90px; 
+    height: 30px; 
+    padding: 0 16px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-family: Inter; 
+    font-size: 16px; 
+    line-height: 26px; 
+    font-weight: 400; 
+    color: #FFFFFFFF; /* white */
+    background: #48BF84FF; /* primary-500 */
+    opacity: 1; 
+    border: none; 
+    border-radius: 8px; /* border-xl */
+    box-shadow: 0px 8px 17px #48bf84, 0px 0px 2px #48bf84; /* shadow-l */
+    margin-left: 10px;
+    cursor: pointer;
+}
 
+.generar:hover{
+    color: #FFFFFFFF; /* white */
+    background: #369B68FF; /* primary-600 */
+}
 
 .newscreenbody-1{
     top: 208px; 
