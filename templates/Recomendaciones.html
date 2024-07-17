@@ -16,6 +16,43 @@
     <link rel="stylesheet" type="text/css" href="../static/css/styles.css" />
     <link rel="stylesheet" type="text/css" href="../static/css/components.css" />
     <link rel="stylesheet" type="text/css" href="../static/css/Recomendaciones.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Obtener los datos del contexto de Flask
+        var data = {{ get_dist_gastos | tojson }};
+        // Separar los datos en arrays para Chart.js
+        var nombres = data.map(item => item.Nombre);
+        var valores = data.map(item => item.Valor);
+        
+        // Configurar el gráfico de pastel
+        window.onload = function() {
+            var ctx = document.getElementById('graficoPastel').getContext('2d');
+            var myPieChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: nombres,
+                    datasets: [{
+                        data: valores,
+                        backgroundColor: [
+                            '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'
+                        ],
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Distribución de Gastos'
+                        }
+                    }
+                }
+            });
+        }
+    </script>
 </head>
 <body>
     <div class="recomendaciones-2">
@@ -79,6 +116,7 @@
                                         <div data-progress="3" style="--progress: 3%" class="circleprogressb-3"></div>
                                     </div>
                                     -->
+                                    <canvas id="graficoPastel"></canvas>
                                     <div class="column_one-1">
                                         <p class="finanzapp">Dinero utilizado</p>
                                         <h2 class="dinul">${{get_dinero_utilizado}}</h2>
