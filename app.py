@@ -210,7 +210,6 @@ def inicio_exitoso():
             session['msj_enviado_login'] = "Por favor inicie sesión"
             return redirect(url_for('login'))
         
-
         conexion_BD = conectarDB() # Conexión a la BD
         
         suma_gastos_val = obtener_gasto_ingreso_total(session.get('usuario_id'),'Gasto')
@@ -287,9 +286,7 @@ def observar_gastos_mes():
 
 @app.route('/app/observar_gastos_general')
 def observar_gastos_general():
-    if session.get('usuario_id') == " ": # Verifica que haya una sesión activa
-        session['msj_enviado_login'] = "Por favor inicie sesión"
-        return redirect(url_for('login'))
+    validar_sesion()
     
     mes = request.args.get('mes')
     año = request.args.get('año')
@@ -385,9 +382,7 @@ registros_temporales = []  # Lista para almacenar temporalmente los registros
 
 @app.route('/app/crear_registro')
 def crear_registro():
-    if session.get('usuario_id') == " ": # Verifica que haya una sesión activa
-        session['msj_enviado_login'] = "Por favor inicie sesión"
-        return redirect(url_for('login'))
+    validar_sesion()
     
     # Cargar los tipos de gastos 
     query = "SELECT * FROM Tipo_Gasto"
@@ -399,9 +394,8 @@ def crear_registro():
 
 @app.route('/app/agregar_registro', methods=['POST'])
 def agregar_registro():
-    if session.get('usuario_id') == " ": # Verifica que haya una sesión activa
-        session['msj_enviado_login'] = "Por favor inicie sesión"
-        return redirect(url_for('login'))
+    validar_sesion()
+
     # Cargar los tipos de gastos 
     query = "SELECT * FROM Tipo_Gasto"
     conexion_BD = conectarDB()
@@ -495,9 +489,7 @@ def eliminar_registros():
 
 @app.route('/app/recomendaciones', methods=['GET', 'POST'])
 def recomendaciones():
-    if session.get('usuario_id') == " ": # Verifica que haya una sesión activa
-        session['msj_enviado_login'] = "Por favor inicie sesión"
-        return redirect(url_for('login'))
+    validar_sesion()
     
     conexion_BD = conectarDB()
     #Obtener los meses por separado
@@ -507,7 +499,6 @@ def recomendaciones():
     if df_meses.empty:
         session['msj_error'] = "Para acceder a la recomendación debe ingresar registros"
         return redirect(url_for('inicio_exitoso'))
-
 
     meses_espanol = {
         1: 'Enero', 2: 'Febrero', 3: 'Marzo', 4: 'Abril',
@@ -526,9 +517,7 @@ def recomendaciones():
             'mes_palabra': mes_nombre,
             'año_num': año
         })
-
     meses_val = pd.DataFrame(datos)
-
     
     if request.method == 'POST':
         fecha = request.form['dropdown']
@@ -566,7 +555,6 @@ def recomendaciones():
     gasto_val =  obtener_gasto_ingreso_mes(session.get('usuario_id'),'Gasto',mes,año)
     cant_ingresos_val = obtener_cant_gasto_ingreso_mes(session.get('usuario_id'),'Ingreso',mes,año)
     cant_gastos_val = obtener_cant_gasto_ingreso_mes(session.get('usuario_id'),'Gasto',mes,año)
-    
 
     gasto_fuerte = obtener_gasto_fuerte(session.get('usuario_id'),mes,año)
     mes_palabra = meses_espanol[int(mes)]
@@ -579,6 +567,16 @@ def recomendaciones():
                                                     get_cant_gastos=cant_gastos_val,
                                                     get_gasto_fuerte=gasto_fuerte)
 
+@app.route('/app/obtener_recomendacion', methods=['GET', 'POST'])
+def obtener_recomendacion():
+    validar_sesion()
+    
+
+def validar_sesion():
+    if session.get('usuario_id') == " ": # Verifica que haya una sesión activa
+        session['msj_enviado_login'] = "Por favor inicie sesión"
+        print("No hay sesion")
+        return redirect(url_for('login'))
 
 if __name__=="__main__": 
     app.run(debug=True, port=777)
