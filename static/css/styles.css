@@ -436,9 +436,9 @@
 
 .view_eight {
     height: 16px;
-    background-color: var( -- green_400);
+    background-color: var(--green_400);
     width: 16px;
-    border-radius: var( -- radius-lg);
+    border-radius: var(--radius-1g);
 }
 
 .row_seven-1 {

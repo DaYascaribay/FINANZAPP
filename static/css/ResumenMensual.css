@@ -181,6 +181,28 @@
     margin-left: 25px;
 }
 
+.finanzapp1{
+    top: 24px; 
+    left: 24px; 
+    font-family: Inter; /* Body */
+    font-size: 18px; 
+    line-height: 26px; 
+    font-weight: 400; 
+    color: #323743FF;
+    margin-top: 100px;
+}
+
+.dinuti{
+    top: 219px; 
+    left: 139px; 
+    font-family: Cabin; /* Heading */
+    font-size: 38px; 
+    line-height: 56px; 
+    font-weight: 700; 
+    color: #171A1FFF;
+}
+
+
 .frame_eleven {
     background-color: var(--white_a700);
     padding: 14px var(--space-7x1) 14px var(--space-4x1);
@@ -204,14 +226,25 @@
     flex-direction: column;
     gap: var(--space-lg);
     margin-left: 9px;
-    width: 450px; 
-    height: 500px; 
+    width: 430px; 
+    height: 450px; 
     background: #FFFFFFFF; /* white */
     border-radius: 8px; /* border-xl */
     border-width: 1px; 
     border-color: #DEE1E6FF; /* neutral-300 */
     border-style: solid;
 }
+
+.dinerorestante {
+    top: 409px; 
+    left: 60px; 
+    font-family: Inter; /* Body */
+    font-size: 15px; 
+    line-height: 22px; 
+    font-weight: 500; 
+    color: #171A1FFF; /* neutral-900 */
+}
+
 
 /*
 2. Page CSS
@@ -289,7 +322,7 @@
 .stackresumengen {
     top: 182px; 
     left: 72px; 
-    width: 1296px; 
+    width: 1350px; 
     height: 250px; 
     background: #FFFFFFFF; /* white */
     border-radius: 8px; /* border-xl */
@@ -404,15 +437,10 @@
 }
 
 .stackpie_one-1 {
-    height: 290px;
-    margin-left: 44px;
-    margin-right: 44px;
-    position: relative;
-    @media only screen and (max-width: 1050px) {
-        height: auto;
-        margin-left: 0px;
-        margin-right: 0px;
-    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
 }
 
 .column_one-3 {
@@ -430,13 +458,17 @@
 }
 
 .containervista-2 {
-    background-color: var(--white_a700);
-    padding: var(--space-8xl);
-    border-radius: var(--radius-1g);
-    border: 1px solid var(--gray_300);
-    @media only screen and (max-width: 550px) {
-        padding: 20px;
-    }
+    top: 1024px; 
+    left: 927px; 
+    width: 432px; 
+    height: 500px; 
+    background: #FFFFFFFF; /* white */
+    border-radius: 8px; /* border-xl */
+    border-width: 1px; 
+    border-color: #DEE1E6FF; /* neutral-300 */
+    border-style: solid; 
+    margin-top: 20px;
+    margin-left: 9px;
 }
 
 .columnvista-1 {
@@ -445,6 +477,16 @@
     flex-direction: column;
     align-items: center;
 }
+
+.rowdinero_one{
+    margin-top: 30px;
+}
+
+.titulo{
+    font: Inter;
+
+}
+
 
 .vista_general {
     top: 24px; 
@@ -455,7 +497,19 @@
     font-weight: 400; 
     color: #323743FF; /* neutral-700 */
     margin-top: 20px;
-    margin-left: 30px;
+    margin-left: 35px;
+}
+
+.vista_general-2 {
+    top: 24px; 
+    left: 32px; 
+    font-family: Cabin; /* Heading */
+    font-size: 24px; 
+    line-height: 36px; 
+    font-weight: 400; 
+    color: #323743FF; /* neutral-700 */
+    margin-top: 20px;
+    margin-right: 220px;
 }
 
 .vista_general1{
@@ -512,20 +566,20 @@
 }
 
 .row_twentyfive {
-    width: 20%;
     display: flex;
-    justify-content: center;
-    @media only screen and (max-width: 1050px) {
-        width: 100%;
-    }
+    align-items: center;
+    gap: var(--space-lg);
+    margin-top: 0px;
+
 }
 
 .rowview {
-    gap: var(--space-sm);
+    gap: 10px;
     display: flex;
     width: 100%;
     justify-content: center;
     align-items: center;
+    margin-top: 20px;
 }
 
 .view {
@@ -535,10 +589,8 @@
     border-radius: var(--radius-md);
 }
 
-.columnview_one {
-    gap: var(--space-1g);
-    display: flex;
-    flex-direction: column;
+.columnview_five {
+    margin-top: 70px;
 }
 
 .rowview_one-3 {
@@ -617,6 +669,21 @@
     align-items: center;
 }
 
+.ronview_eight {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    margin-top: 0px;
+    margin-right: 150px;
+}
+
+.ronview_eight1 {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    margin-top: 1px;
+    margin-right: 150px;
+}
 
 
 
