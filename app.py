@@ -36,6 +36,7 @@ class Registro(Base):
     Tipo_Registro = Column(String)
     Tipo_Gasto = Column(String)
 
+# Funciones para obtencion de datos
 def conectarDB():
     # Variables de conexión
     server = 'DESKTOP-VQQ74TJ'
@@ -51,7 +52,7 @@ def conectarDB():
     return engine
 
 def validar_sesion():
-    if session.get('usuario_id') == " ": # Verifica que haya una sesión activa
+    if session.get('usuario_id') == " ": # Si no hay una sesión redirige al login
         session['msj_enviado_login'] = "Por favor inicie sesión"
         print("No hay sesion")
         return redirect(url_for('login'))
@@ -63,7 +64,7 @@ def obtener_gasto_ingreso_total(Usuario_ID,Tipo):
     query=f"SELECT SUM(Valor) FROM Registro WHERE Usuario_ID='{Usuario_ID}' AND Tipo_Registro='Gasto'"
     suma_gastos = pd.read_sql(query, conexion_BD)
     try:
-        suma_ingresos = round(suma_ingresos.iloc[0, 0],2)  # Accede al elemento en la posición (0, 0)
+        suma_ingresos = round(suma_ingresos.iloc[0, 0],2)  # Accede al elemento en la posición (0, 0) y redondea
     except:
         suma_ingresos=0
     try:
@@ -84,7 +85,7 @@ def obtener_gasto_ingreso_mes(Usuario_ID,Tipo,Mes,Año):
     query=f"SELECT SUM(Valor) FROM Registro WHERE Usuario_ID='{Usuario_ID}' AND Tipo_Registro='Gasto' AND MONTH(Fecha)={Mes} AND YEAR(Fecha)={Año}"
     suma_gastos = pd.read_sql(query, conexion_BD)
     try:
-        suma_ingresos = round(suma_ingresos.iloc[0, 0],2)  # Accede al elemento en la posición (0, 0)
+        suma_ingresos = round(suma_ingresos.iloc[0, 0],2)  # Accede al elemento en la posición (0, 0) y redondea
     except:
         suma_ingresos=0
     try:
@@ -103,7 +104,7 @@ def obtener_cant_gasto_ingreso_total(Usuario_ID,Tipo):
     query=f"SELECT COUNT(*) FROM Registro WHERE Usuario_ID='{Usuario_ID}' AND Tipo_Registro='{Tipo}'"
     df_contador = pd.read_sql(query, conexion_BD)
     try:
-        contador = df_contador.iloc[0, 0] # Accede al elemento en la posición (0, 0)
+        contador = df_contador.iloc[0, 0] # Accede al elemento en la posición (0, 0) y redondea
     except:
         contador = 0
     return str(contador)
@@ -113,7 +114,7 @@ def obtener_cant_gasto_ingreso_mes(Usuario_ID,Tipo,Mes,Año):
     query=f"SELECT COUNT(*) FROM Registro WHERE Usuario_ID='{Usuario_ID}' AND Tipo_Registro='{Tipo}' AND MONTH(Fecha)={Mes} AND YEAR(Fecha)={Año}"
     df_contador = pd.read_sql(query, conexion_BD)
     try:
-        contador = df_contador.iloc[0, 0] # Accede al elemento en la posición (0, 0)
+        contador = df_contador.iloc[0, 0] # Accede al elemento en la posición (0, 0) y redondea
     except:
         contador = 0
     return str(contador)
@@ -123,7 +124,7 @@ def obtener_gasto_fuerte(Usuario_ID,Mes,Año):
     query = f"SELECT R.Nombre, T.Nombre as Tipo_gasto, COUNT(R.Valor) Cantidad, SUM(R.Valor) Valor_total, AVG(R.Valor) Promedio, ROUND((SUM(R.Valor) / (SELECT SUM(R.Valor) FROM Registro R WHERE Usuario_ID='{Usuario_ID}' AND MONTH(Fecha)={Mes} AND YEAR(Fecha)={Año})) * 100, 2) as Porcentaje FROM Registro R JOIN Tipo_Gasto T ON T.ID_Tipo_Gasto=R.Tipo_Gasto WHERE R.Usuario_ID='{Usuario_ID}' AND MONTH(R.Fecha)={Mes} AND YEAR(R.Fecha)={Año} GROUP BY R.Nombre, T.Nombre ORDER BY Valor_total DESC"
     df_gastos_fuertes = pd.read_sql(query, conexion_BD)
 
-    if not df_gastos_fuertes.empty:
+    if not df_gastos_fuertes.empty: # Validacion si no tiene registros
         gasto_fuerte = df_gastos_fuertes.iloc[0].to_dict()
     else:
         gasto_fuerte = {
@@ -512,14 +513,15 @@ def eliminar_registros():
     return redirect(url_for('crear_registro'))
 
 
-# RECOMENDACIONES SEGUIR ESTANDARIZANDO EL CODIGO
+# RECOMENDACIONES
 
 @app.route('/app/recomendaciones', methods=['GET', 'POST'])
 def recomendaciones():
     validar_sesion()
-    recomendacion_val = "Aquí se generará su recomendación..."
-    conexion_BD = conectarDB()
+    recomendacion_val = "Aquí se generará su recomendación..." # Mensaje que retorna en la recomendación
+
     #Obtener los meses por separado
+    conexion_BD = conectarDB()
     query = "SELECT MONTH(Fecha) Mes, YEAR(Fecha) Año FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"'  GROUP BY YEAR(Fecha), MONTH(Fecha) ORDER BY Año DESC, Mes DESC"
     df_meses = pd.read_sql(query, conexion_BD)
     
@@ -527,18 +529,17 @@ def recomendaciones():
         session['msj_error'] = "Para acceder a la recomendación debe ingresar registros"
         return redirect(url_for('inicio_exitoso'))
 
-    meses_espanol = {
+    meses_espanol = { # Datos para transformar el mes de número a palabra
         1: 'Enero', 2: 'Febrero', 3: 'Marzo', 4: 'Abril',
         5: 'Mayo', 6: 'Junio', 7: 'Julio', 8: 'Agosto',
         9: 'Septiembre', 10: 'Octubre', 11: 'Noviembre', 12: 'Diciembre'
     }
 
-    # Crear un DataFrame con las columnas requeridas
-    datos = []
-    for index, fila in df_meses.iterrows():
+    datos = [] # Crear un vector con columnas Mes(palabra), Mes(numero), Año para mostrar en select button
+    for index, fila in df_meses.iterrows(): 
         mes_numero = fila['Mes']
-        año = fila['Año']
         mes_nombre = meses_espanol.get(mes_numero, 'Desconocido')
+        año = fila['Año']
         datos.append({
             'mes_num': mes_numero,
             'mes_palabra': mes_nombre,
@@ -546,9 +547,9 @@ def recomendaciones():
         })
     meses_val = pd.DataFrame(datos)
     
-    if request.method == 'POST':
+    if request.method == 'POST': # Cambiar recomendación en base al mes ingresado
         fecha = request.form['dropdown']
-        mes, año = fecha.split('-') 
+        mes, año = fecha.split('-')  #Se separa el string de mes-año
 
         # Obtener las clasificaciones de registros con valor
         query = f"SELECT sum(R.Valor) Valor, T.Nombre FROM Registro R, Tipo_Gasto T WHERE Usuario_ID='{session.get('usuario_id')}' AND MONTH(Fecha)={mes} AND YEAR(Fecha)={año} AND T.ID_Tipo_Gasto=R.Tipo_Gasto GROUP BY T.Nombre ORDER BY Valor DESC"
@@ -558,9 +559,7 @@ def recomendaciones():
         gasto_val =  obtener_gasto_ingreso_mes(session.get('usuario_id'),'Gasto',mes,año)
         cant_ingresos_val = obtener_cant_gasto_ingreso_mes(session.get('usuario_id'),'Ingreso',mes,año)
         cant_gastos_val = obtener_cant_gasto_ingreso_mes(session.get('usuario_id'),'Gasto',mes,año)
-
-        mes_palabra = meses_espanol[int(mes)]
-        # Obtener gasto más fuerte
+        mes_palabra = meses_espanol[int(mes)] # Datos del gasto más representativo
         gasto_fuerte = obtener_gasto_fuerte(session.get('usuario_id'),mes,año)
         return render_template("Recomendaciones.html", get_meses=meses_val.to_dict('records'), 
                                                        get_mes=mes_palabra,get_año=año,
@@ -583,8 +582,7 @@ def recomendaciones():
     gasto_val =  obtener_gasto_ingreso_mes(session.get('usuario_id'),'Gasto',mes,año)
     cant_ingresos_val = obtener_cant_gasto_ingreso_mes(session.get('usuario_id'),'Ingreso',mes,año)
     cant_gastos_val = obtener_cant_gasto_ingreso_mes(session.get('usuario_id'),'Gasto',mes,año)
-
-    gasto_fuerte = obtener_gasto_fuerte(session.get('usuario_id'),mes,año)
+    gasto_fuerte = obtener_gasto_fuerte(session.get('usuario_id'),mes,año) # Datos del gasto más representativo
     mes_palabra = meses_espanol[int(mes)]
     return render_template("Recomendaciones.html", get_meses=meses_val.to_dict('records'), 
                                                     get_dist_gastos=df_dist_gastos.to_dict('records'),
@@ -600,35 +598,32 @@ def recomendaciones():
 def obtener_recomendacion():
     validar_sesion()
     
-    # Obtención de mes y año numérico  
-    meses_espanol = {
+    meses_espanol = { # Datos para cambiar mes de palabras a números
         'Enero': 1, 'Febrero': 2, 'Marzo': 3, 'Abril': 4,
         'Mayo': 5, 'Junio': 6, 'Julio': 7, 'Agosto': 8,
         'Septiembre': 9, 'Octubre': 10, 'Noviembre': 11, 'Diciembre': 12
     }
 
-    mes = request.args.get('mes')
+    mes = request.args.get('mes') # Obtiene el mes del método post
     mes_numero = meses_espanol.get(mes)
     año = request.args.get('año')
-
-
-    conexion_BD = conectarDB()
+    
     #Obtener los meses por separado
+    conexion_BD = conectarDB()
     query = "SELECT MONTH(Fecha) Mes, YEAR(Fecha) Año FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"'  GROUP BY YEAR(Fecha), MONTH(Fecha) ORDER BY Año DESC, Mes DESC"
     df_meses = pd.read_sql(query, conexion_BD)
 
-    meses_espanol = {
+    meses_espanol = { # Datos para cambiar mes de números a palabras
         1: 'Enero', 2: 'Febrero', 3: 'Marzo', 4: 'Abril',
         5: 'Mayo', 6: 'Junio', 7: 'Julio', 8: 'Agosto',
         9: 'Septiembre', 10: 'Octubre', 11: 'Noviembre', 12: 'Diciembre'
     }
 
-    # Crear un DataFrame con las columnas requeridas
-    datos = []
+    datos = []  # Crear un vector con columnas Mes(palabra), Mes(numero), Año para mostrar en select button
     for index, fila in df_meses.iterrows():
         mes_num = fila['Mes']
-        año = fila['Año']
         mes_nombre = meses_espanol.get(mes_num, 'Desconocido')
+        año = fila['Año']
         datos.append({
             'mes_num': mes_num,
             'mes_palabra': mes_nombre,
@@ -644,15 +639,12 @@ def obtener_recomendacion():
     gasto_val =  obtener_gasto_ingreso_mes(session.get('usuario_id'),'Gasto',mes_numero,año)
     cant_ingresos_val = obtener_cant_gasto_ingreso_mes(session.get('usuario_id'),'Ingreso',mes_numero,año)
     cant_gastos_val = obtener_cant_gasto_ingreso_mes(session.get('usuario_id'),'Gasto',mes_numero,año)
-
-    mes_palabra = meses_espanol[int(mes_numero)]
-    # Obtener gasto más fuerte
-    gasto_fuerte = obtener_gasto_fuerte(session.get('usuario_id'),mes_numero,año)
+    gasto_fuerte = obtener_gasto_fuerte(session.get('usuario_id'),mes_numero,año)  # Datos del gasto más representativo
 
     recomendacion_val = obtener_recomendacion_IA(session.get('usuario_id'),mes_numero,año)
 
     return render_template("Recomendaciones.html", get_meses=meses_val.to_dict('records'), 
-                                                    get_mes=mes_palabra,get_año=año,
+                                                    get_mes=mes,get_año=año,
                                                     get_dist_gastos=df_dist_gastos.to_dict('records'),
                                                     get_dinero_utilizado=dinero_utilizado_val,
                                                     get_gasto_val=gasto_val,
@@ -660,7 +652,6 @@ def obtener_recomendacion():
                                                     get_cant_gastos=cant_gastos_val,
                                                     get_gasto_fuerte=gasto_fuerte,
                                                     get_recomendacion=recomendacion_val)
-
 
 if __name__=="__main__": 
     app.run(debug=True, port=777)
