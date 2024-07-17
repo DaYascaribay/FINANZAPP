@@ -103,7 +103,7 @@
                     <div class="column_one-2">
                         <div class="rowultimo_mes">
                             <div class="columnultimo">
-                                <label class="vista_general1">TEXTO</label>
+                                <label class="vista_general1">{{ get_mes }} de {{ get_año }}</label>
                                 <form action="/app/recomendaciones" method="POST">
                                     <select class="dropdown-1" name="dropdown" id="dropdown-tipo-gasto">
                                         {% for fila in get_meses %}

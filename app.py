@@ -33,7 +33,7 @@ class Registro(Base):
 
 def conectarDB():
     # Variables de conexión
-    server = 'DAVID_0728\SQLEXPRESS'
+    server = 'DESKTOP-VQQ74TJ'
     bd = 'FINANZAPP'
     user = 'sa2'
     password = '12345678'
@@ -125,6 +125,16 @@ def obtener_gasto_fuerte(Usuario_ID,Mes,Año):
         }
     return gasto_fuerte
 
+def df_a_texto(df):
+    textos = []
+    for _, fila in df.iterrows():
+        texto = (f"Nombre: {fila['Nombre']}, Tipo_registro: {fila['Tipo_gasto']}, Cantidad: {fila['Cantidad']}, Valor: ${fila['Valor_total']},  {fila['Promedio']} y un porcentaje de {fila['Porcentaje']}% del total.")
+        textos.append(texto)
+    return " ".join(textos)
+
+def obtener_recomendacion(Usuario_ID, Mes, Año):
+    
+    print("")
 
 @app.route('/PaginaPrincipal')
 @app.route('/')
@@ -261,16 +271,19 @@ def observar_gastos_mes():
     
     # Obtención de dinero restante y dinero utilizado
     suma_gastos_val = obtener_gasto_ingreso_mes(session.get('usuario_id'),'Gasto',str(mes_numero),str(año))
-
     dinero_restante = obtener_gasto_ingreso_mes(session.get('usuario_id'),'Ingreso',str(mes_numero),str(año))
-    
+    cant_gastos_val = obtener_cant_gasto_ingreso_mes(session.get('usuario_id'),'Gasto',str(mes_numero),str(año))
+    cant_ingresos_val = obtener_cant_gasto_ingreso_mes(session.get('usuario_id'),'Ingreso',str(mes_numero),str(año))
+
     # Obtener registros del usuario en la fecha
     query = f"SELECT R.Registro_ID, R.Nombre, R.Valor, R.Fecha, R.Tipo_Registro, T.Nombre Tipo_Gasto FROM Registro R, Tipo_Gasto T WHERE R.Tipo_Gasto=T.ID_Tipo_Gasto AND Usuario_ID='{session.get('usuario_id')}' AND MONTH(Fecha)={mes_numero} AND YEAR(Fecha)={año} order by Fecha"
     df_registros_mes = pd.read_sql(query, conexion_BD)
     
     return render_template("ResumenMensual.html", registros=df_registros_mes.to_dict(orient='records'), mes=mes, año=año,
                            get_dinero_restante=dinero_restante,
-                           get_dinero_utilizado=suma_gastos_val)
+                           get_dinero_utilizado=suma_gastos_val,
+                           get_cant_gastos=cant_gastos_val,
+                           get_cant_ingresos=cant_ingresos_val)
 
 @app.route('/app/observar_gastos_general')
 def observar_gastos_general():
@@ -287,7 +300,9 @@ def observar_gastos_general():
     
     suma_gastos_val = obtener_gasto_ingreso_total(session.get('usuario_id'),'Gasto')
     dinero_restante = obtener_gasto_ingreso_total(session.get('usuario_id'),'Ingreso')
-    
+    cant_gastos_val = obtener_cant_gasto_ingreso_total(session.get('usuario_id'),'Gasto')
+    cant_ingresos_val = obtener_cant_gasto_ingreso_total(session.get('usuario_id'),'Ingreso')
+
     query = f"SELECT R.Registro_ID, R.Nombre, R.Valor, R.Fecha, R.Tipo_Registro, T.Nombre Tipo_Gasto FROM Registro R, Tipo_Gasto T WHERE R.Tipo_Gasto=T.ID_Tipo_Gasto AND Usuario_ID='{session.get('usuario_id')}' order by Fecha"
     #query = "SELECT Registro_ID, Nombre, Valor, Fecha, Tipo_Registro, Tipo_Gasto FROM Registro WHERE Usuario_ID='"+session.get('usuario_id')+"' order by Fecha"
     df_registros_mes = pd.read_sql(query, conexion_BD)
@@ -298,7 +313,9 @@ def observar_gastos_general():
     
     return render_template("ResumenGeneral.html", registros=df_registros_mes.to_dict(orient='records'), mes=mes, año=año,
                            get_dinero_restante=dinero_restante,
-                           get_dinero_utilizado=suma_gastos_val)
+                           get_dinero_utilizado=suma_gastos_val,
+                           get_cant_gastos=cant_gastos_val,
+                           get_cant_ingresos=cant_ingresos_val)
 
 
 
@@ -549,6 +566,7 @@ def recomendaciones():
     gasto_val =  obtener_gasto_ingreso_mes(session.get('usuario_id'),'Gasto',mes,año)
     cant_ingresos_val = obtener_cant_gasto_ingreso_mes(session.get('usuario_id'),'Ingreso',mes,año)
     cant_gastos_val = obtener_cant_gasto_ingreso_mes(session.get('usuario_id'),'Gasto',mes,año)
+    
 
     gasto_fuerte = obtener_gasto_fuerte(session.get('usuario_id'),mes,año)
     mes_palabra = meses_espanol[int(mes)]
