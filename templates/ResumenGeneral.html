@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="../static/css/font.css">
     <link rel="stylesheet" type="text/css" href="../static/css/styles.css">
     <link rel="stylesheet" type="text/css" href="../static/css/components.css">
-    <link rel="stylesheet" type="text/css" href="../static/css/ResumenMensual.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/ResumenGeneral.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         // Obtener los datos desde el contexto de Flask
@@ -64,6 +64,9 @@
                 },
                 options: {
                     scales: {
+                        x: {
+                            display: false
+                        },
                         y: {
                             beginAtZero: true
                         }
@@ -80,6 +83,12 @@
     </script>
 </head>
 <body>
+    {% set colores = [
+        '#48BF84', '#70C29E', '#2C4544', '#26413C', '#45705C',
+        '#44B07B', '#40A072', '#52AC81', '#2F322F', '#3E785E',
+        '#42605C', '#3E505B', '#378060', '#66AE8E', '#354B50',
+        '#202F2B', '#5B997D', '#1A1D1A'
+    ] %}
     <div class="registrargastos">
         <header class="containerbarra-3">
             <div class="row_one-2 container-xs">
@@ -140,11 +149,11 @@
                         <div class="container-g">
                             <div class="container-10">
                                 <p class="finanzapp">Dinero restante</p>
-                                <h2 class="pricetext ui heading size-heading2x1">${{get_dinero_restante}}</h2>
+                                <h2 class="pricetext">${{get_dinero_restante}}</h2>
                             </div>
                             <div class="container-11">
                                 <p class="finanzapp">Dinero utilizado</p>
-                                <h2 class="pricetext ui heading size-heading2x1">${{get_dinero_utilizado}}</h2>
+                                <h2 class="pricetext3">${{get_dinero_utilizado}}</h2>
                             </div>
                         </div>
                         <div class="rowresumen-2">
@@ -153,7 +162,7 @@
                         <div class="container-7">
                             <div class="container-12">
                                 <p class="finanzapp">Gastos</p>
-                                <h2 class="pricetext ui heading size-heading2x1">{{get_cant_gastos}}</h2>
+                                <h2 class="pricetext2">{{get_cant_gastos}}</h2>
                             </div>
                             <div class="container-13">
                                 <p class="finanzapp">Ingresos</p>
@@ -241,19 +250,20 @@
                                     {% endfor %}
                                 </tbody>
                             </table>
-                            <button class="ver_ms ui button size-sm fill round">Ver más</button>
+                            
                         </div>
                     </div>
                     <div class="columnvista">
                         <div class="container-16">
                             <p class="vista_general1">Vista general</p>
                             <div class="columnpie_one-1">
-                                <div class="stackpie_one-1">
-                                    <div class="column_one-3">
+                                <div class="stackpie_one">
+                                    <div class="column_one-1">
                                         <p class="finanzapp1">Dinero utilizado</p>
                                         <h4 class="dinuti">${{get_dinero_utilizado}}</h4>
+                                        <img src="../static/images/circle.svg" class="circle-svg" alt="Circle SVG" />
+                                        <canvas class="canvas" id="graficoPastel"></canvas>
                                     </div>
-                                    <canvas id="graficoPastel"></canvas>
                                 </div>
                                 <div>
                                     <div class="columnview_five">
@@ -262,14 +272,14 @@
                                                 <div class="view_eight"></div>
                                                 <p class="dinerorestante">Dinero restante</p>
                                             </div>
-                                            <h3 class="ui heading size-headings">${{get_dinero_restante}}</h3>
+                                            <h3 class="dinrest">${{get_dinero_restante}}</h3>
                                         </div>
                                         <div class="row_seven">
                                             <div class="ronview_eight1">
                                                 <div class="view_nine"></div>
                                                 <p class="dinerorestante">Dinero utilizado</p>
                                             </div>
-                                            <h3 class="ui heading size-headings">${{get_dinero_utilizado}}</h3>
+                                            <h3 class="dinrest1">${{get_dinero_utilizado}}</h3>
                                         </div>
                                     </div>
                                 </div>
@@ -279,19 +289,13 @@
                             <div class="columnvista-1">
                                 <p class="vista_general-2">Vista general</p>
                                 <div class="columnbar">
-                                    <div class="row_twentyfive">
-                                        <div class="rowview">
-                                            <div class="view"></div>
-                                            <p class="titulo">Label 1</p>
-                                        </div>
-                                    </div>
                                     <div class="rowdinero_one">
-                                        <canvas id="graficoBarras"></canvas>
+                                        <canvas class="barras" id="graficoBarras"></canvas>
                                     </div>
                                     {% for fila in get_dist_gastos %}
                                         <div class="row_seven">
                                             <div class="rowview_eight">
-                                                <div class="view_nine"></div>
+                                                <div class="view_eight6" style="background-color: {{ colores[loop.index0] }}"></div>
                                                 <p class="dinerorestante">{{fila['Nombre']}}</p>
                                             </div>
                                             <h3 class="predis">${{fila['Valor']}}</h3>
