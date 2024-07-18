@@ -138,7 +138,6 @@
 }
     
 .rowheaderlogo {
-    gap: var(--space-x1);
     display: flex;
     align-items: center;
 }

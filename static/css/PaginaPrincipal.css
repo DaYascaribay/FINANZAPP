@@ -2,13 +2,6 @@
     cursor: pointer;
 }
 
-.caractersticas {
-    color: var(--black_900) !important;
-    font-family: Cabin !important;
-    &:hover {
-        color: var(--white_a700) !important;
-    }
-}
     
 .description {
     font-family: Cabin !important;
@@ -244,17 +237,6 @@
     }
 }
 
-.line {
-    height: 4px;
-    margin-left: 380px;
-    border-top-left-radius: 1px;
-    border-top-right-radius: 1px;
-    background-color: var(--white_a700);
-    width: 10%;
-    @media only screen and (max-width: 1050px) {
-        margin-left: 0px;
-    }
-}
 
 .row {
     align-self: stretch;
@@ -279,30 +261,59 @@
 }
 
 .rowinicio {
-    top: 0px; 
-    left: 381px; 
-    width: 731px; 
-    display: flex; 
-    align-items: center; 
-    justify-content:right;
+    position: fixed; /* Fijar el menú en la parte superior */
+    top: 10px;
+    left: 46%; /* Centrar horizontalmente */
+    transform: translateX(-50%);
+    width: 100%; /* Ancho completo */
+    display: flex;
+    justify-content: center;
+    padding: 10px 0; /* Espacio interior vertical */
     font-family: Inter; /* Body */
-    font-size: 18px; 
-    position:initial;
+    font-size: 18px;
 }
 
 .rowinicio li {
-    margin: 0 15px; /* Espaciado entre los elementos de la lista */
+    margin: 0 50px; /* Espaciado entre los elementos de la lista */
+    white-space: nowrap;
+    display: inline-block;
+    font-family: Cabin;
 }
 
-    
-.inicio {
-    color: var(--white_a700) !important;
-    font-family: Cabin !important;
+.rowinicio a {
+    text-decoration: none;
+    color: #000; /* Color de texto normal */
+    padding: 1px; /* Espaciado interno del enlace */
+    position: relative; /* Posición relativa para el enlace */
 }
+
+.rowinicio a:hover {
+    color: var(--white_a700); /* Color de texto al pasar el ratón */
+}
+
+.rowinicio a.active::before {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    top:-20px;
+    height: 4px; /* Grosor de la línea */
+    background-color: var(--white_a700) /* Color de la línea */
+}
+
+.rowinicio a.active-text {
+    color: var(--white_a700); /* Color de texto activo */
+}
+
+.rowinicio a.active {
+    position: relative;
+}
+
 
 .rowcrear_cuenta {
     gap: var(--space-8x1);
-    display: flex;
+    display: flex
 }
 
 .crear_cuenta {
@@ -310,7 +321,7 @@
     min-width: 102px;
     border-radius: var(--radius-sm);
     position: absolute; 
-    top: 18px; 
+    top: 12px; 
     left: 1300px; 
     padding: 10px 20px; 
     display: flex; 
@@ -338,7 +349,7 @@
     min-width: 102px;
     border-radius: var(--radius-sm);
     position: absolute; 
-    top: 18px; 
+    top: 12px; 
     left: 1450px; 
     padding: 10px 20px; 
     display: flex; 
@@ -549,7 +560,7 @@
 
 
 .container {
-    margin-top: 108px;
+    margin-top: 170px;
     padding-top: 76px;
     padding-bottom: 76px;
     background-color: var(--white_a700);
@@ -578,7 +589,7 @@
     line-height: 68px; 
     font-weight: 700; 
     color: #171A1FFF;
-    margin-top: 50px;
+    margin-top: 100px;
 }
 
 .columnhazte {

@@ -6,7 +6,7 @@ import openai
 
 def conectarDB():
     # Variables de conexión
-    server = 'DESKTOP-VQQ74TJ'
+    server = 'David_0728\SQLEXPRESS'
     bd = 'FINANZAPP'
     user = 'sa2'
     password = '12345678'

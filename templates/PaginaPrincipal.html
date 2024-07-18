@@ -13,42 +13,65 @@
     <link rel="stylesheet" type="text/css" href="../static/css/components-css" />
     <link rel="stylesheet" type="text/css" href="../static/css/PaginaPrincipal.css" />
 </head>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const sections = document.querySelectorAll("section[id]"); // Obtener todas las secciones de la página con un id
+    const navLinks = document.querySelectorAll(".rowinicio .nav-link"); // Obtener todos los enlaces del menú
+
+    function changeNavState() {
+        let index = sections.length;
+
+        while (--index && window.scrollY + 50 < sections[index].offsetTop) {}
+
+        navLinks.forEach((link) => {
+            link.classList.remove("active");
+            link.classList.remove("active-text");
+        });
+
+        navLinks[index].classList.add("active");
+        navLinks[index].classList.add("active-text");
+    }
+
+    window.addEventListener("scroll", changeNavState);
+    changeNavState();
+});
+</script>
 <body>
     <div class="paginaprincipal">
-        <header class="containerbarra">
+        <header class="containerbarra" id="inicio">
             <div class="columnline">
                 <div class="line"></div>
                 <div class="row">
                     <div class="rowheaderlogo">
                         <a href="#">
-                            <img src="../static/images/img_image_1.svg" alt="Imageone" class="imageone_one" />
+                            <img src="../static/images/img_image_1_white.svg" alt="Imageone" class="imageone_one" />
                             <img src="../static/images/img_header_logo.png" alt="Headerlogo" class="headerlogo_one" />
                         </a>
                     </div>
                     <ul class="rowinicio">
                         <li>
                             <a href="#">
-                                <p class="inicio ui heading size-headingxs">Inicio</p>
+                                <p class="ui heading size-headingxs">Inicio</p>
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="caractersticas-link">
-                                <p class="caractersticas ui heading size-headingxs">Características</p>
+                            <a href="#caracteristicas">
+                                <p class="ui heading size-headingxs">Características</p>
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="caractersticas-link">
-                                <p class="caractersticas ui heading size-headingxs">Premium</p>
+                            <a href="#premium">
+                                <p class="ui heading size-headingxs">Premium</p>
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="caractersticas-link">
-                                <p class="caractersticas ui heading size-headingxs">Nuestro Equipo</p>
+                            <a href="#nuestro">
+                                <p class="ui heading size-headingxs">Nuestro Equipo</p>
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="caractersticas-link">
-                                <p class="caractersticas ui heading size-headingxs">Acerca de</p>
+                            <a href="#acerca">
+                                <p class="ui heading size-headingxs">Acerca de</p>
                             </a>
                         </li>
                     </ul>
@@ -63,7 +86,7 @@
                 </div>
             </div>
         </header>
-        <div class="newscreenbody">
+        <div class="newscreenbody" >
             <div class="row_one">
                 <div class="rowcuidalaecono container-xs">
                     <img src="../static/images/img_image_inicio.png" alt="Imageinicio" class="imageinicio_one" />
@@ -78,7 +101,7 @@
             <div class="row_two">
                 <div class="rowfinanzapp container-xs">
                     <div class="columniconofour">
-                        <div class="columnfinanzapp">
+                        <div class="columnfinanzapp" id="caracteristicas">
                             <h2 class="finanzapp ui heading size-heading4x">FINANZAPP</h2>
                             <div class="container-3">
                                 <div class="container-4">
@@ -118,7 +141,7 @@
                             <br><br>
                             <h2 class="subheading ui heading size-headingmd">Motivación al ahorro</h2>
                             <br>
-                            <p class="description ui text size-texts">
+                            <p class="description ui text size-texts" >
                                 La aplicación motiva a los usuarios a ahorrar para cuidar su dinero y alcanzar metas financieras.
                                 Visualizar los gastos permite identificar pequeñas oportunidades de ahorro.
                             </p>
@@ -126,6 +149,7 @@
                     </div>
                 </div>
             </div>
+            <div id="premium"></div>
             <h2 class="haztpre ui heading size-heading4x1">Hazte Premium</h2>
             <div class="container">
                 <div class="column">
@@ -189,7 +213,8 @@
                 </div>
             </div>
             <div>
-                <div class="container-1">
+                <div id="nuestro"></div>
+                <div class="container-1" >
                     <div class="rownuestro container-xs">
                         <h2 class="nuestro_equipo ui heading size-heading4x">Nuestro equipo</h2>
                         <div class="userprofile">
@@ -234,7 +259,7 @@
                 </div>
             </div>
         </div>
-        <footer class="containerbarra-1">
+        <footer class="containerbarra-1" id="acerca">
             <div class="row five container-xs">
                 <div class="row_four">
                     <img src="../static/images/img_image_1.svg" class="logo"/>
@@ -261,12 +286,12 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">
+                                        <a href="#caracteristicas">
                                             <p class="inicio1 ui text size-textmd">Características</p>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">
+                                        <a href="#premium">
                                             <p class="inicio1 ui text size-textmd">Premium</p>
                                         </a>
                                     </li>

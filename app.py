@@ -8,7 +8,7 @@ from sqlalchemy.ext.declarative import declarative_base
 
 import openai
 
-from clases.funciones import (
+from clases.Funciones import (
     conectarDB,
     validar_sesion,
     obtener_gasto_ingreso_total,
