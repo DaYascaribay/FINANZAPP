@@ -217,12 +217,9 @@
     align-items: start;
     position: fixed; /* Hace que el elemento se quede fijo */
     top: 0; /* Fija el elemento en la parte superior */
+    height: 65px;
     width: 100%; /* Asegura que el elemento cubra todo el ancho de la pantalla */
     z-index: 1000; /* Asegura que el elemento esté sobre otros elementos */
-    @media only screen and (max-width: 550px) {
-        padding-left: 20px;
-        padding-right: 20px;
-    }
 }
 
 .columnline {
@@ -255,9 +252,13 @@
 }
 
 .headerlogo_one {
-    height: 34px;
-    width: 126px;
-    object-fit: contain;
+    font-family: Cabin; /* Heading */
+    font-size: 24px; 
+    line-height: 36px; 
+    font-weight: 700; 
+    color: #FFFFFFFF; /* white */
+    margin-left: 55px;
+    margin-top: -45px;
 }
 
 .rowinicio {
