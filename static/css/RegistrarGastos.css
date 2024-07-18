@@ -202,7 +202,6 @@ input, select, button {
     opacity: 1; 
     border: none; 
     border-radius: 8px; /* border-xl */
-    box-shadow: 0px 8px 17px #48bf84, 0px 0px 2px #48bf84; /* shadow-l */
     margin-left: 41px;
     cursor: pointer;
     margin-top: 20px;
@@ -226,7 +225,6 @@ input, select, button {
     opacity: 1; 
     border: none; 
     border-radius: 8px; /* border-xl */
-    box-shadow: 0px 8px 17px #48bf84, 0px 0px 2px #48bf84; /* shadow-l */
     margin-top: 20px;
     margin-left: 41px;
     cursor: pointer;
@@ -250,7 +248,6 @@ input, select, button {
     opacity: 1; 
     border: none; 
     border-radius: 8px; /* border-xl */
-    box-shadow: 0px 8px 17px #48bf84, 0px 0px 2px #48bf84; /* shadow-l */
     margin-top: 20px;
     margin-left: 41px;
     cursor: pointer;

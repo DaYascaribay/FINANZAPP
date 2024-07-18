@@ -348,7 +348,7 @@ body{
     border-style: solid; 
     display: flex;
     flex-direction: column;
-    height: auto;
+    height: 1200px;
     overflow-y: auto; /* Agregar scroll vertical si es necesario */
     max-height: 98vh; /* Altura máxima, ajustable según necesidades */
 }
@@ -385,7 +385,6 @@ body{
     opacity: 1; 
     border: none; 
     border-radius: 8px; /* border-xl */
-    box-shadow: 0px 8px 17px #48bf84, 0px 0px 2px #48bf84; /* shadow-l */
     margin-left: 10px;
     cursor: pointer;
 }
@@ -677,6 +676,7 @@ body{
 }
 
 .circle-svg {
+    position: static;
     position: absolute;
     top: 100px; /* Ajusta esto según sea necesario */
     left: 50px; /* Ajusta esto según sea necesario */
