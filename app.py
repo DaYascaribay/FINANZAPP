@@ -47,20 +47,6 @@ class Registro(Base):
     Tipo_Registro = Column(String)
     Tipo_Gasto = Column(String)
 
-# Funciones para obtencion de datos
-def conectarDB():
-    # Variables de conexión
-    server = 'David_0728\SQLEXPRESS'
-    bd = 'FINANZAPP'
-    user = 'sa2'
-    password = '12345678'
-    try:
-        conexion_str = f"mssql+pyodbc://{user}:{password}@{server}/{bd}?driver=ODBC+Driver+17+for+SQL+Server"
-        engine = create_engine(conexion_str)
-    except Exception as e:
-        engine = None
-
-    return engine
 
 @app.route('/PaginaPrincipal')
 @app.route('/')
