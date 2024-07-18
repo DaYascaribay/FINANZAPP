@@ -13,29 +13,6 @@
     <link rel="stylesheet" type="text/css" href="../static/css/components-css" />
     <link rel="stylesheet" type="text/css" href="../static/css/PaginaPrincipal.css" />
 </head>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const sections = document.querySelectorAll("section[id]"); // Obtener todas las secciones de la página con un id
-    const navLinks = document.querySelectorAll(".rowinicio .nav-link"); // Obtener todos los enlaces del menú
-
-    function changeNavState() {
-        let index = sections.length;
-
-        while (--index && window.scrollY + 50 < sections[index].offsetTop) {}
-
-        navLinks.forEach((link) => {
-            link.classList.remove("active");
-            link.classList.remove("active-text");
-        });
-
-        navLinks[index].classList.add("active");
-        navLinks[index].classList.add("active-text");
-    }
-
-    window.addEventListener("scroll", changeNavState);
-    changeNavState();
-});
-</script>
 <body>
     <div class="paginaprincipal">
         <header class="containerbarra" id="inicio">
