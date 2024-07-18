@@ -51,8 +51,8 @@ def conectarDB():
 
     return engine
 
-def validar_sesion():
-    if session.get('usuario_id') == " ": # Si no hay una sesión redirige al login
+def validar_sesion(Sesion_ID):
+    if Sesion_ID == " ": # Si no hay una sesión redirige al login
         session['msj_enviado_login'] = "Por favor inicie sesión"
         print("No hay sesion")
         return redirect(url_for('login'))
@@ -180,7 +180,7 @@ def obtener_recomendacion_IA(Usuario_ID, Mes, Año):
         "Eres un experto en gestión económica para estudiantes universitarios y los microgastos. "
         "Se te va a proporcionar registros de microgastos e ingresos de un mes. "
         "Debes retornar una conclusión con una recomendación basada en los registros proporcionados. "
-        "El texto que retornes debe ser un string para desplegarlo en un input de html"
+        "El texto que retornes debe ser una cadena de texto, donde los párrafos se separen con \\n."
     )
 
     texto_gastos = df_a_texto(df_registros) #Transformación a texto los registros
@@ -314,9 +314,7 @@ def inicio_exitoso():
 
 @app.route('/app/observar_gastos_mes')
 def observar_gastos_mes():
-    if session.get('usuario_id') == " ": # Verifica que haya una sesión activa
-        session['msj_enviado_login'] = "Por favor inicie sesión"
-        return redirect(url_for('login'))
+    validar_sesion(session.get('usuario_id'))
     
     meses_espanol = {
         'Enero': 1, 'Febrero': 2, 'Marzo': 3, 'Abril': 4,
@@ -345,7 +343,7 @@ def observar_gastos_mes():
 
 @app.route('/app/observar_gastos_general')
 def observar_gastos_general():
-    validar_sesion()
+    validar_sesion(session.get('usuario_id'))
     
     mes = request.args.get('mes')
     año = request.args.get('año')
@@ -434,7 +432,7 @@ registros_temporales = []  # Lista para almacenar temporalmente los registros
 
 @app.route('/app/crear_registro')
 def crear_registro():
-    validar_sesion()
+    validar_sesion(session.get('usuario_id'))
     
     # Cargar los tipos de gastos 
     query = "SELECT * FROM Tipo_Gasto"
@@ -447,7 +445,7 @@ def crear_registro():
 
 @app.route('/app/agregar_registro', methods=['POST'])
 def agregar_registro():
-    validar_sesion()
+    validar_sesion(session.get('usuario_id'))
 
     # Cargar los tipos de gastos 
     query = "SELECT * FROM Tipo_Gasto"
@@ -491,7 +489,7 @@ def agregar_registro():
 
 @app.route('/app/guardar_registros', methods=['POST'])
 def guardar_registros():
-    validar_sesion()
+    validar_sesion(session.get('usuario_id'))
 
     # Conectar a la base de datos
     conexion_BD = conectarDB()
@@ -524,7 +522,7 @@ def guardar_registros():
 
 @app.route('/app/eliminar_registros')
 def eliminar_registros():
-    validar_sesion()
+    validar_sesion(session.get('usuario_id'))
     registros_temporales.clear()
 
     return redirect(url_for('crear_registro'))
@@ -534,7 +532,7 @@ def eliminar_registros():
 
 @app.route('/app/recomendaciones', methods=['GET', 'POST'])
 def recomendaciones():
-    validar_sesion()
+    validar_sesion(session.get('usuario_id'))
     recomendacion_val = "Aquí se generará su recomendación..." # Mensaje que retorna en la recomendación
 
     #Obtener los meses por separado
@@ -611,7 +609,7 @@ def recomendaciones():
 
 @app.route('/app/obtener_recomendacion', methods=['POST'])
 def obtener_recomendacion():
-    validar_sesion()
+    validar_sesion(session.get('usuario_id'))
     
     meses_espanol = { # Datos para cambiar mes de palabras a números
         'Enero': 1, 'Febrero': 2, 'Marzo': 3, 'Abril': 4,
