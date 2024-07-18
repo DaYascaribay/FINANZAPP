@@ -210,12 +210,12 @@
     top: 181px; 
     left: 163px; 
     font-family: Inter; /* Body */
-    font-size: 18px; 
+    font-size: 16px; 
     line-height: 26px; 
     font-weight: 400; 
     color: #323743FF; 
     margin-top: -80px;
-    margin-left: -14px;
+    margin-left: -16px;
     z-index: 3;
     position: absolute;
     white-space: nowrap;
@@ -229,7 +229,7 @@
     line-height: 56px; 
     font-weight: 700; 
     color: #171A1FFF;
-    margin-left: 28px;
+    margin-left: 17px;
     margin-top: -85px;
     z-index: 3;
     position: absolute;
@@ -238,7 +238,7 @@
 .canvas{
     position: absolute;
     margin-top: 30px; /* Ajusta esto según sea necesario */
-    margin-left: 200px;
+    margin-left: 180px;
     right: 100px;
     z-index: 1;
 }
@@ -250,13 +250,14 @@
     width: 200px; /* Ajusta esto según sea necesario */
     height: 200px; /* Ajusta esto según sea necesario */
     z-index: 2; /* Debe estar entre los textos y el canvas */
-    margin-left: 63px;
-    margin-top: -62px;
+    margin-left: 55px;
+    margin-top: -53px;
 }
 
 .barras{
     height: 200px;
     margin-right: 5px;
+    margin-left: 20px;
 }
 
 .frame_eleven {
@@ -503,7 +504,6 @@
     top: 1024px; 
     left: 927px; 
     width: 432px; 
-    height: 550px; 
     background: #FFFFFFFF; /* white */
     border-radius: 8px; /* border-xl */
     border-width: 1px; 
@@ -511,13 +511,15 @@
     border-style: solid; 
     margin-top: 20px;
     margin-left: 9px;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    overflow-y: auto; /* Agregar scroll vertical si es necesario */
+    max-height: 80vh; /* Altura máxima, ajustable según necesidades */
 }
 
 .columnvista-1 {
-    margin-bottom: 18px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex: 1;
 }
 
 .rowdinero_one{
@@ -551,7 +553,7 @@
     font-weight: 400; 
     color: #323743FF; /* neutral-700 */
     margin-top: 20px;
-    margin-right: 220px;
+    margin-left: 25px;
 }
 
 .vista_general1{
@@ -593,18 +595,7 @@
 }
 
 .columbar {
-    margin-top: 22px;
-    margin-left: 32px;
-    margin-right: 34px;
-    gap: var(--space-8x1);
-    display: flex;
-    align-self: stretch;
-    flex-direction: column;
-    align-items: center;
-    @media only screen and (max-width: 1050px) {
-        margin-left: 0px;
-        margin-right: 0px;
-    }
+    margin-top: 20px;
 }
 
 .row_twentyfive {
@@ -715,7 +706,7 @@
     display: flex;
     align-items: center;
     gap: var(--space-lg);
-    margin-top: -390px;
+    margin-top: -375px;
     margin-right: 150px;
 }
 
@@ -723,7 +714,7 @@
     display: flex;
     align-items: center;
     gap: var(--space-lg);
-    margin-top: -350px;
+    margin-top: -330px;
     margin-right: 150px;
 }
 

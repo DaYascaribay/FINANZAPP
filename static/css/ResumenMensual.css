@@ -214,49 +214,49 @@
     line-height: 26px; 
     font-weight: 400; 
     color: #323743FF; 
-    margin-top: -80px;
-    margin-left: -14px;
+    margin-top: -90px;
+    margin-left: -22px;
     z-index: 3;
     position: absolute;
     white-space: nowrap;
 }
 
-.dinuti{
-    top: 219px; 
-    left: 139px; 
-    font-family: Cabin; /* Heading */
-    font-size: 35px; 
-    line-height: 56px; 
-    font-weight: 700; 
-    color: #171A1FFF;
-    margin-left: 28px;
-    margin-top: -85px;
-    z-index: 3;
-    position: absolute;
-}
+    .dinuti{
+        top: 219px; 
+        left: 139px; 
+        font-family: Cabin; /* Heading */
+        font-size: 35px; 
+        line-height: 56px; 
+        font-weight: 700; 
+        color: #171A1FFF;
+        margin-left: 15px;
+        margin-top: -95px;
+        z-index: 3;
+        position: absolute;
+    }
 
-.canvas{
-    position: absolute;
-    margin-top: 30px; /* Ajusta esto según sea necesario */
-    margin-left: 200px;
-    right: 100px;
-    z-index: 1;
-}
+    .canvas{
+        position: absolute;
+        margin-top: 15px; /* Ajusta esto según sea necesario */
+        margin-left: 185px;
+        right: 100px;
+        z-index: 1;
+    }
 
-.circle-svg {
-    position: absolute;
-    top: 100px; /* Ajusta esto según sea necesario */
-    left: 50px; /* Ajusta esto según sea necesario */
-    width: 200px; /* Ajusta esto según sea necesario */
-    height: 200px; /* Ajusta esto según sea necesario */
-    z-index: 2; /* Debe estar entre los textos y el canvas */
-    margin-left: 63px;
-    margin-top: -62px;
-}
+    .circle-svg {
+        position: absolute;
+        top: 100px; /* Ajusta esto según sea necesario */
+        left: 50px; /* Ajusta esto según sea necesario */
+        width: 200px; /* Ajusta esto según sea necesario */
+        height: 200px; /* Ajusta esto según sea necesario */
+        z-index: 2; /* Debe estar entre los textos y el canvas */
+        margin-left: 56px;
+        margin-top: -70px;
+    }
 
 .barras{
     height: 200px;
-    margin-right: 5px;
+    width: 400px;
 }
 
 .frame_eleven {
@@ -502,7 +502,7 @@
     top: 1024px; 
     left: 927px; 
     width: 432px; 
-    height: 500px; 
+    height: auto; 
     background: #FFFFFFFF; /* white */
     border-radius: 8px; /* border-xl */
     border-width: 1px; 
@@ -510,6 +510,11 @@
     border-style: solid; 
     margin-top: 20px;
     margin-left: 9px;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    overflow-y: auto; /* Agregar scroll vertical si es necesario */
+    max-height: 80vh; /* Altura máxima, ajustable según necesidades */
 }
 
 .columnvista-1 {
@@ -543,14 +548,14 @@
 
 .vista_general-2 {
     top: 24px; 
-    left: 32px; 
+    left: 40px; 
     font-family: Cabin; /* Heading */
     font-size: 24px; 
     line-height: 36px; 
     font-weight: 400; 
     color: #323743FF; /* neutral-700 */
     margin-top: 20px;
-    margin-right: 220px;
+    margin-left: -230px;
 }
 
 .vista_general1{
@@ -790,12 +795,12 @@
 
 .rowview_eight{
     padding: -10px;
-    margin-left: 20px;
+    margin-left: 40px;
 }
 
 .predis{
     font-size: 14px;
-    margin-right: 20px;
+    margin-right: 40px;
 }
 
 .view_eight6 {

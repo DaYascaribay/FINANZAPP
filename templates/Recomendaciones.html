@@ -46,7 +46,7 @@
                     responsive: true,
                     plugins: {
                         legend: {
-                            position: 'bottom',
+                            display: false,
                         }
                     }
                 }
@@ -113,11 +113,12 @@
                         <div class="container-16">
                             <p class="vista_general">Distribución de los gastos</p>
                             <div class="column-4">
-                                <div class="stackdinero">
-                                    <canvas id="graficoPastel"></canvas>
+                                <div class="stackpie_one">
                                     <div class="column_one-1">
-                                        <p class="finanzapp">Dinero utilizado</p>
-                                        <h2 class="dinul">${{get_dinero_utilizado}}</h2>
+                                        <p class="finanzapp1">Dinero utilizado</p>
+                                        <h4 class="dinuti">${{get_dinero_utilizado}}</h4>
+                                        <img src="../static/images/circle.svg" class="circle-svg" alt="Circle SVG" />
+                                        <canvas class="canvas" id="graficoPastel"></canvas>
                                     </div>
                                 </div>
                                 <div>            
@@ -230,12 +231,6 @@
                         </form>
                     </div>
                     <label class="description-4">
-                        <input
-                            class="indes"
-                            name="description"
-                            Placeholder="¿Texto?"
-                            type="text"
-                        />
                         {{get_recomendacion}}
                     </label>
                 </div>

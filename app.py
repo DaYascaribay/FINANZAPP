@@ -10,7 +10,7 @@ from sqlalchemy import Column, String, Float, Date, Boolean
 # Openai
 import openai
 
-openai.api_key = 'colocar key'
+openai.api_key = ''
 
 app = Flask(__name__, template_folder="templates")
 app.secret_key = '12345678' # Necesario para redirigir templates con valores
@@ -180,7 +180,7 @@ def obtener_recomendacion_IA(Usuario_ID, Mes, Año):
         "Eres un experto en gestión económica para estudiantes universitarios y los microgastos. "
         "Se te va a proporcionar registros de microgastos e ingresos de un mes. "
         "Debes retornar una conclusión con una recomendación basada en los registros proporcionados. "
-        "El texto que retornes debe ser escrito para imprimirlo en el lenguaje python"
+        "El texto que retornes debe ser un string para desplegarlo en un input de html"
     )
 
     texto_gastos = df_a_texto(df_registros) #Transformación a texto los registros

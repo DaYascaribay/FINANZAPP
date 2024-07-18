@@ -341,12 +341,16 @@ body{
     top: 32px; 
     left: 30px; 
     width: 539px; 
-    height: 624px; 
     background: #FFFFFFFF; /* white */
     border-radius: 8px; /* border-xl */
     border-width: 1px; 
     border-color: #DEE1E6FF; /* neutral-300 */
     border-style: solid; 
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    overflow-y: auto; /* Agregar scroll vertical si es necesario */
+    max-height: 98vh; /* Altura máxima, ajustable según necesidades */
 }
 
 .container-17 {
@@ -428,16 +432,10 @@ body{
     flex-direction: column;
 }
 
-.stackdinero-1 {
-    height: 290px;
-    margin-left: 94px;
-    margin-right: 94px;
+.stackpie_one .column_one-1 {
     position: relative;
-    @media only screen and (max-width: 1050px) {
-        height: auto;
-        margin-left: 0px;
-        margin-right: 0px;
-    }
+    width: 100%;
+    height: 400px; /* Ajusta esto según sea necesario */
 }
     
 .piechart1 {
@@ -544,7 +542,7 @@ body{
 .columnview {
     flex-direction: column;
     margin-left: 30px;
-    margin-top: 100px;
+    margin-top: -70px;
 }
 
 .predis{
@@ -630,17 +628,6 @@ body{
     margin-right: 40px;
 }
     
-.column_one-1 {
-    margin-top: 100px;
-    margin-left: 210px;
-    gap: var(--space-13x1);
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    @media only screen and (max-width: 1050px) {
-        align-self: stretch;
-    }
-}
 
 .finanzapp{
     top: 181px; 
@@ -656,12 +643,48 @@ body{
     top: 181px; 
     left: 200px; 
     font-family: Inter; /* Body */
-    font-size: 16px; 
+    font-size: 17px; 
     line-height: 26px; 
     font-weight: 400; 
     color: #323743FF; /* neutral-700 */
-    margin-top: -180px;
+    margin-top: -65px;
+    margin-left: 5px;
+    z-index: 3;
+    position: absolute;
+    white-space: nowrap;
+}
+
+.dinuti{
+    top: 219px; 
+    left: 139px; 
+    font-family: Cabin; /* Heading */
+    font-size: 35px; 
+    line-height: 56px; 
+    font-weight: 700; 
+    color: #171A1FFF;
+    margin-left: 103px;
+    margin-top: -70px;
+    z-index: 3;
+    position: absolute;
+}
+
+.canvas{
+    position: absolute;
+    margin-top: 30px; /* Ajusta esto según sea necesario */
+    margin-left: 250px;
+    right: 120px;
+    z-index: 1;
+}
+
+.circle-svg {
+    position: absolute;
+    top: 100px; /* Ajusta esto según sea necesario */
+    left: 50px; /* Ajusta esto según sea necesario */
+    width: 210px; /* Ajusta esto según sea necesario */
+    height: 210px; /* Ajusta esto según sea necesario */
+    z-index: 2; /* Debe estar entre los textos y el canvas */
     margin-left: 110px;
+    margin-top: -42px;
 }
 
 .dincon{
@@ -1019,8 +1042,7 @@ body{
 .description-4 {
     top: 656px; 
     left: 594px; 
-    width: 665px; 
-    height: 144px; 
+    width: 665px;  
     background: #FFFFFFFF; /* white */
     border-radius: 8px; /* border-xl */
     border-width: 1px; 
@@ -1028,11 +1050,10 @@ body{
     border-style: solid;
     flex-wrap: nowrap; 
     margin-top: 15px;
-}
-
-.indes{
-    margin-top: 10px;
-    margin-left: 10px;
+    flex-direction: column;
+    height: auto;
+    max-height: 500vh; /* Altura máxima, ajustable según necesidades */
+    padding: 20px;
 }
 
 .dashboard{
@@ -1105,7 +1126,7 @@ body{
 
 .column_one-2{
     margin-left: 600px;
-    margin-top: -635px;
+    margin-top: -760px;
 }
 
 .agregar {

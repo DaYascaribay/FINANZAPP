@@ -479,8 +479,8 @@ body{
     line-height: 56px; 
     font-weight: 700; 
     color: #171A1FFF;
-    margin-left: 65px;
-    margin-top: -105px;
+    margin-left: 58px;
+    margin-top: -90px;
     z-index: 3;
     position: absolute;
 }
@@ -548,12 +548,12 @@ body{
     top: 181px; 
     left: 163px; 
     font-family: Inter; /* Body */
-    font-size: 15px; 
+    font-size: 16px; 
     line-height: 26px; 
     font-weight: 400; 
     color: #323743FF; 
-    margin-top: -90px;
-    margin-left: 35px;
+    margin-top: -80px;
+    margin-left: 25px;
     z-index: 3;
     position: absolute;
     white-space: nowrap;
@@ -662,18 +662,17 @@ body{
     position: absolute;
     top: 100px; /* Ajusta esto según sea necesario */
     left: 50px; /* Ajusta esto según sea necesario */
-    width: 180px; /* Ajusta esto según sea necesario */
-    height: 180px; /* Ajusta esto según sea necesario */
+    width: 200px; /* Ajusta esto según sea necesario */
+    height: 200px; /* Ajusta esto según sea necesario */
     z-index: 2; /* Debe estar entre los textos y el canvas */
-    margin-left: 112px;
-    margin-top: -62px;
+    margin-left: 95px;
+    margin-top: -53px;
 }
 
 .canvas{
     position: absolute;
-    margin-top: 30px; /* Ajusta esto según sea necesario */
-    margin-left: 150px; /* Ajusta esto según sea necesario */
-    width: 300px; /* Ajusta esto según sea necesario */
-    height: 300px; /* Ajusta esto según sea necesario */
+    left: 20px;
+    margin-top: 25px; /* Ajusta esto según sea necesario */
+    margin-left: 100px; /* Ajusta esto según sea necesario */
     z-index: 1;
 }
