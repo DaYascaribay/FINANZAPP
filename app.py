@@ -335,7 +335,7 @@ def observar_gastos_mes():
     cant_ingresos_val = obtener_cant_gasto_ingreso_mes(session.get('usuario_id'),'Ingreso',str(mes_numero),str(año))
     df_registros_mes = obtener_registros(session.get('usuario_id'),'Mensual',str(mes_numero),str(año))
     df_dist_gastos = obtener_clasificacion_registros(session.get('usuario_id'),'Mensual',str(mes_numero),str(año))
-    
+
     return render_template("ResumenMensual.html", registros=df_registros_mes.to_dict(orient='records'), mes=mes, año=año,
                            get_dinero_restante=dinero_restante,
                            get_dinero_utilizado=suma_gastos_val,
@@ -670,5 +670,6 @@ def obtener_recomendacion():
 
 if __name__=="__main__": 
     app.run(debug=True, port=777)
+    session['usuario_id'] = " " # Elimina la sesión
 
 
