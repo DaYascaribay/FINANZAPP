@@ -19,6 +19,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         // Obtener los datos desde el contexto de Flask
+        var distGastos = {{get_dist_gastos | tojson}};
         var dineroRestante = {{get_dinero_restante}};
         var dineroUtilizado = {{get_dinero_utilizado}};
         
@@ -28,7 +29,6 @@
             var myPieChart = new Chart(ctx, {
                 type: 'pie',
                 data: {
-                    labels: ['Dinero Restante', 'Dinero Utilizado'], //Labels
                     datasets: [{ //Datos para el gráfico
                         data: [dineroRestante, dineroUtilizado],
                         backgroundColor: ['#48BF84', '#26413C'],
@@ -42,7 +42,41 @@
                     }
                 }
             });
+
+            // Configurar el gráfico de barras
+            var ctxBar = document.getElementById('graficoBarras').getContext('2d');
+            var nombres = distGastos.map(fila => fila.Nombre);
+            var valores = distGastos.map(fila => fila.Valor);
+            var myBarChart = new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: nombres,
+                    datasets: [{
+                        label: 'Distribución de Gastos',
+                        data: valores,
+                        backgroundColor: [
+                            '#48BF84','#70C29E','#2C4544','#26413C','#45705C',
+                            '#44B07B','#40A072','#52AC81','#2F322F','#3E785E',
+                            '#42605C','#3E505B','#378060','#66AE8E','#354B50',
+                            '#202F2B','#5B997D','#1A1D1A'
+                        ],
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false,
+                        },
+                    }
+                }
+            });
         }
+
     </script>
 </head>
 <body>
@@ -219,7 +253,6 @@
                                         <p class="finanzapp1">Dinero utilizado</p>
                                         <h4 class="dinuti">${{get_dinero_utilizado}}</h4>
                                     </div>
-                                    <!--<div data-progress="47" style="--progress: 47%" class="pie_one"></div>-->
                                     <canvas id="graficoPastel"></canvas>
                                 </div>
                                 <div>
@@ -253,18 +286,7 @@
                                         </div>
                                     </div>
                                     <div class="rowdinero_one">
-                                        <div class="columnview_one">
-                                            <div class="rowview_one-3">
-                                                <div class="view_one-3"></div>
-                                                <div class="view_two"></div>
-                                                <div class="view_three-1"></div>
-                                                <div class="view_four"></div>
-                                                <div class="view_five-2"></div>
-                                                <div class="view_six"></div>
-                                                <div class="view_seven"></div>
-                                            </div>
-                                            <div class="vector_one"></div>
-                                        </div>
+                                        <canvas id="graficoBarras"></canvas>
                                     </div>
                                     {% for fila in get_dist_gastos %}
                                         <div class="row_seven">

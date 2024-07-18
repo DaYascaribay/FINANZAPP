@@ -39,7 +39,7 @@ class Registro(Base):
 # Funciones para obtencion de datos
 def conectarDB():
     # Variables de conexión
-    server = 'DAVID_0728\SQLEXPRESS'
+    server = 'DESKTOP-VQQ74TJ'
     bd = 'FINANZAPP'
     user = 'sa2'
     password = '12345678'
@@ -180,7 +180,7 @@ def obtener_recomendacion_IA(Usuario_ID, Mes, Año):
         "Eres un experto en gestión económica para estudiantes universitarios y los microgastos. "
         "Se te va a proporcionar registros de microgastos e ingresos de un mes. "
         "Debes retornar una conclusión con una recomendación basada en los registros proporcionados. "
-        "Adicionalmente, usa '\\n' para indicar saltos de línea."
+        "El texto que retornes debe ser escrito para imprimirlo en el lenguaje python"
     )
 
     texto_gastos = df_a_texto(df_registros) #Transformación a texto los registros
@@ -335,12 +335,13 @@ def observar_gastos_mes():
     cant_ingresos_val = obtener_cant_gasto_ingreso_mes(session.get('usuario_id'),'Ingreso',str(mes_numero),str(año))
     df_registros_mes = obtener_registros(session.get('usuario_id'),'Mensual',str(mes_numero),str(año))
     df_dist_gastos = obtener_clasificacion_registros(session.get('usuario_id'),'Mensual',str(mes_numero),str(año))
-
+    
     return render_template("ResumenMensual.html", registros=df_registros_mes.to_dict(orient='records'), mes=mes, año=año,
                            get_dinero_restante=dinero_restante,
                            get_dinero_utilizado=suma_gastos_val,
                            get_cant_gastos=cant_gastos_val,
-                           get_cant_ingresos=cant_ingresos_val)
+                           get_cant_ingresos=cant_ingresos_val,
+                           get_dist_gastos=df_dist_gastos.to_dict(orient='records'))
 
 @app.route('/app/observar_gastos_general')
 def observar_gastos_general():
@@ -365,7 +366,8 @@ def observar_gastos_general():
                            get_dinero_restante=dinero_restante,
                            get_dinero_utilizado=suma_gastos_val,
                            get_cant_gastos=cant_gastos_val,
-                           get_cant_ingresos=cant_ingresos_val)
+                           get_cant_ingresos=cant_ingresos_val,
+                           get_dist_gastos=df_dist_gastos.to_dict(orient='records'))
 
 
 

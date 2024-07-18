@@ -23,7 +23,7 @@
         // Separar los datos en arrays para Chart.js
         var nombres = data.map(item => item.Nombre);
         var valores = data.map(item => item.Valor);
-        
+        var label_final = nombres+valores;
         // Configurar el gráfico de pastel
         window.onload = function() {
             var ctx = document.getElementById('graficoPastel').getContext('2d');
@@ -34,7 +34,10 @@
                     datasets: [{
                         data: valores,
                         backgroundColor: [
-                            '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'
+                            '#48BF84','#70C29E','#2C4544','#26413C','#45705C',
+                            '#44B07B','#40A072','#52AC81','#2F322F','#3E785E',
+                            '#42605C','#3E505B','#378060','#66AE8E','#354B50',
+                            '#202F2B','#5B997D','#1A1D1A'
                         ],
                     }]
                 },
@@ -42,11 +45,7 @@
                     responsive: true,
                     plugins: {
                         legend: {
-                            position: 'top',
-                        },
-                        title: {
-                            display: true,
-                            text: 'Distribución de Gastos'
+                            position: 'bottom',
                         }
                     }
                 }
