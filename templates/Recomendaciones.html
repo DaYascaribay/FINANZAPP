@@ -32,6 +32,7 @@
                 data: {
                     labels: nombres,
                     datasets: [{
+                        label: 'Tipo de registro',
                         data: valores,
                         backgroundColor: [
                             '#48BF84','#70C29E','#2C4544','#26413C','#45705C',
@@ -54,6 +55,12 @@
     </script>
 </head>
 <body>
+    {% set colores = [
+        '#48BF84', '#70C29E', '#2C4544', '#26413C', '#45705C',
+        '#44B07B', '#40A072', '#52AC81', '#2F322F', '#3E785E',
+        '#42605C', '#3E505B', '#378060', '#66AE8E', '#354B50',
+        '#202F2B', '#5B997D', '#1A1D1A'
+    ] %}
     <div class="recomendaciones-2">
         <header class="containerbarra-3">
             <div class="row_one-2 container-xs">
@@ -126,7 +133,7 @@
                                         {% for fila in get_dist_gastos %}
                                             <div class="row_seven">
                                                 <div class="rowview_eight">
-                                                    <div class="view_nine"></div>
+                                                    <div class="view_nine" style="background-color: {{ colores[loop.index0] }}"></div>
                                                     <p class="dinerorestante">{{fila['Nombre']}}</p>
                                                 </div>
                                                 <h3 class="predis">${{fila['Valor']}}</h3>
