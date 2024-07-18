@@ -22,7 +22,7 @@
         window.onload = function() {
             var ctx = document.getElementById('graficoPastel').getContext('2d');
             var myPieChart = new Chart(ctx, {
-                type: 'pie',
+                type: 'doughnut',
                 data: {
                     datasets: [{ //Datos para el gráfico
                         data: [dineroRestante, dineroUtilizado],
@@ -30,6 +30,7 @@
                     }]
                 },
                 options: {
+                    cutout: '70%',
                     plugins: {
                         legend: {
                             position: 'bottom',
@@ -162,7 +163,7 @@
                                     <div class="column_one-1">
                                         <p class="finanzapp2">Dinero utilizado</p>
                                         <h4 class="dinut">${{get_dinero_utilizado}}</h4>
-                                        <img src="../static/images/circle.svg" class="circle-svg" alt="Circle SVG" />
+                                        
                                         <canvas class="canvas" id="graficoPastel"></canvas>
                                     </div>
                                 </div>
