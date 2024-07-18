@@ -6,7 +6,7 @@ import openai
 
 def conectarDB():
     # Variables de conexión
-    server = 'David_0728\SQLEXPRESS'
+    server = 'DESKTOP-VQQ74TJ'
     bd = 'FINANZAPP'
     user = 'sa2'
     password = '12345678'
@@ -21,7 +21,6 @@ def conectarDB():
 def validar_sesion(Sesion_ID):
     if Sesion_ID == " ": # Si no hay una sesión redirige al login
         session['msj_enviado_login'] = "Por favor inicie sesión"
-        print("No hay sesion")
         return redirect(url_for('login'))
 
 def obtener_gasto_ingreso_total(Usuario_ID,Tipo):
@@ -167,5 +166,4 @@ def obtener_recomendacion_IA(Usuario_ID, Mes, Año):
     )
     result = response['choices'][0]['message']['content']
     
-    print(full_prompt)
     return result

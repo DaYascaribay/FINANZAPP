@@ -72,54 +72,51 @@ def inicio_exitoso():
         conexion_BD = conectarDB() # Conexión a la BD
 
         session['msj_enviado_login'] = "Por favor inicie sesión"
-        if conexion_BD:
-            query = "SELECT * FROM Usuario"
-            df_usuarios = pd.read_sql(query, conexion_BD)
-            for i,user in df_usuarios.iterrows():
-                if usuario==f"{user['Email']}" and contrasena==f"{user['Contrasena']}":
-                    #queryId="SELECT Usuario_ID FROM Usuario where Email='"+f"{user['Email']}"+"'"
-                    session['usuario_id'] = f"{user['Usuario_ID']}"  # Guardar el ID del usuario en la sesión
-                    
-                    # Cálculo de variables 
-                    suma_gastos_val = obtener_gasto_ingreso_total(session.get('usuario_id'),'Gasto')
-                    dinero_restante = obtener_gasto_ingreso_total(session.get('usuario_id'),'Ingreso')
-                    cant_gastos_val = obtener_cant_gasto_ingreso_total(session.get('usuario_id'),'Gasto')
-                    cant_ingresos_val = obtener_cant_gasto_ingreso_total(session.get('usuario_id'),'Ingreso')
-                    
-                    query = "select Count(*) Cant, Tipo_Registro, MONTH(Registro.Fecha) Mes, YEAR(fecha) Año FROM Registro where Usuario_ID='" + session.get('usuario_id') + "' GROUP BY MONTH(Fecha), YEAR(fecha), Tipo_Registro ORDER BY YEAR(fecha) DESC, MONTH(fecha) DESC" 
-                    df_Gastos_Mensuales = pd.read_sql(query, conexion_BD)
-    
-                    meses_espanol = {
-                                    1: 'Enero', 2: 'Febrero', 3: 'Marzo', 4: 'Abril',
-                                    5: 'Mayo', 6: 'Junio', 7: 'Julio', 8: 'Agosto',
-                                    9: 'Septiembre', 10: 'Octubre', 11: 'Noviembre', 12: 'Diciembre'
-                                }
-                    for i, reg in df_Gastos_Mensuales.iterrows():
-                                    df_Gastos_Mensuales.at[i, 'Mes'] = meses_espanol[reg['Mes']]
-                    meses_val = {}
-                    for i, reg in df_Gastos_Mensuales.iterrows():
-                        clave = (reg['Mes'], reg['Año'])
-                        if clave not in meses_val:
-                            meses_val[clave] = {'Cant_Gastos': 0, 'Cant_Ingresos': 0}
-                        if reg['Tipo_Registro'] == 'Gasto':
-                            meses_val[clave]['Cant_Gastos'] += reg['Cant']
-                        elif reg['Tipo_Registro'] == 'Ingreso':
-                            meses_val[clave]['Cant_Ingresos'] += reg['Cant']
+        
+        query = "SELECT * FROM Usuario"
+        df_usuarios = pd.read_sql(query, conexion_BD)
+        for i,user in df_usuarios.iterrows():
+            if usuario==f"{user['Email']}" and contrasena==f"{user['Contrasena']}":
+                #queryId="SELECT Usuario_ID FROM Usuario where Email='"+f"{user['Email']}"+"'"
+                session['usuario_id'] = f"{user['Usuario_ID']}"  # Guardar el ID del usuario en la sesión
+                
+                # Cálculo de variables 
+                suma_gastos_val = obtener_gasto_ingreso_total(session.get('usuario_id'),'Gasto')
+                dinero_restante = obtener_gasto_ingreso_total(session.get('usuario_id'),'Ingreso')
+                cant_gastos_val = obtener_cant_gasto_ingreso_total(session.get('usuario_id'),'Gasto')
+                cant_ingresos_val = obtener_cant_gasto_ingreso_total(session.get('usuario_id'),'Ingreso')
+                
+                query = "select Count(*) Cant, Tipo_Registro, MONTH(Registro.Fecha) Mes, YEAR(fecha) Año FROM Registro where Usuario_ID='" + session.get('usuario_id') + "' GROUP BY MONTH(Fecha), YEAR(fecha), Tipo_Registro ORDER BY YEAR(fecha) DESC, MONTH(fecha) DESC" 
+                df_Gastos_Mensuales = pd.read_sql(query, conexion_BD)
+                meses_espanol = {
+                    1: 'Enero', 2: 'Febrero', 3: 'Marzo', 4: 'Abril',
+                    5: 'Mayo', 6: 'Junio', 7: 'Julio', 8: 'Agosto',
+                    9: 'Septiembre', 10: 'Octubre', 11: 'Noviembre', 12: 'Diciembre'
+                }
+                for i, reg in df_Gastos_Mensuales.iterrows():
+                                df_Gastos_Mensuales.at[i, 'Mes'] = meses_espanol[reg['Mes']]
+                meses_val = {}
+                for i, reg in df_Gastos_Mensuales.iterrows():
+                    clave = (reg['Mes'], reg['Año'])
+                    if clave not in meses_val:
+                        meses_val[clave] = {'Cant_Gastos': 0, 'Cant_Ingresos': 0}
+                    if reg['Tipo_Registro'] == 'Gasto':
+                        meses_val[clave]['Cant_Gastos'] += reg['Cant']
+                    elif reg['Tipo_Registro'] == 'Ingreso':
+                        meses_val[clave]['Cant_Ingresos'] += reg['Cant']
 
-                    lista_meses = [{'Mes': mes, 'Año': año, 'Cant_Gastos': valores['Cant_Gastos'], 'Cant_Ingresos': valores['Cant_Ingresos']}
-                                for (mes, año), valores in meses_val.items()]
+                lista_meses = [{'Mes': mes, 'Año': año, 'Cant_Gastos': valores['Cant_Gastos'], 'Cant_Ingresos': valores['Cant_Ingresos']}
+                            for (mes, año), valores in meses_val.items()]
 
-                    return render_template("ObservarGastos.html",get_dinero_restante=dinero_restante, 
-                                        get_dinero_utilizado=suma_gastos_val,
-                                        get_cant_gastos=cant_gastos_val,
-                                        get_cant_ingresos=cant_ingresos_val,
-                                        get_meses=lista_meses)
-            session['msj_enviado_login'] = "Correo electrónico o contraseña incorrectos"
-            return redirect(url_for('login'))
+                return render_template("ObservarGastos.html",get_dinero_restante=dinero_restante, 
+                                    get_dinero_utilizado=suma_gastos_val,
+                                    get_cant_gastos=cant_gastos_val,
+                                    get_cant_ingresos=cant_ingresos_val,
+                                    get_meses=lista_meses)
+        session['msj_enviado_login'] = "Correo electrónico o contraseña incorrectos"
+        return redirect(url_for('login'))
     else:
-        if session['usuario_id'] == " ": #Verifica que haya una sesión activa
-            session['msj_enviado_login'] = "Por favor inicie sesión"
-            return redirect(url_for('login'))
+        validar_sesion(session.get('usuario_id'))
         
         conexion_BD = conectarDB() # Conexión a la BD
         
