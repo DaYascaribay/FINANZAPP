@@ -7,6 +7,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
 import openai
+openai.api_key = 'Coloca tu key de openai aquí'
 
 from clases.Funciones import (
     conectarDB,
